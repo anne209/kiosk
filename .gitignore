@@ -1,0 +1,31 @@
+# Nuxt dev/build outputs
+.gen
+.output
+.data
+.nuxt
+.nuxt-*
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log
+yarn-error.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# IDEs
+.vscode
