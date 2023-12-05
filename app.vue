@@ -126,7 +126,7 @@
 
         <v-sheet
           class="mb-1"
-          color="grey-lighten-1"
+          color="red-lighten-1"
           height="12"
           rounded="pill"
           width="40%"
@@ -134,7 +134,7 @@
 
         <v-sheet
           class="mb-1"
-          color="grey-lighten-1"
+          color="red-lighten-1"
           height="12"
           rounded="pill"
           width="20%"
@@ -142,14 +142,14 @@
 
         <v-sheet
           class="mb-1"
-          color="grey-lighten-1"
+          color="red-lighten-1"
           height="12"
           rounded="pill"
           width="90%"
         ></v-sheet>
 
         <v-sheet
-          color="grey-lighten-1"
+          color="blue-lighten-1"
           height="12"
           rounded="pill"
           width="70%"
@@ -167,7 +167,7 @@
 
         <v-sheet
           class="mb-1"
-          color="grey-lighten-1"
+          color="red-lighten-1"
           height="12"
           rounded="pill"
           width="65%"
@@ -175,7 +175,7 @@
 
         <v-sheet
           class="mb-1"
-          color="grey-lighten-1"
+          color="red-lighten-1"
           height="12"
           rounded="pill"
           width="70%"
@@ -183,14 +183,14 @@
 
         <v-sheet
           class="mb-1"
-          color="grey-lighten-1"
+          color="red-lighten-1"
           height="12"
           rounded="pill"
           width="40%"
         ></v-sheet>
 
         <v-sheet
-          color="grey-lighten-1"
+          color="red-lighten-1"
           height="12"
           rounded="pill"
           width="100%"
@@ -219,7 +219,7 @@
           >
             <v-sheet
               class="ma-3"
-              color="grey-lighten-1"
+              color="green"
               height="200"
               rounded
               width="250"
@@ -230,7 +230,7 @@
 
       <v-sheet
         class="mx-auto pa-2 pt-6"
-        color="grey-lighten-2"
+        color="blue-lighten-4"
       >
         <v-sheet
           color="grey"
