@@ -15,6 +15,7 @@ Alternativ auf Source Control klicken, dann auf Sync Changes (Pfeil nach unten)
 
 
 Von GitHub zu local
+
 Veränderungen von [GitHub] committen und pushen
 Auf dem local auf source control klicken
 Danach erscheint ein Button mit Sync Changes (Pfeil nach unten), darauf klicken
