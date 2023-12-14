@@ -1,12 +1,19 @@
 <template>
   <v-app id="inspire">
-    
+    <v-footer
+        app
+        color="yellow"
+        height="44"
+      ></v-footer>
+  
     <v-app-bar
-      class="px-3"
+      class="px-5"
       flat
       density="compact"
       color="yellow"
     >
+    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-spacer></v-spacer>
     <v-btn 
     prepend-icon="mdi-home"
       variant="elevated"
@@ -21,18 +28,6 @@
 
       <v-spacer></v-spacer>
 
-      <v-tabs
-        centered
-        color="orange"
-      >
-        <v-tab
-          v-for="link in links"
-          :key="link"
-          :text="link"
-        ></v-tab>
-      </v-tabs>
-      <v-spacer></v-spacer>
-
       <v-avatar
         class="hidden-sm-and-down"
         color="blue"
@@ -40,7 +35,7 @@
         @click="goToUsersPage"
       ></v-avatar>
     </v-app-bar>
-    <v-navigation-drawer floating>
+    <v-navigation-drawer v-model="drawer">
         <div class="d-flex px-2 my-2 align center">
           <v-text-field
             class="mb-1"
@@ -71,7 +66,7 @@
             height="40"
             class="flex-grow-1"
             @click="goToLocationPage"
-          >Bayreuth</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
+          >Deine Location</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
         </div>
         <div class="d-flex px-2 my-2 align-center">
           <v-btn
@@ -179,28 +174,17 @@
 </template>
 
 <script setup>
-  const links = [
-    'Alles',
-    'Bier',
-    'Wein',
-    'Soft-Drinks',
-    'Energy',
-    'Wasser',
-  ]
+
+  import {ref} from 'vue'
+  
+  const drawer =ref(null)
+
 </script>
 
 <script>
   export default {
-    data: () => ({
-      links: [
-        'Alles',
-        'Bier',
-        'Wein',
-        'Soft-Drinks',
-        'Energy',
-        'Wasser',
-      ],
-    }),
+    
+      data:()=>({drawer:null }), 
     methods:{
       goToUsersPage(){
         this.$router.push('/users');
@@ -214,6 +198,6 @@
       goToCartPage(){
         this.$router.push('/cart')
       }
-    },
-  }
+    }
+  };
 </script>

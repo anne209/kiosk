@@ -1,12 +1,6 @@
 <template>
   <v-app id="inspire">
 
-    <v-footer
-      app
-      color="yellow"
-      height="44"
-    ></v-footer>
-
     <v-main>
       <v-sheet
         class="mx-auto pa-2 pt-6"

@@ -16,3 +16,4 @@
             </v-row>
           </v-container>Auflistung aller Bayreuther Produkte
 </template>
+<!-- diese page brauchen wir nicht-->
