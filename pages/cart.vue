@@ -8,8 +8,7 @@
               <!--  -->
             </v-sheet>
           </v-col>
-    <main>
-        <slot/>
-    </main>
+    <v-btn>Bestellen</v-btn>
+    
 </template>
 <!-- brauchen wir vielleicht nicht-->

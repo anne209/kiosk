@@ -1,87 +1,38 @@
-<template>
-  <v-app id="inspire">
+<script setup lang="ts">
+definePageMeta({layout:'default',});
 
-    <v-main>
-      <v-sheet
-        class="mx-auto pa-2 pt-6"
-        color="grey-lighten-4"
-      >
-        <v-sheet
-          color="grey-lighten-2"
-          height="24"
-          rounded="pill"
-          width="88"
-        ></v-sheet>
+const { data: produkte, pending, error } = await useFetch(`http://localhost:8080/v1/graphql`, {
+  method: "POST",
+  body: { query: "query { swps_Produkt { Name Preis Produkt_ID Standort_ID }}" },
+})
+const show_all = ref(false);
+const show_all_model_text = computed(() => show_all.value ? "yes" : "no");
 
-        <v-slide-group show-arrows>
-          <v-slide-group-item
-            v-for="n in 5"
-            :key="n"
-          >
-            <v-sheet
-              class="ma-3"
-              color="green"
-              height="200"
-              rounded
-              width="250"
-            > Produkte der Location</v-sheet>
-          </v-slide-group-item>
-        </v-slide-group>
-      </v-sheet>
-
-      <v-sheet
-        class="mx-auto pa-2 pt-6"
-        color="blue-lighten-4"
-      >
-        <v-sheet
-          color="grey"
-          height="24"
-          rounded="pill"
-          width="88"
-        ></v-sheet>
-
-        <v-slide-group show-arrows>
-          <v-slide-group-item
-            v-for="n in 15"
-            :key="n"
-          >
-            <v-sheet
-              :width="n === 1 ? 300 : 150"
-              color="grey-lighten-1"
-              class="ma-3"
-              height="200"
-              rounded
-            >Produkte des Monats</v-sheet>
-          </v-slide-group-item>
-        </v-slide-group>
-
-        <v-container fluid>
-          <v-row>
-            <v-col
-              v-for="n in 24"
-              :key="n"
-              cols="2"
-            >
-              <v-sheet
-                color="grey-lighten-1"
-                height="200"
-                rounded
-              > Produkte nach Art</v-sheet>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-sheet>
-    </v-main>
-  </v-app>
-</template>
-
-<script>
-export default{
-  methods:{
-    goToUsersPage(){
-      this.$router.push('/users');
-    },
-  },
-};
-  //
 </script>
+
+<template>
+  <main>
+  <v-sheet  color="orange-accent-3">
+    <v-container style="width: 100vw;">
+    <v-row>
+      <v-col sm="1">Show all: {{ show_all_model_text }}</v-col>
+      <v-col sm="1">
+        <v-switch color="primary" v-model="show_all"  messages="show all"></v-switch>
+      </v-col>
+    </v-row>
+    </v-container>
+  <p v-if="pending">Fetching...</p>
+  <pre v-else-if="error">Could not load: {{ error.data }}</pre>
+  <div v-else>
+    <v-container>
+      <v-row>
+        <v-col v-for="produkt in produkte.data.swps_Produkt" :key="produkt.Produkt_ID">               <!-- hier ist irgendein Fehler -->
+          <produkt :produkt="produkt" ></produkt> <!-- hier auch -->
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</v-sheet>
+</main>
+  
+</template>

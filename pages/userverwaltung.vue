@@ -1,13 +1,13 @@
 <script setup lang="ts">
 definePageMeta({           // hier definieren wir das login layout ansonsten wird immer default benutzt
-layout: 'login'
+layout: 'admin'
 })
 </script>
 <template>
  <v-container>
       <v-row>
         <v-col
-          v-for="n in 24"
+          v-for="n in 4"
           :key="n"
           cols="4"
         >
@@ -16,3 +16,5 @@ layout: 'login'
       </v-row>
     </v-container>
 </template>
+
+//userverwaltung, produktverwaltung, transaktionsübersicht, daten zu excel exportieren
