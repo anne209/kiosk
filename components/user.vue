@@ -13,6 +13,9 @@ const data= ref({
   
 });
 
+const PIN=ref (0)
+
+
 watch(successMessage, () =>{
   data.showPINInput = false; 
   data.SuccessMessage= true; 
@@ -25,13 +28,13 @@ watch(successMessage, () =>{
 function submitPIN() {
   console.log('Entered submitPIN function');  
   console.log('Button clicked');
-  console.log('Entered PIN type:', typeof data.enteredPIN); // Log entered PIN type for debugging
+  console.log('Entered PIN type:', typeof PIN); // Log entered PIN type for debugging
   console.log('Correct PIN type:', typeof props.correctPIN);
-  console.log('Entered PIN:', data.enteredPIN); // Log entered PIN for debugging
+  console.log('Entered PIN:', PIN); // Log entered PIN for debugging
   console.log('Correct PIN:', props.correctPIN);
 
 
-  if  (data.enteredPIN === (props.correctPIN)) {
+  if  (PIN === (props.correctPIN)) {
     successMessage.value = 'Erfolgreiche PIN Eingabe';
     console.log('Correct PIN entered!');
     
@@ -56,7 +59,7 @@ function submitPIN() {
       
       <v-text-field
         v-if="data.showPINInput"
-        v-model="data.enteredPIN"
+        v-model="PIN"
 
         label="Enter PIN"
         color="blue"
