@@ -65,7 +65,7 @@ function submitPIN() {
       <v-text-field
         v-if="data.showPINInput"
         v-model="PIN"
-        type='password'
+        type="password"
         label="Enter PIN"
         color="blue"
         ></v-text-field>
