@@ -34,14 +34,19 @@ function submitPIN() {
   console.log('Correct PIN:', props.correctPIN);
 
 
-  if  (PIN.value === (props.correctPIN)) {
-    successMessage.value = 'Erfolgreiche PIN Eingabe';
-    console.log('Correct PIN entered!');
-    
-  } else {
-    successMessage.value = 'Falsche PIN. Bitte nochmal versuchen';
-    console.log('Incorrect PIN entered.');
-  }
+  
+  if  (props.correctPIN === null ) {
+        successMessage.value = 'Dieser Nutzer hat keine PIN bzw. (null)'   // Idee: Nutzer die keine PIN haben koennen auch einfach direkt sich anmelden ohne 
+        console.log('User does not have a PIN');
+
+      } else if (PIN.value === props.correctPIN) {
+        successMessage.value = 'Erfolgreiche PIN Eingabe';
+        console.log('Correct PIN entered!');  
+
+      } else {
+        successMessage.value = 'Falsche PIN. Bitte nochmal versuchen';
+        console.log('Incorrect PIN entered.');
+      }
   
 }
 
@@ -60,7 +65,7 @@ function submitPIN() {
       <v-text-field
         v-if="data.showPINInput"
         v-model="PIN"
-
+        type='password'
         label="Enter PIN"
         color="blue"
         ></v-text-field>
