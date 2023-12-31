@@ -34,7 +34,7 @@ function submitPIN() {
   console.log('Correct PIN:', props.correctPIN);
 
 
-  if  (PIN === (props.correctPIN)) {
+  if  (PIN.value === (props.correctPIN)) {
     successMessage.value = 'Erfolgreiche PIN Eingabe';
     console.log('Correct PIN entered!');
     
