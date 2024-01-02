@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({layout:'default',});
+definePageMeta({layout:'default'});
 
 const { data: produkte, pending, error } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",
