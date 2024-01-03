@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-footer
         app
-        color="yellow"
+        color="#FDFFFC"
         height="44"
       ></v-footer>
   
@@ -10,47 +10,49 @@
       class="px-5"
       flat
       density="compact"
-      color="yellow"
+      color="#FDFFFC"
     >
-    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-spacer></v-spacer>
+          <v-btn 
+          prepend-icon="mdi-home"
+            variant="elevated"
+            @click="goToHomePage"
+            >Löwenshop24
+          </v-btn> <!-- Component bauen??-->
+                <v-avatar
+                  color="#1098F7"
+                  class="hidden-md-and-up"
+                  size="32"
+                ></v-avatar> <!-- Das ist ein button der nur erscheint wenn die seite auf "mobile" läuft-->
+
     <v-spacer></v-spacer>
-    <v-btn 
-    prepend-icon="mdi-home"
-      variant="elevated"
-      @click="goToHomePage"
-      >Löwenshop24
-    </v-btn> <!-- Component bauen??-->
-      <v-avatar
-        color="blue"
-        class="hidden-md-and-up"
-        size="32"
-      ></v-avatar> <!-- Das ist ein button der nur erscheint wenn die seite auf "mobile" läuft-->
 
-      <v-spacer></v-spacer>
-
-      <v-avatar
-        class="hidden-sm-and-down"
-        color="blue"
-        size="32"
-        @click="goToUsersPage"
-      ></v-avatar>
+                  <v-avatar
+                    class="hidden-sm-and-down"
+                    color="#1098F7"
+                    size="32"
+                    @click="goToUsersPage"
+                  ></v-avatar>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer">
-        <div class="d-flex px-2 my-2 align center">
-          <v-text-field
-            class="mb-1"
-            density="compact"
-            flat
-            hide-details
-            prepend-inner-icon="mdi-magnify"
-            variant="solo-filled"
-          ></v-text-field>
+    <v-navigation-drawer 
+                    v-model="drawer"
+                    color="#080705">
+                    <div class="d-flex px-2 my-2 align center">
+                    <v-text-field
+                      class="mb-1"
+                      density="compact"
+                      flat
+                      hide-details
+                      prepend-inner-icon="mdi-magnify"
+                      variant="solo-filled"
+                    ></v-text-field>
         </div>
         <div class="d-flex px-2 my-2 align-center">
           <v-btn 
           prepend-icon="mdi-emoticon-cool-outline"          
             class="flex-grow-1"
-            color="blue"
+            color="#1098F7"
             height="40"
             variant="flat"
             @click="goToUsersPage"
@@ -61,7 +63,7 @@
         <div class="d-flex px-2 my-2 align-center">
           <v-btn
           prepend-icon="mdi-city"
-            color="green"
+            color="#FF1654"
             variant="flat"
             height="40"
             class="flex-grow-1"
@@ -71,7 +73,7 @@
         <div class="d-flex px-2 my-2 align-center">
           <v-btn
           prepend-icon="mdi-cart-outline"
-            color="yellow-darken-4"
+            color="#FF6B35"
             variant="flat"
             height="40"
             class="flex-grow-1"
@@ -80,7 +82,7 @@
          </div>
 
   
-        <div class="px-2 my-2">
+        <div class="px-2 my-2">     <!-- hier ist alles unter "Dein Warenkorb,", Idee koennte der Warenkorb darstellen -->
   
           <v-sheet
             class="mb-2"
@@ -201,3 +203,9 @@
     }
   };
 </script>
+<!-- hier habe hauptsächlich die farben geandert,
+schwarz: #080705
+weiss: #FDFFFC
+rot: #FF1654
+orange: #FF6B35
+-->

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({layout:'default'});
+definePageMeta({layout:'default',});
 
 const { data: produkte, pending, error } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",
@@ -12,7 +12,7 @@ const show_all_model_text = computed(() => show_all.value ? "yes" : "no");
 
 <template>
   <main>
-  <v-sheet  color="orange-accent-3">
+  <v-sheet  color="#F5F5F5">
     <v-container style="width: 100vw;">
     <v-row>
       <v-col sm="1">Show all: {{ show_all_model_text }}</v-col>

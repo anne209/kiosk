@@ -13,7 +13,7 @@ const data= ref({
   
 });
 
-const PIN=ref (0)
+const PIN=ref ('')
 
 
 watch(successMessage, () =>{

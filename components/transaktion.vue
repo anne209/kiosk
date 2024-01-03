@@ -19,7 +19,7 @@ const props = defineProps({
               Bestellung {{ transaktion.Produkt }}
             </v-list-item-title>
             <v-list-item-subtitle class="caption text--secondary">
-              {{ transaktion.Anzahl }} Transaktionen
+              Anzahl der Produkte {{ transaktion.Anzahl }} 
             </v-list-item-subtitle>
           </v-list-item-content>
   
@@ -48,7 +48,5 @@ const props = defineProps({
   </template>
   
   <style scoped>
-  .custom-product-quantity {
-    border-right: 1px solid v-app-bar-border; /* Border color */
-  }
+ 
   </style>
