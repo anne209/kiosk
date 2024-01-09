@@ -1,6 +1,6 @@
 
 
-<!-- die anbindung ans backend fehlt -->
+<!-- die query mutation anbindung ans backend fehlt -->
 
 
 <template>
