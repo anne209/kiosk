@@ -24,6 +24,7 @@ const show_all_model_text = computed(() => show_all.value ? "yes" : "no");
   <p v-if="pending">Fetching...</p>
   <pre v-else-if="error">Could not load: {{ error.data }}</pre>
   <div v-else>
+    <newuser></newuser>
     <v-container>
       <v-row>
         <v-col v-for="user in users.data.swps_Personen" :key="user.Personen_ID" sm="4">               <!-- hier ist irgendein Fehler -->
