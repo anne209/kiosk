@@ -86,6 +86,7 @@
         v-model="pincheck"
         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="[rules.matchPin]"
+        :type="show1 ? 'text' : 'password'"
         color="primary"
         label="Pin wiederholen"
         placeholder="PIN wiederholen"
