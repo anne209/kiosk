@@ -189,7 +189,7 @@
       data:()=>({drawer:null }), 
     methods:{
       goToUsersPage(){
-        this.$router.push('/users');
+        this.$router.push('/start');
       },
       goToLocationPage(){ 
         this.$router.push('/location')
