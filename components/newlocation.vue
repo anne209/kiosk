@@ -1,3 +1,5 @@
+<!-- bei mir lässt sich die seite irgendwie nicht anzeigen, obwohl eigentlich alles funktionieren sollte-->
+
 <script setup>
 
 function createGuid() {  
