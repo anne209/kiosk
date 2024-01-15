@@ -1,76 +1,116 @@
 <script setup>
 
-const { data: location, error } = await useFetch(`http://localhost:8080/v1/graphql`, {
-  method: "POST",
-  body: JSON.stringify({
-    query: `
-      mutation MyMutation($Name: String!, $Standort_ID: uniqueidentifier = "") {
-        insert_swps_Standort(objects: {
-          Name: $Name,
-          Standort_ID: $Standort_ID
-        }) {
-          returning {
-            Name
-            Standort_ID
-          }
-        }
-      }
-    `
-  }),
-});
+function createGuid() {  
+         function _p8(s) {  
+          var p = (Math.random().toString(16) + "000000000").substr(2,8);  
+            return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p;  
+  }  
+  return _p8() + _p8(true) + _p8(true) + _p8();  
+}  
 
-const Name = ref(null);
+var guid = createGuid(); 
 
-const submit = async () => {
-  // Validate form
-  if (!Name.value) {
-    console.error("Name is required");
-    return;
-  }
+console.log(guid);
 
-  // Perform the mutation
+
+const Name = ref('');
+
+const addLocation = async () => {
   try {
-    // Use the location data for GraphQL mutation
-    const response = await location;
+    // Standortnamen prüfen
+    if (!/^[a-zA-Z]+$/.test(Name.value)) {
+      throw new Error('Standort erforderlich');
+    }
+    // Standort_ID generieren
+    const Standort_ID = createGuid();
+    
+    // Log the values before sending the request
+    console.log('Sending request with values:', {
+      Name: Name.value,
+      Standort_ID: Standort_ID,
 
-    // Check for errors in the GraphQL response
-    if (error) {
-      console.error(error);
-      return;
+
+    });
+
+    const res = await useFetch('http://localhost:8080/v1/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    
+      body: JSON.stringify({
+        query: `
+          mutation MyMutation($Name: String!,$Standort_ID: uniqueidentifier!) {       
+            insert_swps_Standort(objects: {
+              Name: $Name, 
+              Standort_ID: $Standort_ID
+            }) {
+              returning {
+                Name
+                Standort_ID
+               
+              }
+            } 
+          }`,
+          variables: {
+          Name: Name.value,
+          Standort_ID: Standort_ID,
+        },
+      }),
+    });    
+    
+    // Log the raw response from the server
+    console.log('Raw response:', res);
+
+    // Additional logging based on how useFetch works
+    if (res && res.data && res.data.value) {
+      console.log('Processed response:', res.data.value);
+      successMessage.value= 'Standort erfolgreich hinzugefügt';
+      successAlert.value= true; 
+      errorAlert.value= false;
     }
 
-    // Access the mutation result from the GraphQL response
-    const mutationResult = response.data?.insert_swps_Standort?.returning;
-
-    // Check if the necessary properties are available before accessing them
-    if (mutationResult && mutationResult.length > 0 && mutationResult[0].Name) {
-      // Do something with the mutation result
-      console.log("Mutation Result:", mutationResult);
-
-      // Optionally, you can reset the form or perform other actions after a successful mutation
-      Name.value = null;
-    } else {
-      console.error("Mutation result is missing necessary properties");
+    // Check and log any errors
+    if (res.error && res.error.value) {
+      console.error('Fetch error:', res.error.value);
     }
-  } catch (err) {
-    console.error(err);
-    // Handle unexpected errors
-  }
+    
+  } catch (error) {
+    console.error('Error during fetch operation:', error);
+    errorMessage.value= 'Fehler beim Standort hinzufügen '; 
+    errorAlert.value= true; 
+    successAlert.value= false;
 };
-</script>
+  
+</script>  
+// im script ist irgendein fehler 
+
 
 <template>
   <v-form ref="form">
     <v-card
-      height="200"
       class="mx-auto"
       title="Neuen Standort einrichten"
     >
       <v-container>
+        <v-alert
+         v-if="successAlert"
+         type="success"
+         dismissible
+         @dismiss="successAlert=false"
+         >{{ successMessage }}
+        </v-alert>
+         
+        <v-alert
+         v-if="errorAlert"
+         type="error"
+         dismissible
+         @dismiss="errorAlert=false"
+        > {{ errorMessage }}
+        </v-alert>
         <v-text-field
-          ref="Name"
-          :modelValue="Name.value"
-          @update:modelValue="value => Name.value = value"
+          v-model="Name"
+          :rules="[() => !!Name.value || 'Standort erforderlich', (v) => /^[a-zA-Z]+$/.test(v) || 'Der Name darf nur Buchstaben enthalten']"
           color="primary"
           label="Neuer Standort"
           placeholder="z.B. Berlin"
@@ -79,7 +119,7 @@ const submit = async () => {
         ></v-text-field>
         <v-btn
           color="success"
-          @click="submit"
+          @click="addLocation"
         >Standort einrichten
           <v-icon icon="mdi-chevron-right" end></v-icon>
         </v-btn>
