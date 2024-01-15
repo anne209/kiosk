@@ -1,5 +1,5 @@
 <!-- ich weiss nicht was passiert wenn man genau die selben Daten eingibt von einem bestehenden Produkt -->
-<!-- es gibt noch einen fehler mit der Standort_ID wird nur als object angezeigt und als object weitergegeben obwohl .value  benutzt wird -->
+
 
 <script setup>
 function createGuid() {  
@@ -155,7 +155,7 @@ const addProduct = async () => {
           required
           ></v-text-field> 
 
-            <v-card-subtitle> <!-- hier sollte man den preis ändern koennen-->
+            <v-card-subtitle> 
               <v-text-field
               v-model="Preis"
               :rules="[() => !!Preis|| 'Preis ist erforderlich',v => /^\d+$/.test(v) || 'Nur Zahlen sind erlaubt.',]"
@@ -163,16 +163,14 @@ const addProduct = async () => {
               required
               > </v-text-field>    
             </v-card-subtitle>
-                 <!-- in der Standort items list wird nur object Object angezeigt, also kp warum nicht automatisch die Namen der Städte angezeigt werde-->
+                
           
               <v-autocomplete 
               
               v-model="Standort_ID"
-              
-              :items="location.data.swps_Standort.map(item => ({ text: item.Name, value: item.Standort_ID }))" 
-              
-              item-text="Name"
-              
+              :items="location.data.swps_Standort.map(item => ({ Standort_ID: item.Standort_ID, text: item.Name }))" 
+              item-text="text"
+              item_title="text"
               item-value="Standort_ID" 
 
               label="Standort"
