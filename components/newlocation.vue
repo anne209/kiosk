@@ -82,10 +82,10 @@ const addLocation = async () => {
     errorMessage.value= 'Fehler beim Standort hinzufügen '; 
     errorAlert.value= true; 
     successAlert.value= false;
+}
 };
   
 </script>  
-// im script ist irgendein fehler 
 
 
 <template>

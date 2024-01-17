@@ -17,6 +17,9 @@ console.log(guid);
 
 import { ref } from 'vue';
 
+const currentDatetime = new Date().toISOString();
+    console.log(currentDatetime)
+
 const Name = ref('');
 const Preis = ref(''); 
 const Standort_ID = ref('');
@@ -28,12 +31,8 @@ const errorMessage= ref('');
 
 const { data: location, pending } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",
-  headers: {
-        'Content-Type': 'application/json',
-      },
-  body: JSON.stringify({
-    query: "query { swps_Standort { Name Standort_ID } }"  
-  })
+  body: { query: "query { swps_Standort { Name Standort_ID } }"  
+  }
 });
 
 
@@ -64,8 +63,7 @@ const addProduct = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      // bei latest update müssen wir noch schauen wie wir das aktuelle datum kriegen, momentan nur 1900 01 01 etc. 
-      // Standort muss noch verbessert werden 
+
       body: JSON.stringify({
         query: `
           mutation MyMutation($Name: String!, $Preis: Int!, $Produkt_ID: uniqueidentifier!, $Standort_ID: uniqueidentifier!, $Latest_update: datetime="") {       
@@ -73,7 +71,7 @@ const addProduct = async () => {
               Name: $Name, 
               Preis: $Preis, 
               Produkt_ID: $Produkt_ID,
-              Standort_ID: $Standort_ID
+              Standort_ID: $Standort_ID,
               Latest_update: $Latest_update
 
             }) {
@@ -91,6 +89,7 @@ const addProduct = async () => {
           Preis: parseInt(Preis.value, 10),
           Produkt_ID: Produkt_ID,
           Standort_ID: Standort_ID.value,
+          Latest_update:currentDatetime,
         },
       }),
     });      
@@ -150,12 +149,12 @@ const addProduct = async () => {
 
           <v-text-field
           v-model="Name"
-          :rules="[() => !!Name || 'Produktname ist erforderlich']"
+          :rules="[() => !!Name || 'Produktname ist erforderlich', (v) => /^[a-zA-Z]+$/.test(v) || 'Produktname darf nur Buchstaben enthalten']"
           label="Produktname eingeben"
           required
           ></v-text-field> 
 
-            <v-card-subtitle> 
+            <v-card-subtitle> <!-- hier sollte man den preis ändern koennen-->
               <v-text-field
               v-model="Preis"
               :rules="[() => !!Preis|| 'Preis ist erforderlich',v => /^\d+$/.test(v) || 'Nur Zahlen sind erlaubt.',]"
@@ -163,18 +162,18 @@ const addProduct = async () => {
               required
               > </v-text-field>    
             </v-card-subtitle>
-                
-          
+                 <!-- in der Standort items list wird nur object Object angezeigt, also kp warum nicht automatisch die Namen der Städte angezeigt werde-->
+                 <!-- v-model="Standort_ID"-->
               <v-autocomplete 
-              
-              v-model="Standort_ID"
-              :items="location.data.swps_Standort.map(item => ({ Standort_ID: item.Standort_ID, text: item.Name }))" 
-              item-text="text"
-              item_title="text"
-              item-value="Standort_ID" 
-
-              label="Standort"
-              placeholder="Standort auswählen"
+                  v-model="Standort_ID"
+                  :rules="[() => !!Standort || 'Standort ist erforderlich']"
+                  :items="location.data.swps_Standort.map(item => ({ Standort_ID: item.Standort_ID, text: item.Name }))" 
+                  item-text="text"
+                  item-value="Standort_ID"
+                  item-title="text" 
+                  color="primary"
+                  label="Standort"
+                  placeholder="Standort auswählen"
               > </v-autocomplete>  
           
           </v-card-item>

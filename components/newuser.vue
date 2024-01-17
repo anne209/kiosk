@@ -1,4 +1,4 @@
-<!-- komplett überarbeitet ähnlich wie newproduct-->
+
 <script setup>
 // GUID generieren   
 function createGuid() {  
@@ -214,7 +214,7 @@ successAlert.value = false;
          placeholder="Max"
          variant="underlined"
          required
-       ></v-text-field> <!-- die refs first und last sollten vlt Vorname und Nachname sein -->
+       ></v-text-field>
 
        <v-text-field
          ref="last"
@@ -250,7 +250,7 @@ successAlert.value = false;
          label="Standort"
          variant="underlined"
          required
-       ></v-autocomplete> <!-- man könnte auch die standort items mit hasura abfragen -->
+       ></v-autocomplete> 
 
        <v-text-field
          
@@ -277,7 +277,7 @@ successAlert.value = false;
          variant="underlined"
          counter
          @click:append="show2 = !show2"
-       ></v-text-field>    <!-- das hier ist die PIN die tatsächlich an die DB abgegeben wird-->
+       ></v-text-field>    
 
        <v-checkbox
          v-model="terms"
@@ -301,4 +301,3 @@ successAlert.value = false;
    </v-card>
  </v-form>
  </template>
-

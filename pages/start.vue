@@ -27,8 +27,8 @@ const show_all_model_text = computed(() => show_all.value ? "yes" : "no");
     <newuser></newuser>
     <v-container>
       <v-row>
-        <v-col v-for="user in users.data.swps_Personen" :key="user.Personen_ID" sm="4">               <!-- hier ist irgendein Fehler -->
-          <User :user="user" :correctPIN="user.PersonenExt.PIN" v-if="show_all || user.Aktiv" ></User> <!-- hier auch -->
+        <v-col v-for="user in users.data.swps_Personen" :key="user.Personen_ID" sm="4">               
+          <User :user="user" :correctPIN="user.PersonenExt.PIN" v-if="show_all || user.Aktiv" ></User> 
         </v-col>
       </v-row>
     </v-container>
