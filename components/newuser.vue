@@ -42,7 +42,12 @@ const successAlert= ref(false);
 const errorAlert = ref(false); 
 const successMessage= ref(''); 
 const errorMessage= ref('');
-
+const form = ref(null);
+const resetForm = () => {
+if (form.value) {
+ form.value.reset(); 
+}
+};
 
 
 
@@ -171,12 +176,33 @@ successAlert.value = false;
 
 
 <template>
- <v-form ref="form">
-     <v-card
+<v-card
      class="mx-auto"
      max-width="344"
-     title="Nutzer Registrierung"
    >
+ <v-form ref="form"
+ v-model="isValid">
+     
+   <v-toolbar
+   color="#FF6B35"
+   cards
+   dark
+   flat
+ >
+   <v-btn icon>
+     <v-icon>mdi-arrow-left</v-icon>
+   </v-btn>
+   <v-card-title class="text-h6 font-weight-regular">
+     Profil erstellen
+   </v-card-title>
+   <v-spacer></v-spacer>
+   <v-btn icon>
+     <v-icon>mdi-magnify</v-icon>
+   </v-btn>
+   <v-btn icon>
+     <v-icon>mdi-dots-vertical</v-icon>
+   </v-btn>
+ </v-toolbar>
      <v-container>
        <v-alert
          v-if="successAlert"
@@ -289,15 +315,21 @@ successAlert.value = false;
      <v-divider></v-divider>
 
      <v-card-actions>
-       <v-spacer></v-spacer>
-
+   <v-spacer></v-spacer>
+       <v-btn
+         variant="text"
+         @click="resetForm"
+         >Zurücksetzen 
+       </v-btn>
+   <v-spacer></v-spacer>
        <v-btn 
-       color="success"
-       @click="addUser"
-       >Registrierung abschließen 
+         color="success"
+         @click="addUser"
+         >Registrieren
          <v-icon icon="mdi-chevron-right" end></v-icon>
        </v-btn>
      </v-card-actions>
-   </v-card>
- </v-form>
+   </v-form>
+ </v-card>
  </template>
+

@@ -1,18 +1,23 @@
 <template>
   <v-app id="inspire">
     <v-footer
-        app
-        color="#FDFFFC"
-        height="44"
-      ></v-footer>
+      app
+      color="#FDFFFC"
+      height="90"
+      style="display: flex; justify-content: center; align-items: center;">
+      <v-progress-linear :value="progressValue" color="red"></v-progress-linear>
+    </v-footer>
   
     <v-app-bar
-      class="px-5"
       flat
       density="compact"
-      color="#FDFFFC"
-    >
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      
+      image="https://picsum.photos/1920/1080?random" 
+      class="diagonal-stripes-gradient"
+    > 
+      <v-app-bar-nav-icon 
+      color="white"
+      @click="drawer = !drawer"></v-app-bar-nav-icon>
           <v-spacer></v-spacer>
           <v-btn 
           prepend-icon="mdi-home"
@@ -28,12 +33,7 @@
 
     <v-spacer></v-spacer>
 
-                  <v-avatar
-                    class="hidden-sm-and-down"
-                    color="#1098F7"
-                    size="32"
-                    @click="goToUsersPage"
-                  ></v-avatar>
+                  <logoutbtn></logoutbtn>
     </v-app-bar>
     <v-navigation-drawer 
                     v-model="drawer"
@@ -71,7 +71,7 @@
           >Deine Location</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
         </div>
         <div class="d-flex px-2 my-2 align-center">
-          <v-btn
+            <v-btn
           prepend-icon="mdi-cart-outline"
             color="#FF6B35"
             variant="flat"
@@ -79,12 +79,15 @@
             class="flex-grow-1"
             @click="goToCartPage"
           >Dein Warenkorb</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
-         </div>
+        </div>
 
   
         <div class="px-2 my-2">     <!-- hier ist alles unter "Dein Warenkorb,", Idee koennte der Warenkorb darstellen -->
   
-          
+  
+          <v-divider class="my-6"></v-divider>
+  
+          <v-divider class="my-6"></v-divider>
         </div>
       </v-navigation-drawer>
 <v-main>
@@ -100,16 +103,16 @@
   import {ref} from 'vue'
   
   const drawer =ref(null)
-
 </script>
 
 <script>
+  
   export default {
     
       data:()=>({drawer:null }), 
     methods:{
       goToUsersPage(){
-        this.$router.push('/start');
+        this.$router.push('/userprofil');
       },
       goToLocationPage(){ 
         this.$router.push('/location')
@@ -129,3 +132,20 @@ weiss: #FDFFFC
 rot: #FF1654
 orange: #FF6B35
 -->
+<style>
+.diagonal-stripes-gradient {
+background: repeating-linear-gradient(
+  45deg,
+  rgba(8,7,5,1),
+  rgba(8,7,5,1) 20%,
+  rgba(255,22,84,1) 20%,
+  rgba(255,22,84,1) 21%,
+  rgba(253,255,252,1) 21%,
+  rgba(253,255,252,1) 40%,
+  rgba(255,107,53,1) 40%,
+  rgba(255,107,53,1) 41%,
+  rgba(8,7,5,1) 41%
+);
+/* Additional styles (e.g., height, width) */
+}
+</style>

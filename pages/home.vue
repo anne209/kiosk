@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { globalStore } from '@/global.js'
 definePageMeta({layout:'default',});
-const route = useRoute();
 
-const Personen_ID = route.query.Personen_ID;
+
+const Personen_ID = globalStore.Personen_ID;
 if (Personen_ID) {
   console.log('Received Personen_ID:', Personen_ID);
 } else {
