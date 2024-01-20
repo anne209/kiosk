@@ -1,12 +1,17 @@
 
 <script setup>
-// GUID generieren   
+import { useRouter } from 'vue-router';
+const router = useRouter();
+function goToStartPage() {
+router.push('/start');
+}
+ // GUID generieren   
 function createGuid() {  
-       function _p8(s) {  
-         var p = (Math.random().toString(16) + "000000000").substr(2,8);  
-           return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p;  
- }  
- return _p8() + _p8(true) + _p8(true) + _p8();  
+        function _p8(s) {  
+          var p = (Math.random().toString(16) + "000000000").substr(2,8);  
+            return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p;  
+  }  
+  return _p8() + _p8(true) + _p8(true) + _p8();  
 }  
 
 var guid = createGuid(); 
@@ -22,12 +27,12 @@ numbersOnly: v => /^\d+$/.test(v) || 'Nur Zahlen sind erlaubt.',
 lettersOnly: value => /^[A-Za-z]+$/.test(value) || 'Nur Buchstaben sind erlaubt.',
 matchPin: value => pincheck.value === PIN.value || 'Pin stimmt nicht überein',
 email: value => {
- const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
- return pattern.test(value) || 'Ungültige E-Mail.';
+  const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return pattern.test(value) || 'Ungültige E-Mail.';
 },
 };
 const currentDatetime = new Date().toISOString();
- console.log(currentDatetime)
+  console.log(currentDatetime)
 const Anrede = ref('')
 const Vorname = ref('')
 const Name = ref('')
@@ -45,109 +50,110 @@ const errorMessage= ref('');
 const form = ref(null);
 const resetForm = () => {
 if (form.value) {
- form.value.reset(); 
+  form.value.reset(); 
 }
 };
 
 
 
 const { data: location, pending } = await useFetch(`http://localhost:8080/v1/graphql`, {
- method: "POST",
- body: { query: "query { swps_Standort { Name Standort_ID }}" },
+  method: "POST",
+  body: { query: "query { swps_Standort { Name Standort_ID }}" },
 })
 
 
 const addUser = async() =>{
- try {
-   // Anrede üperprüfen
-     if (!Anrede.value){
-       throw new Error('Anrede erforderlich');
-     }
-   // Mail üperprüfen
-   if(!rules.email(Mail)){
-       throw new Error('Ungültige E-Mail');
-     }
-   // Name und Vorname üperprüfen
-   if(!rules.lettersOnly(Name.value) || !rules.lettersOnly(Vorname.value) || !Name.value || !Vorname.value){
-     throw new Error('Ungültiger Name/Vorname');
-   } 
-   // Pin üperprüfen 
-   if (!rules.exactLength(PIN.value) || !rules.numbersOnly(PIN.value) || !rules.matchPin(PIN.value)) {
-     throw new Error('Ungültige PIN');
-   }
-   // Personen_ID generieren 
-   const Personen_ID=createGuid();
-   // Console.logs
-   console.log('Sending request with values:', {
-     Anrede: Anrede.value,
-         Mail: Mail.value, 
-         Name: Name.value,
-         Personen_ID: Personen_ID,
-         PIN: PIN.value, 
-         Vorname:Vorname.value, 
-         Latest_update:currentDatetime,
-         Standort_ID: Standort_ID.value,
-   
- });
-
+  try {
+    // Anrede üperprüfen
+      if (!Anrede.value){
+        throw new Error('Anrede erforderlich');
+      }
+    // Mail üperprüfen
+    const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!emailPattern.test(Mail.value)){
+        throw new Error('Ungültige E-Mail');
+      }
+    // Name und Vorname üperprüfen
+    if(!rules.lettersOnly(Name.value) || !rules.lettersOnly(Vorname.value) || !Name.value || !Vorname.value){
+      throw new Error('Ungültiger Name/Vorname');
+    } 
+    // Pin üperprüfen 
+    if (!rules.exactLength(PIN.value) || !rules.numbersOnly(PIN.value) || !rules.matchPin(PIN.value)) {
+      throw new Error('Ungültige PIN');
+    }
+    // Personen_ID generieren 
+    const Personen_ID=createGuid();
+    // Console.logs
+    console.log('Sending request with values:', {
+      Anrede: Anrede.value,
+          Mail: Mail.value, 
+          Name: Name.value,
+          Personen_ID: Personen_ID,
+          PIN: PIN.value, 
+          Vorname:Vorname.value, 
+          Latest_update:currentDatetime,
+          Standort_ID: Standort_ID.value,
+    
+  });
+ 
 
 
 
 const res = await useFetch ('http://localhost:8080/v1/graphql', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json',
-     },
-     // hier alles reinpacken für den User etc einfach hasura dings aufmachen  
-     // der User ist noch nicht aktiv wenn er ein Profil erstellt, muss sich erst anmelden dann soll er aktiv werden
-     body: JSON.stringify({
-       query: `
-       mutation MyMutation ($Anrede: String!,$Name: String!, $Vorname: String!, $Mail: String!, $Personen_ID: uniqueidentifier! $Standort_ID: uniqueidentifier! $Latest_update: datetime="", $PIN:String!){
-         insert_swps_Personen(objects: {
-           Aktiv: false, 
-           Anrede: $Anrede, 
-           Mail: $Mail, 
-           Name: $Name, 
-           Personen_ID: $Personen_ID, 
-           Standort_ID: $Standort_ID, 
-           Vorname: $Vorname, 
-           }) {
-         returning {
-           Aktiv
-           Anrede
-           Mail
-           Name
-           Personen_ID
-           Standort_ID
-           Vorname
-     }
-   }
-   insert_swps_PersonenExt(objects: {  
-     Latest_update: $Latest_update, 
-     PIN: $PIN, 
-     Personen_ID: $Personen_ID
-   }) {
-     returning {
-       Latest_update
-       PIN
-       Personen_ID
-     }
-   }
- }`,
-         variables: {
-         Anrede: Anrede.value,
-         Mail: Mail.value, 
-         Name: Name.value,
-         Personen_ID: Personen_ID,
-         PIN: PIN.value, 
-         Vorname:Vorname.value, 
-         Latest_update:currentDatetime,
-         Standort_ID: Standort_ID.value,
-       },
-     }),
-   });   
-   // Log the raw response from the server
- console.log('Raw response:', res);
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // hier alles reinpacken für den User etc einfach hasura dings aufmachen  
+      // der User ist noch nicht aktiv wenn er ein Profil erstellt, muss sich erst anmelden dann soll er aktiv werden
+      body: JSON.stringify({
+        query: `
+        mutation MyMutation ($Anrede: String!,$Name: String!, $Vorname: String!, $Mail: String!, $Personen_ID: uniqueidentifier! $Standort_ID: uniqueidentifier! $Latest_update: datetime="", $PIN:String!){
+          insert_swps_Personen(objects: {
+            Aktiv: false, 
+            Anrede: $Anrede, 
+            Mail: $Mail, 
+            Name: $Name, 
+            Personen_ID: $Personen_ID, 
+            Standort_ID: $Standort_ID, 
+            Vorname: $Vorname, 
+            }) {
+          returning {
+            Aktiv
+            Anrede
+            Mail
+            Name
+            Personen_ID
+            Standort_ID
+            Vorname
+      }
+    }
+    insert_swps_PersonenExt(objects: {  
+      Latest_update: $Latest_update, 
+      PIN: $PIN, 
+      Personen_ID: $Personen_ID
+    }) {
+      returning {
+        Latest_update
+        PIN
+        Personen_ID
+      }
+    }
+  }`,
+          variables: {
+          Anrede: Anrede.value,
+          Mail: Mail.value, 
+          Name: Name.value,
+          Personen_ID: Personen_ID,
+          PIN: PIN.value, 
+          Vorname:Vorname.value, 
+          Latest_update:currentDatetime,
+          Standort_ID: Standort_ID.value,
+        },
+      }),
+    });   
+    // Log the raw response from the server
+  console.log('Raw response:', res);
 
 // Additional logging based on how useFetch works
 if (res && res.data && res.data.value) {
@@ -163,13 +169,11 @@ console.error('Fetch error:', res.error.value);
 }
 } catch (error) {
 console.error('Error during fetch operation:', error);
-errorMessage.value = 'Fehler bei Nutzererstellung  ';
+errorMessage.value = 'Fehler bei der Nutzererstellung  ';
 errorAlert.value = true; 
 successAlert.value = false; 
 }
 };   
-
-
 
 
 </script>
@@ -177,159 +181,164 @@ successAlert.value = false;
 
 <template>
 <v-card
-     class="mx-auto"
-     max-width="344"
-   >
- <v-form ref="form"
- v-model="isValid">
-     
-   <v-toolbar
-   color="#FF6B35"
-   cards
-   dark
-   flat
- >
-   <v-btn icon>
-     <v-icon>mdi-arrow-left</v-icon>
-   </v-btn>
-   <v-card-title class="text-h6 font-weight-regular">
-     Profil erstellen
-   </v-card-title>
-   <v-spacer></v-spacer>
-   <v-btn icon>
-     <v-icon>mdi-magnify</v-icon>
-   </v-btn>
-   <v-btn icon>
-     <v-icon>mdi-dots-vertical</v-icon>
-   </v-btn>
- </v-toolbar>
-     <v-container>
-       <v-alert
-         v-if="successAlert"
-      type="success"
-      closable
-      dismissible
-      @dismiss="successAlert=false"
-      >{{ successMessage }}
-       </v-alert>   
-       <v-alert
-      v-if="errorAlert"
-      type="error"
-      closable
-      dismissible
-      @dismiss="errorAlert=false"
-     > {{ errorMessage }}
-     </v-alert> 
-       <v-autocomplete
-         ref="anrede"
-         v-model="Anrede"
-         :rules="[() => !!Anrede || 'Anrede erforderlich']"
-         :items="['Frau', 'Herr']"
-         color="primary"
-         label="Anrede"
-         placeholder="Auswählen..."
-         variant="underlined"
-         required
-       ></v-autocomplete>
-     <v-text-field 
-         ref="first"
-         v-model="Vorname"
-         :rules="[() => !!Vorname || 'Vorname ist erforderlich']"
-         color="primary"
-         label="Vorname"
-         placeholder="Max"
-         variant="underlined"
-         required
-       ></v-text-field>
+      class="mx-auto pa-4 pb-5"
+      elevation="9"
+      max-width="448"
+      rounded="lg"
+      title="Account erstellen"
+      color="#080705"
+    >
+  <v-form ref="form">
+      <v-container class="mx-auto pa-2">
+        <v-alert
+          v-if="successAlert"
+          type="success"
+          closable
+          dismissible
+          @dismiss="successAlert=false"
+          >{{ successMessage }}
+        </v-alert>   
+        <v-alert
+          v-if="errorAlert"
+          type="error"
+          closable
+          dismissible
+          @dismiss="errorAlert=false"
+          > {{ errorMessage }}
+      </v-alert> 
+        <v-autocomplete
+          ref="anrede"
+          v-model="Anrede"
+          :rules="[() => !!Anrede || 'Anrede erforderlich']"
+          :items="['Frau', 'Herr']"
+          color="primary"
+          label="Anrede"
+          placeholder="Auswählen..."
+          prepend-inner-icon="mdi-human-male-female"
+          variant="underlined"
+          required
+        ></v-autocomplete>
 
-       <v-text-field
-         ref="last"
-         v-model="Name"
-         :rules="[() => !!Name|| 'Nachname ist erforderlich']"
-         color="primary"
-         label="Nachname"
-         placeholder="Mustermann"
-         variant="underlined"
-         required
-       ></v-text-field>
-       
-       
-       <v-text-field
-         ref="email"
-         v-model="Mail"
-         :rules="[() => !!Mail || 'E-Mail ist erforderlich',rules.email]"
-         color="primary"
-         label="E-Mail"
-         variant="underlined"
-         required
-       ></v-text-field>
+      <v-text-field 
+          ref="first"
+          v-model="Vorname"
+          :rules="[() => !!Vorname || 'Vorname ist erforderlich']"
+          color="primary"
+          label="Vorname"
+          placeholder="Max"
+          prepend-inner-icon="mdi-account"
+          variant="underlined"
+          required
+        ></v-text-field>
 
-       <v-autocomplete
-         ref="standort"
-         v-model="Standort_ID"
-         :rules="[() => !!Standort_ID || 'Standort ist erforderlich']"
-         :items="location.data.swps_Standort.map(item => ({ Standort_ID: item.Standort_ID, text: item.Name }))" 
-         item-text="text"
-         item-value="Standort_ID"
-         item-title="text" 
-         color="primary"
-         label="Standort"
-         variant="underlined"
-         required
-       ></v-autocomplete> 
+        <v-text-field
+          ref="last"
+          v-model="Name"
+          :rules="[() => !!Name|| 'Nachname ist erforderlich']"
+          color="primary"
+          label="Nachname"
+          placeholder="Mustermann"
+          prepend-inner-icon="mdi-account"
+          variant="underlined"
+          required
+        ></v-text-field>
+        
+        
+        <v-text-field
+          ref="email"
+          v-model="Mail"
+          :rules="[() => !!Mail || 'E-Mail ist erforderlich',rules.email]"
+          color="primary"
+          label="E-Mail"
+          prepend-inner-icon="mdi-email-outline"
+          variant="underlined"
+          required
+        ></v-text-field>
 
-       <v-text-field
-         
-         v-model="PIN"
-         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-         :rules="[rules.required, rules.exactLength, rules.numbersOnly]"
-         :type="show1 ? 'text' : 'password'"
-         color="primary"
-         label="PIN"
-         placeholder="PIN eingeben"
-         variant="underlined"
-         counter
-         @click:append="show1 = !show1"
-       ></v-text-field>
-       <v-text-field
-         
-         v-model="pincheck"
-         :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-         :rules="[rules.matchPin]"
-         :type="show2 ? 'text':'password'"
-         color="primary"
-         label="Pin wiederholen"
-         placeholder="PIN wiederholen"
-         variant="underlined"
-         counter
-         @click:append="show2 = !show2"
-       ></v-text-field>    
+        <v-autocomplete
+          ref="standort"
+          v-model="Standort_ID"
+          :rules="[() => !!Standort_ID || 'Standort ist erforderlich']"
+          :items="location.data.swps_Standort.map(item => ({ Standort_ID: item.Standort_ID, text: item.Name }))" 
+          item-text="text"
+          item-value="Standort_ID"
+          item-title="text" 
+          color="primary"
+          label="Standort"
+          prepend-inner-icon="mdi-city"
+          variant="underlined"
+          required
+        ></v-autocomplete> 
 
-       <v-checkbox
-         v-model="terms"
-         color="secondary"
-         label="Ich akzeptiere die AGB dieser Seite"
-       ></v-checkbox>
-     </v-container>
+        <v-text-field
+          
+          v-model="PIN"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="[rules.required, rules.exactLength, rules.numbersOnly]"
+          :type="show1 ? 'text' : 'password'"
+          color="primary"
+          label="PIN"
+          placeholder="PIN eingeben"
+          prepend-inner-icon="mdi-lock-outline"
+          variant="underlined"
+          counter
+          @click:append="show1 = !show1"
+        ></v-text-field>
 
-     <v-divider></v-divider>
+        <v-text-field
+          
+          v-model="pincheck"
+          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="[rules.matchPin]"
+          :type="show2 ? 'text':'password'"
+          color="primary"
+          label="PIN wiederholen"
+          placeholder="PIN wiederholen"
+          prepend-inner-icon="mdi-lock-outline"
+          variant="underlined"
+          counter
+          @click:append="show2 = !show2"
+        ></v-text-field>    
 
-     <v-card-actions>
-   <v-spacer></v-spacer>
-       <v-btn
-         variant="text"
-         @click="resetForm"
-         >Zurücksetzen 
-       </v-btn>
-   <v-spacer></v-spacer>
-       <v-btn 
-         color="success"
-         @click="addUser"
-         >Registrieren
-         <v-icon icon="mdi-chevron-right" end></v-icon>
-       </v-btn>
-     </v-card-actions>
-   </v-form>
- </v-card>
- </template>
+        <v-checkbox
+          v-model="terms"
+          color="secondary"
+          label="Ich akzeptiere die AGB dieser Seite"
+        ></v-checkbox>
+      </v-container>
+
+      <v-card-actions>
+        <v-btn
+          variant="text"
+          @click="resetForm"
+          class="mr-9"
+          >Zurücksetzen
+          <v-icon icon="mdi-reload" end></v-icon> 
+        </v-btn>
+
+    <v-spacer></v-spacer>
+
+        <v-btn
+          variant="text" 
+          color="success"
+          @click="addUser"
+          >Registrieren
+          <v-icon icon="mdi-chevron-right" end></v-icon>
+        </v-btn>
+        
+      </v-card-actions>
+      <v-row justify="center"> <!-- Centering the button -->
+      <v-col cols="12">
+      <v-btn 
+          variant="text" 
+          color="blue"
+          @click="goToStartPage"
+          >Jetzt anmelden
+          <v-icon icon="mdi-chevron-right" end></v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+    </v-form>
+  </v-card>
+  </template>
 
