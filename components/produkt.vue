@@ -194,4 +194,3 @@ const addTransaction = async () => {
     font-family: sans
   }
 </style>
-

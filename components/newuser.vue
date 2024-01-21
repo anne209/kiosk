@@ -181,13 +181,14 @@ successAlert.value = false;
 
 <template>
 <v-card
-      class="mx-auto pa-4 pb-5"
+      class="mx-auto  pa-4 pb-5"
       elevation="9"
       max-width="448"
       rounded="lg"
       title="Account erstellen"
       color="#080705"
-    >
+    > <!-- alternative einfach color="#080705"-->
+    <!-- clevr style siehe unten ist geil -->
   <v-form ref="form">
       <v-container class="mx-auto pa-2">
         <v-alert
@@ -342,3 +343,16 @@ successAlert.value = false;
   </v-card>
   </template>
 
+<style scoped>
+.my-card {
+background-color: rgba(255, 255, 255, 0.25); 
+}
+.clevr{
+border-radius: 40px;
+border: 3px solid #FFF;
+background: linear-gradient(120deg, rgba(255, 255, 255, 0.40) 10.2%, rgba(252, 252, 252, 0.10) 87.04%);
+box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.20);
+backdrop-filter: blur(20px);
+}
+
+</style>
