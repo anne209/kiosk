@@ -2,31 +2,20 @@
 <!-- eventuell noch ein extra signup/layout bauen-->
 <!-- den ganzen Style kann man noch ändern -->
 <template>
-    <v-app id="inspire">
-      <v-app-bar 
-      color="#FDFFFC">
-        <v-btn @click="goToHomePage">
-  
-          <v-icon
-          start
-          icon="mdi-arrow-left"
-        ></v-icon>
-          Zur Homepage gehen
-        </v-btn>
-  
-        <v-app-bar-title>Willkommen beim Löwenshop24</v-app-bar-title>
-  
-        <v-spacer></v-spacer>
-  
-        <v-btn icon="mdi-dots-vertical">
-        </v-btn>
-      </v-app-bar>
-  
-      <v-main class="stripe-background">
-       <slot />
-      </v-main>
-    </v-app>
-  </template>
+  <v-app id="inspire">
+    <v-app-bar color="#FDFFFC">
+      <v-app-bar-title>Willkommen beim Löwenshop24</v-app-bar-title>
+          <v-btn @click="goToLoginPage">
+            Schon einen Account?
+            <v-icon end icon="mdi-account-check"></v-icon>
+          </v-btn>
+        </v-app-bar>
+    <v-main class="stripe-background">
+      <slot />
+    </v-main>
+  </v-app>
+</template>
+
   
   
   <script setup>
@@ -44,6 +33,9 @@
       methods:{
         goToHomePage(){
           this.$router.push('/home')
+        }, 
+        goToLoginPage(){
+          this.$router.push('/start')
         }
       }
   }

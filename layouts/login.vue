@@ -5,9 +5,13 @@
     <v-app-bar 
     color="#FDFFFC">
       <v-app-bar-title>Login Page für Admin und Users</v-app-bar-title>
+
       <v-btn 
-      icon="mdi-account-hard-hat"
-      @click="openDialog"></v-btn>
+      @click="openDialog">
+      Bist du der Admin?
+      <v-icon end icon="mdi-account-hard-hat"></v-icon>
+      </v-btn>
+      
       <!-- Dialog mit Passwort input-field-->
     <v-dialog v-model="dialogOpen" max-width="300">
       <v-card>
@@ -83,3 +87,4 @@ const submitPassword = () => {
     }
 
 </script>
+
