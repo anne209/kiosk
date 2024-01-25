@@ -9,7 +9,9 @@ console.log(`Initial Personen_ID: ${Personen_ID.value}`);
 
 
 
-
+// hier müssen wir möglicherweise eine andere Query: swps_Standort_by_pk 
+// die Produkte werden so angezeigt je nach dem was der User eingestellt hat 
+// war anfrage aus scrum meeting 
 const { data: produkte, pending, error } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",
   body: { query: "query { swps_Produkt { Name Preis Produkt_ID Standort_ID }}" },
