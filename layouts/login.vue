@@ -42,6 +42,8 @@ const dialogOpen = ref(false);
 const password = ref('');
 const errorMessage = ref('');
 const successMessage = ref('');
+const showSuccess = ref(false); 
+const showError = ref(false)
 
 const openDialog = () => {
   dialogOpen.value = true;
