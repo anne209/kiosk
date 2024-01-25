@@ -8,7 +8,7 @@
       <v-btn 
       icon="mdi-account-hard-hat"
       @click="openDialog"></v-btn>
-      <!-- Dialog with password input field -->
+      <!-- Dialog mit Passwort input-field-->
     <v-dialog v-model="dialogOpen" max-width="300">
       <v-card>
         <v-card-title>Admin Passwort eingeben</v-card-title>
@@ -52,7 +52,7 @@ const closeDialog = () => {
 };
 
 const submitPassword = () => {
-  // Handle password submission logic here
+  // Admin Password wird hier geprüft
   if (password.value === 'swpsAdmin2024!') {
     router.push({ path: '/verwaltung' });
     successMessage.value = 'Erfolgreich angemeldet!';

@@ -28,12 +28,7 @@
   
         <v-spacer></v-spacer>
   
-        <v-avatar
-          class="hidden-sm-and-down"
-          color="red"
-          size="32"
-          @click="goToUsersadmin"
-        ></v-avatar>
+       <logoutbtn></logoutbtn>
       </v-app-bar>
       <v-navigation-drawer v-model="drawer">
           <div class="d-flex px-2 my-2 align center">
@@ -98,11 +93,10 @@
   
   <script>
     export default {
-      
         data:()=>({drawer:null }), 
       methods:{
         goToUsersAdmin(){
-          this.$router.push('/verwaltung')
+          this.$router.push('/userverwaltung')
         },
         goToProductAdmin(){ 
           this.$router.push('/produktverwaltung')

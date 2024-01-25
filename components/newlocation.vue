@@ -1,4 +1,3 @@
-
 <script setup>
 
 function createGuid() {  
@@ -15,6 +14,10 @@ console.log(guid);
 
 
 const Name = ref('');
+const successAlert= ref(false);
+const errorAlert = ref(false); 
+const successMessage= ref(''); 
+const errorMessage= ref('');
 
 const addLocation = async () => {
   try {
@@ -25,7 +28,7 @@ const addLocation = async () => {
     // Standort_ID generieren
     const Standort_ID = createGuid();
     
-    // Log the values before sending the request
+    // Logs
     console.log('Sending request with values:', {
       Name: Name.value,
       Standort_ID: Standort_ID,
@@ -60,10 +63,10 @@ const addLocation = async () => {
       }),
     });    
     
-    // Log the raw response from the server
+    // Log für Raw response vom Server
     console.log('Raw response:', res);
 
-    // Additional logging based on how useFetch works
+     // Log für Success Benachrichtigung 
     if (res && res.data && res.data.value) {
       console.log('Processed response:', res.data.value);
       successMessage.value= 'Standort erfolgreich hinzugefügt';
@@ -71,11 +74,11 @@ const addLocation = async () => {
       errorAlert.value= false;
     }
 
-    // Check and log any errors
+    // Log für Error Benachrichtigung
     if (res.error && res.error.value) {
       console.error('Fetch error:', res.error.value);
     }
-    
+    // try { wird hier gecatched 
   } catch (error) {
     console.error('Error during fetch operation:', error);
     errorMessage.value= 'Fehler beim Standort hinzufügen '; 
@@ -85,7 +88,6 @@ const addLocation = async () => {
 };
   
 </script>  
-
 
 <template>
   <v-form ref="form">

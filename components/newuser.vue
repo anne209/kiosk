@@ -1,11 +1,15 @@
 
 <script setup>
+
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+// Router definieren 
 const router = useRouter();
 function goToStartPage() {
 router.push('/start');
 }
- // GUID generieren   
+// GUID generieren und als Variable deklarieren
 function createGuid() {  
         function _p8(s) {  
           var p = (Math.random().toString(16) + "000000000").substr(2,8);  
@@ -18,8 +22,8 @@ var guid = createGuid();
 
 console.log(guid);
 
-import { ref } from 'vue';
-// Abfrage Regeln für die Values
+
+// Abfrage Regeln für die Input Fields/Values 
 const rules = {
 required: value => !!value || 'Erforderlich.',
 exactLength: v => v.length === 4 || 'Genau 4 Zahlen',
@@ -31,8 +35,11 @@ email: value => {
   return pattern.test(value) || 'Ungültige E-Mail.';
 },
 };
+
+// Konstanten für das Signup Forn 
 const currentDatetime = new Date().toISOString();
   console.log(currentDatetime)
+
 const Anrede = ref('')
 const Vorname = ref('')
 const Name = ref('')
@@ -48,6 +55,7 @@ const errorAlert = ref(false);
 const successMessage= ref(''); 
 const errorMessage= ref('');
 const form = ref(null);
+
 const resetForm = () => {
 if (form.value) {
   form.value.reset(); 
@@ -55,13 +63,14 @@ if (form.value) {
 };
 
 
-
+// fetchen der Standorte für das  Autocomplete 
 const { data: location, pending } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",
   body: { query: "query { swps_Standort { Name Standort_ID }}" },
 })
 
 
+// die addUser Konstante mit der zugehörigen Fetch/Mutation 
 const addUser = async() =>{
   try {
     // Anrede üperprüfen
@@ -96,77 +105,73 @@ const addUser = async() =>{
     
   });
  
-
-
-
-const res = await useFetch ('http://localhost:8080/v1/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      // hier alles reinpacken für den User etc einfach hasura dings aufmachen  
-      // der User ist noch nicht aktiv wenn er ein Profil erstellt, muss sich erst anmelden dann soll er aktiv werden
-      body: JSON.stringify({
-        query: `
-        mutation MyMutation ($Anrede: String!,$Name: String!, $Vorname: String!, $Mail: String!, $Personen_ID: uniqueidentifier! $Standort_ID: uniqueidentifier! $Latest_update: datetime="", $PIN:String!){
-          insert_swps_Personen(objects: {
-            Aktiv: false, 
-            Anrede: $Anrede, 
-            Mail: $Mail, 
-            Name: $Name, 
-            Personen_ID: $Personen_ID, 
-            Standort_ID: $Standort_ID, 
-            Vorname: $Vorname, 
-            }) {
-          returning {
-            Aktiv
-            Anrede
-            Mail
-            Name
-            Personen_ID
-            Standort_ID
-            Vorname
-      }
-    }
-    insert_swps_PersonenExt(objects: {  
-      Latest_update: $Latest_update, 
-      PIN: $PIN, 
-      Personen_ID: $Personen_ID
-    }) {
-      returning {
-        Latest_update
-        PIN
-        Personen_ID
-      }
-    }
-  }`,
-          variables: {
-          Anrede: Anrede.value,
-          Mail: Mail.value, 
-          Name: Name.value,
-          Personen_ID: Personen_ID,
-          PIN: PIN.value, 
-          Vorname:Vorname.value, 
-          Latest_update:currentDatetime,
-          Standort_ID: Standort_ID.value,
+  const res = await useFetch ('http://localhost:8080/v1/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      }),
-    });   
-    // Log the raw response from the server
-  console.log('Raw response:', res);
+        body: JSON.stringify({
+          query: `
+          mutation MyMutation ($Anrede: String!,$Name: String!, $Vorname: String!, $Mail: String!, $Personen_ID: uniqueidentifier!, $Standort_ID: uniqueidentifier!, $Latest_update: datetime="", $PIN:String!){
+            insert_swps_Personen(objects: {
+              Aktiv: true, 
+              Anrede: $Anrede, 
+              Mail: $Mail, 
+              Name: $Name, 
+              Personen_ID: $Personen_ID, 
+              Standort_ID: $Standort_ID, 
+              Vorname: $Vorname, 
+              }) {
+            returning {
+              Aktiv
+              Anrede
+              Mail
+              Name
+              Personen_ID
+              Standort_ID
+              Vorname
+        }
+      }
+      insert_swps_PersonenExt(objects: {  
+        Latest_update: $Latest_update, 
+        PIN: $PIN, 
+        Personen_ID: $Personen_ID
+      }) {
+        returning {
+          Latest_update
+          PIN
+          Personen_ID
+        }
+      }
+    }`,
+            variables: {
+            Anrede: Anrede.value,
+            Mail: Mail.value, 
+            Name: Name.value,
+            Personen_ID: Personen_ID,
+            PIN: PIN.value, 
+            Vorname:Vorname.value, 
+            Latest_update:currentDatetime,
+            Standort_ID: Standort_ID.value,
+          },
+        }),
+      });   
+      // Log für Raw response vom Server
+    console.log('Raw response:', res);
 
-// Additional logging based on how useFetch works
+// Log für Success Benachrichtigung 
 if (res && res.data && res.data.value) {
-console.log('Processed response:', res.data.value);
-successMessage.value= 'Neue Person erfolgreich hinzugefügt';
-successAlert.value = true; 
-errorAlert.value = false; 
+  console.log('Processed response:', res.data.value);
+  successMessage.value= 'Neue Person erfolgreich hinzugefügt';
+  successAlert.value = true; 
+  errorAlert.value = false; 
 }
 
-// Check and log any errors
+// Log für Error Benachrichtigung
 if (res.error && res.error.value) {
-console.error('Fetch error:', res.error.value);
+  console.error('Fetch error:', res.error.value);
 }
+// try { wird hier gecatched 
 } catch (error) {
 console.error('Error during fetch operation:', error);
 errorMessage.value = 'Fehler bei der Nutzererstellung  ';
@@ -188,9 +193,10 @@ successAlert.value = false;
       title="Account erstellen"
       color="#080705"
     > <!-- alternative einfach color="#080705"-->
-    <!-- clevr style siehe unten ist geil -->
+    <!-- clevr style siehe unten ist ganz nice  -->
   <v-form ref="form">
       <v-container class="mx-auto pa-2">
+        <!-- Error/Success Alerts-->
         <v-alert
           v-if="successAlert"
           type="success"
@@ -207,6 +213,8 @@ successAlert.value = false;
           @dismiss="errorAlert=false"
           > {{ errorMessage }}
       </v-alert> 
+
+      <!-- Anrede auswählen -->
         <v-autocomplete
           ref="anrede"
           v-model="Anrede"
@@ -220,6 +228,7 @@ successAlert.value = false;
           required
         ></v-autocomplete>
 
+      <!-- Vorname eingeben   -->
       <v-text-field 
           ref="first"
           v-model="Vorname"
@@ -232,6 +241,7 @@ successAlert.value = false;
           required
         ></v-text-field>
 
+        <!-- Name eingeben   -->
         <v-text-field
           ref="last"
           v-model="Name"
@@ -244,7 +254,7 @@ successAlert.value = false;
           required
         ></v-text-field>
         
-        
+        <!-- E-Mail eingeben  -->
         <v-text-field
           ref="email"
           v-model="Mail"
@@ -256,6 +266,7 @@ successAlert.value = false;
           required
         ></v-text-field>
 
+        <!-- Standort auswählen-->
         <v-autocomplete
           ref="standort"
           v-model="Standort_ID"
@@ -271,8 +282,8 @@ successAlert.value = false;
           required
         ></v-autocomplete> 
 
+        <!-- PIN auswählen -->
         <v-text-field
-          
           v-model="PIN"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.required, rules.exactLength, rules.numbersOnly]"
@@ -287,7 +298,6 @@ successAlert.value = false;
         ></v-text-field>
 
         <v-text-field
-          
           v-model="pincheck"
           :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.matchPin]"
@@ -319,6 +329,7 @@ successAlert.value = false;
 
     <v-spacer></v-spacer>
 
+<!-- @click wir das Userprofil erstellt -->
         <v-btn
           variant="text" 
           color="success"
@@ -328,7 +339,7 @@ successAlert.value = false;
         </v-btn>
         
       </v-card-actions>
-      <v-row justify="center"> <!-- Centering the button -->
+      <v-row justify="center"> 
       <v-col cols="12">
       <v-btn 
           variant="text" 
@@ -341,8 +352,10 @@ successAlert.value = false;
     </v-row>
     </v-form>
   </v-card>
-  </template>
 
+</template>
+
+<!-- möglich Styles die wir für die ganze Karte benutzen bzw. ändern können -->
 <style scoped>
 .my-card {
 background-color: rgba(255, 255, 255, 0.25); 

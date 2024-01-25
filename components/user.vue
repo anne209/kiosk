@@ -1,95 +1,86 @@
-    <!--alert einbauen für erfolgreich PIN eingabe und Fehlermeldung -->
-    <!-- kleines Lade ding eibnauen für das Login geht viel zu schnell auf die home page -->
-       <script setup>
-       import { globalStore } from '@/global.js';
-       import { useRouter } from 'vue-router'; 
-       const props = defineProps({
-         user:Object, 
-         correctPIN: String
-       });   
-       const successMessage = ref('')
-       const data= ref({
-         enteredPIN:'',
-         showPINInput:true
-       });
-   
-       const PIN=ref ('');
-       const router = useRouter();
+ 
+ <!--alert einbauen für erfolgreich PIN eingabe und Fehlermeldung -->
+
+ <script setup>
+ import { ref, watch, defineProps } from 'vue';
+ import { useRouter } from 'vue-router';
+ import { useGlobalState } from '~/composables/useGlobalState'; 
+
+ const { setPersonen_ID } = useGlobalState();
+ const router = useRouter();
+ const props = defineProps({
+   user: Object, 
+   correctPIN: String
+ });
+ const successMessage = ref('');
+ const data = ref({
+   enteredPIN: '',
+   showPINInput: true
+ });
+ const PIN = ref('');
+
+ watch(successMessage, () => {
+   data.showPINInput = false;
+   data.SuccessMessage = true;
+   setTimeout(() => {
+     data.showPINInput = true;
+     data.showSuccessMessage = false;
+   }, 20000);
+ });
+
+ function submitPIN() {
+   console.log('Entered submitPIN function');
+
+   if (props.correctPIN === null) {
+     successMessage.value = 'Dieser Nutzer hat keine PIN bzw. (null)';
+     console.log('User does not have a PIN');
+   } else if (PIN.value === props.correctPIN) {
+     successMessage.value = 'Erfolgreiche PIN Eingabe';
+     console.log('Correct PIN entered!');
+     PIN.value = '';
+     // Updated die Personen_ID mit der setPersonen_ID Methode aus useGlobalState.js
+     setPersonen_ID(props.user.Personen_ID);
+     router.push({ path: '/home' });
+   } else {
+     successMessage.value = 'Falsche PIN. Bitte nochmal versuchen';
+     console.log('Incorrect PIN entered.');
+     PIN.value = '';
+   }
+ }
+</script>
+
+ <template>
+   <v-card theme="dark">
+     <div class="d-flex flex-no-wrap justify-space-between">
+       <div>
+         <v-card-title class="text-h5">
+           {{ user.Vorname }} {{ user.Name }} 
+         </v-card-title>
+
+         <v-card-subtitle>{{ user.Mail }}</v-card-subtitle>
        
-       watch(successMessage, () =>{
-         data.showPINInput = false; 
-         data.SuccessMessage= true; 
-         setTimeout(()=> {
-           data.showPINInput = true; 
-           data.showSuccessMessage = false; 
-         }, 20000);
-       })
-        
-       function submitPIN() {
-         console.log('Entered submitPIN function');  
-         console.log('Button clicked');
-         console.log('Entered PIN type:', typeof PIN); // Log entered PIN type for debugging
-         console.log('Correct PIN type:', typeof props.correctPIN);
-         console.log('Entered PIN:', PIN); // Log entered PIN for debugging
-         console.log('Correct PIN:', props.correctPIN);
-   
-   
-         if  (props.correctPIN === null ) {
-           successMessage.value = 'Dieser Nutzer hat keine PIN bzw. (null)'   // Idee: Nutzer die keine PIN haben koennen auch einfach direkt sich anmelden ohne 
-           console.log('User does not have a PIN');
-   
-         } else if (PIN.value === props.correctPIN) {
-           successMessage.value = 'Erfolgreiche PIN Eingabe';
-           console.log('Correct PIN entered!');
-           PIN.value = '';  
-           // hier wird die Personen_ID von der jetzt angemeldeten Person in die root abegeben und kann so von den anderen Seiten abgefragt werden  
-           globalStore.Personen_ID = props.user.Personen_ID;
-           router.push({ path: '/home' });
-           
-   
-         } else {
-           successMessage.value = 'Falsche PIN. Bitte nochmal versuchen';
-           console.log('Incorrect PIN entered.');
-           PIN.value = '';
-         }
-         
-       }
-   
-       </script>
-   
-       <template>
-         <v-card theme="dark">
-           <div class="d-flex flex-no-wrap justify-space-between">
-             <div>
-               <v-card-title class="text-h5">
-                 {{ user.Vorname }} {{ user.Name }} 
-               </v-card-title>
-   
-               <v-card-subtitle>{{ user.Mail }}</v-card-subtitle>
-             
-             <v-text-field
-               v-show="data.showPINInput"
-               v-model="PIN"
-               type="password"
-               label="Enter PIN"
-               color="blue"
-               ></v-text-field>
-   
-   
-             <v-btn @click="submitPIN">PIN einsenden</v-btn>
-             <div v-if="successMessage"> {{ successMessage }}</div>
-             </div>
-   
-             <v-avatar class="ma-3" size="125" rounded="0">
-               <v-img :src="'https://robohash.org/' + user.Name + '.png'"></v-img>
-             </v-avatar>
-           </div>
-         </v-card>
-       </template>
-   
-       <style scoped>
-       p {
-         font-family: sans
-       }
-       </style>
-   
+       <v-text-field
+         v-show="data.showPINInput"
+         v-model="PIN"
+         type="password"
+         label="Enter PIN"
+         color="blue"
+         ></v-text-field>
+
+
+       <v-btn @click="submitPIN">PIN einsenden</v-btn>
+       <div v-if="successMessage"> {{ successMessage }}</div>
+       </div>
+
+       <v-avatar class="ma-3" size="125" rounded="0">
+         <v-img :src="'https://robohash.org/' + user.Name + '.png'"></v-img>
+       </v-avatar>
+     </div>
+   </v-card>
+ </template>
+
+ <style scoped>
+ p {
+   font-family: sans
+ }
+ </style>

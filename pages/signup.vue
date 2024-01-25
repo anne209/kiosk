@@ -1,5 +1,5 @@
 <script>
-  definePageMeta({layout:'funny'});
+  definePageMeta({layout:'signuplayout'});
 </script>
 <template>
     
@@ -12,7 +12,6 @@
       </v-col>
   
       <v-col cols="12" md="6">
-       
         <newuser></newuser>
       </v-col>
     </v-row>

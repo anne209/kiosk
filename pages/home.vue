@@ -1,14 +1,14 @@
+
 <script setup lang="ts">
-import { globalStore } from '@/global.js'
 definePageMeta({layout:'default',});
 
+import { useGlobalState } from '~/composables/useGlobalState';
+const {Personen_ID, setPersonen_ID, resetPersonen_ID} = useGlobalState();
 
-const Personen_ID = globalStore.Personen_ID;
-if (Personen_ID) {
-  console.log('Received Personen_ID:', Personen_ID);
-} else {
-  console.log('Personen_ID not received.');
-}
+console.log(`Initial Personen_ID: ${Personen_ID.value}`);
+
+
+
 
 const { data: produkte, pending, error } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",

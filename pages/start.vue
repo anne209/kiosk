@@ -1,7 +1,16 @@
 <!-- das ist die seite für user/admin auswahl-->
 <script setup lang="ts">
-import { globalStore } from '@/global.js';
-console.log('Current Personen_ID:', globalStore.Personen_ID);
+import { useGlobalState } from '~/composables/useGlobalState';
+const { Personen_ID } = useGlobalState();
+
+// Log 
+console.log(`Initial Personen_ID: ${Personen_ID.value}`);
+
+// Watcher
+watch(Personen_ID, (newValue, oldValue) => {
+  console.log(`Personen_ID changed from ${oldValue} to ${newValue}`);
+});
+
 definePageMeta({layout:'login',});
 
 const { data: users, pending, error } = await useFetch(`http://localhost:8080/v1/graphql`, {
@@ -10,18 +19,26 @@ const { data: users, pending, error } = await useFetch(`http://localhost:8080/v1
 })
 const show_all = ref(false);
 const show_all_model_text = computed(() => show_all.value ? "ja" : "nein");
+const PersonenSuche = ref('');
+
+
+
 
 </script>
 
 <template>
   <v-card  class="pa-8 d-flex my-card justify-center flex-wrap">
     <v-responsive max-width="550">
-      <!-- hier kann man seinen Namen anzeigen lassen und der soll dann unten aufgeführt werden -->
-      <!-- hier muss man die items noch richtig anschliessen an die query-->
+      
+     
       <!-- farbe in das autocomplete einbauen-->
       <v-autocomplete 
-        :items="items" 
-        append-inner-icon="mdi-microphone"
+        minLength="3"
+        v-model="PersonenSuche"
+        :items="users.data.swps_Personen.map(item => ({Personen_ID: item.Personen_ID, text: item.Name}))"
+        item-text="text"
+        item-value="Personen_ID"
+        item-title="text"
         auto-select-first
         class="flex-full-width"
         density="comfortable"
@@ -43,6 +60,17 @@ const show_all_model_text = computed(() => show_all.value ? "ja" : "nein");
       </v-col>
     </v-row>
   </v-container>
+  <!-- hier muss irgendwie gecentered werden-->
+  <v-container justify-center align-center>
+      <v-row >
+        <v-col v-if="PersonenSuche" :key="PersonenSuche" sm="4">
+        <User
+          :user="users.data.swps_Personen.find(user => user.Personen_ID === PersonenSuche)"
+          :correctPIN="users.data.swps_Personen.find(user => user.Personen_ID === PersonenSuche)?.PersonenExt.PIN"
+        ></User>
+      </v-col>
+      </v-row>
+    </v-container>
   <p v-if="pending">Fetching...</p>
   <pre v-else-if="error">Could not load: {{ error.data }}</pre>
   <div v-else>
@@ -59,8 +87,6 @@ const show_all_model_text = computed(() => show_all.value ? "ja" : "nein");
 
 <style scoped>
 .my-card {
-  background-color: rgba(255, 255, 255, 0.25);
- 
-
+  background-color: rgba(255, 255, 255, 0.25); 
 }
 </style>

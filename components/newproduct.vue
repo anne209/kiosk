@@ -49,7 +49,7 @@ const addProduct = async () => {
     // Produkt_ID generieren 
     const Produkt_ID =createGuid();
     
-    // Log the values before sending the request
+    // Logs
     console.log('Sending request with values:', {
       Name: Name.value,
       Preis: Preis.value,
@@ -94,10 +94,10 @@ const addProduct = async () => {
       }),
     });      
 
-    // Log the raw response from the server
+    // Log für Raw response vom Server
     console.log('Raw response:', res);
 
-    // Additional logging based on how useFetch works
+    // Log für Success Benachrichtigung
     if (res && res.data && res.data.value) {
       console.log('Processed response:', res.data.value);
       successMessage.value= 'Produkt erfolgreich hinzugefügt';
@@ -105,10 +105,11 @@ const addProduct = async () => {
       errorAlert.value = false; 
     }
 
-    // Check and log any errors
+    // Log für Error Benachrichtigung
     if (res.error && res.error.value) {
       console.error('Fetch error:', res.error.value);
     }
+    // try { wird hier gecatched 
   } catch (error) {
     console.error('Error during fetch operation:', error);
     errorMessage.value = 'Fehler beim Produkt hinzufügen ';
@@ -154,16 +155,15 @@ const addProduct = async () => {
           required
           ></v-text-field> 
 
-            <v-card-subtitle> <!-- hier sollte man den preis ändern koennen-->
+            <v-card-subtitle> 
               <v-text-field
               v-model="Preis"
               :rules="[() => !!Preis|| 'Preis ist erforderlich',v => /^\d+$/.test(v) || 'Nur Zahlen sind erlaubt.',]"
               label="Preis eingeben"
               required
-              > </v-text-field>    
+              > </v-text-field>  
+
             </v-card-subtitle>
-                 <!-- in der Standort items list wird nur object Object angezeigt, also kp warum nicht automatisch die Namen der Städte angezeigt werde-->
-                 <!-- v-model="Standort_ID"-->
               <v-autocomplete 
                   v-model="Standort_ID"
                   :rules="[() => !!Standort || 'Standort ist erforderlich']"

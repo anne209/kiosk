@@ -55,8 +55,8 @@
             color="#1098F7"
             height="40"
             variant="flat"
-            @click="goToUsersPage"
-            >Dein Profil</v-btn>  <!-- Hier sollte der Button auch ein Component werden-->
+            @click="goToUserHistoryPage"
+            >Deine Käufe</v-btn>  <!-- Hier sollte der Button auch ein Component werden-->
   
         </div>
   
@@ -67,8 +67,8 @@
             variant="flat"
             height="40"
             class="flex-grow-1"
-            @click="goToLocationPage"
-          >Deine Location</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
+            @click="goToUserProfilePage"
+          >Dein Profil</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
         </div>
         <div class="d-flex px-2 my-2 align-center">
             <v-btn
@@ -111,11 +111,11 @@
     
       data:()=>({drawer:null }), 
     methods:{
-      goToUsersPage(){
-        this.$router.push('/userprofil');
+      goToUserHistoryPage(){
+        this.$router.push('/userhistory');
       },
-      goToLocationPage(){ 
-        this.$router.push('/location')
+      goToUserProfilePage(){ 
+        this.$router.push('/userprofil')
       }, 
       goToHomePage(){
         this.$router.push('/home')
@@ -146,6 +146,6 @@ background: repeating-linear-gradient(
   rgba(255,107,53,1) 41%,
   rgba(8,7,5,1) 41%
 );
-/* Additional styles (e.g., height, width) */
+
 }
 </style>

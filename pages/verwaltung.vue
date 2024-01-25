@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({           // hier definieren wir das admin layout ansonsten wird immer default benutzt
+definePageMeta({           
 layout: 'admin'
 })
 </script>

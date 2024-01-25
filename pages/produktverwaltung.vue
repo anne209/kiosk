@@ -37,11 +37,11 @@
   }
   
   .newproduct {
-    flex: 12 1 auto; /* Do not grow or shrink, fixed width */
+    flex: 12 1 auto; 
   }
   
   .produkt-admin-row {
-    flex: 1; /* Grow to fill available space */
-    justify-content: flex-start; /* Align items to the start (left) */
+    flex: 1; 
+    justify-content: flex-start; 
   }
   </style>
