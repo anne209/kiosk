@@ -13,7 +13,6 @@
       density="compact"
       
       image="https://picsum.photos/1920/1080?random" 
-      class="diagonal-stripes-gradient"
     > 
       <v-app-bar-nav-icon 
       color="white"
@@ -25,12 +24,7 @@
             @click="goToHomePage"
             >Löwenshop24
           </v-btn> <!-- Component bauen??-->
-                <v-avatar
-                  color="#1098F7"
-                  class="hidden-md-and-up"
-                  size="32"
-                ></v-avatar> <!-- Das ist ein button der nur erscheint wenn die seite auf "mobile" läuft-->
-
+              
     <v-spacer></v-spacer>
 
                   <logoutbtn></logoutbtn>
@@ -47,6 +41,17 @@
                       prepend-inner-icon="mdi-magnify"
                       variant="solo-filled"
                     ></v-text-field>
+        </div>
+
+        <div class="d-flex px-2 my-2 align-center">
+          <v-btn 
+          prepend-icon="mdi-home"
+            class="flex-grow-1"
+            variant="elevated"
+            @click="goToHomePage"
+            >Löwenshop24
+          </v-btn>
+
         </div>
         <div class="d-flex px-2 my-2 align-center">
           <v-btn 
@@ -70,25 +75,9 @@
             @click="goToUserProfilePage"
           >Dein Profil</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
         </div>
-        <div class="d-flex px-2 my-2 align-center">
-            <v-btn
-          prepend-icon="mdi-cart-outline"
-            color="#FF6B35"
-            variant="flat"
-            height="40"
-            class="flex-grow-1"
-            @click="goToCartPage"
-          >Dein Warenkorb</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
-        </div>
 
-  
-        <div class="px-2 my-2">     <!-- hier ist alles unter "Dein Warenkorb,", Idee koennte der Warenkorb darstellen -->
-  
-  
-          <v-divider class="my-6"></v-divider>
-  
-          <v-divider class="my-6"></v-divider>
-        </div>
+
+
       </v-navigation-drawer>
 <v-main>
   <slot/>
@@ -120,9 +109,7 @@
       goToHomePage(){
         this.$router.push('/home')
       }, 
-      goToCartPage(){
-        this.$router.push('/cart')
-      }
+
     }
   };
 </script>
