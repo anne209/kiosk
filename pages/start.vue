@@ -71,18 +71,8 @@ const PersonenSuche = ref('');
       </v-col>
       </v-row>
     </v-container>
-  <p v-if="pending">Fetching...</p>
-  <pre v-else-if="error">Could not load: {{ error.data }}</pre>
-  <div v-else>
-    
-    <v-container>
-      <v-row>
-        <v-col v-for="user in users.data.swps_Personen" :key="user.Personen_ID" sm="4">
-          <User :user="user" :correctPIN="user.PersonenExt.PIN" v-if="show_all || user.Aktiv" ></User>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+ 
+  
 </template>
 
 <style scoped>
