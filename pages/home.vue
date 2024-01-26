@@ -27,14 +27,7 @@ const show_all_model_text = computed(() => show_all.value ? "yes" : "no");
 
   <main>
   <v-sheet  color="#F5F5F5">
-    <v-container style="width: 100vw;">
-    <v-row>
-      <v-col sm="1">Show all: {{ show_all_model_text }}</v-col>
-      <v-col sm="1">
-        <v-switch color="primary" v-model="show_all"  messages="show all"></v-switch>
-      </v-col>
-    </v-row>
-    </v-container>
+
   <p v-if="pending">Fetching...</p>
   <pre v-else-if="error">Could not load: {{ error.data }}</pre>
   <div v-else>
