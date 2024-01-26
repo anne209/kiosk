@@ -10,7 +10,7 @@
             <v-icon end icon="mdi-account-check"></v-icon>
           </v-btn>
         </v-app-bar>
-    <v-main class="stripe-background">
+    <v-main class="wave-background">
       <slot />
     </v-main>
   </v-app>
@@ -42,6 +42,12 @@
   </script>
   
 <style scoped>
+
+.wave-background{
+background-image:  repeating-radial-gradient(circle at 0 0, transparent 0, #ff6b36 100px), repeating-linear-gradient(rgba(255, 0, 0, 0.7), rgba(0, 0, 0, 0.65));
+background-color: #ff6b36;
+}
+
 .stripe-background {
   background-color: #FFFFFF; 
   background-image:
