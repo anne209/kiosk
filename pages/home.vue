@@ -33,9 +33,6 @@ const show_all_model_text = computed(() => show_all.value ? "yes" : "no");
       <v-col sm="1">
         <v-switch color="primary" v-model="show_all"  messages="show all"></v-switch>
       </v-col>
-      <v-col>
-        <cartbadge></cartbadge>
-      </v-col>
     </v-row>
     </v-container>
   <p v-if="pending">Fetching...</p>
@@ -43,7 +40,7 @@ const show_all_model_text = computed(() => show_all.value ? "yes" : "no");
   <div v-else>
     <v-container>
       <v-row>
-        <v-col v-for="produkt in produkte.data.swps_Produkt" :key="produkt.Produkt_ID">               
+        <v-col v-for="produkt in produkte.data.swps_Produkt" :key="produkt.Produkt_ID" cols="4">               
           <produkt :produkt="produkt" :Personen_ID="Personen_ID"></produkt> 
         </v-col>
       </v-row>

@@ -4,7 +4,7 @@
 <template>
     
     <v-row justify="center" align="center" class="fill-height">
-      <v-col cols="12" md="12" class="promo-section">
+      <v-col cols="12" md="6" class="promo-section">
         <div>
           <h1>Der Löwenshop24 Kiosk 🐆 🏪</h1>
           <p>Immer wo du bist</p>
