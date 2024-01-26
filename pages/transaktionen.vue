@@ -62,7 +62,7 @@ const exportToExcel = () => {
   <div v-else>
     <v-list>
     <v-list-item v-for="transaktion in transaktionen.data.swps_Transaktion" :key="transaktion.Transaktions_ID">
-      <transaktion :transaktion="transaktion"> </transaktion>
+      <transaktionadmin :transaktion="transaktion"> </transaktionadmin>
 
     </v-list-item>
   </v-list>  
