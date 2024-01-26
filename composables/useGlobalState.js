@@ -13,7 +13,7 @@ export function useGlobalState() {
 
   const Personen_ID = ref(process.client ? localStorage.getItem('Personen_ID') : null);
 
-  // Synchronisiert den state nur auf der Client-Seite mit localStoraga
+  // Synchronisiert den state nur auf der Client-Seite mit localStorage
   if (process.client) {
     watch(Personen_ID, (newID) => {
       localStorage.setItem('Personen_ID', newID);
