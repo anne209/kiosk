@@ -52,14 +52,7 @@ const PersonenSuche = ref('');
       ></v-autocomplete>
     </v-responsive>
   </v-card>
-  <v-container style="width: 100vw;">
-    <v-row>
-      <v-col sm="3">Alle Nutzer anzeigen: {{ show_all_model_text }}</v-col>
-      <v-col sm="2">
-        <v-switch color="primary" v-model="show_all"  density="dense" messages="alle anzeigen"></v-switch>
-      </v-col>
-    </v-row>
-  </v-container>
+ 
   <!-- hier muss irgendwie gecentered werden-->
   <v-container justify-center align-center>
       <v-row >
