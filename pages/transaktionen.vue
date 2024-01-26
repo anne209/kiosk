@@ -10,6 +10,34 @@ const { data: transaktionen, pending, error } = await useFetch(`http://localhost
 })
 
 
+import { ref, onMounted } from 'vue';
+import * as XLSX from 'xlsx';
+
+const personen = ref(null);
+
+// Fetch data on component mount
+onMounted(async () => {
+  const { data, pending: personenPending } = await useFetch('http://localhost:8080/v1/graphql', {
+    method: 'POST',
+    body: JSON.stringify({ query: 'query { swps_Personen { Vorname Name }}' }),
+  });
+
+  personen.value = data;
+  personenPending.value = pending;
+});
+
+// Export function
+const exportToExcel = () => {
+  if (personen.value && personen.value.swps_Personen) {
+    const jsonData = personen.value.swps_Personen;
+    const ws = XLSX.utils.json_to_sheet(jsonData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'exported_data.xlsx');
+  } else {
+    console.error('Error: Data not available for export.');
+  }
+};
 
 
 
