@@ -51,7 +51,6 @@ const addTransaction = async () => {
     // Logs
     console.log('Sending request with values:', {
       Anzahl: Anzahl.value,
-      Abrechnungszeitpunkt: currentDatetime,
       Personen_ID: props.Personen_ID, 
       Produkt_ID: props.produkt.Produkt_ID,
       Transaktions_ID: Transaktions_ID,
@@ -66,9 +65,8 @@ const addTransaction = async () => {
       
       body: JSON.stringify({
         query: `
-          mutation MyMutation($Transaktionszeitpunkt: datetime = "", $Transaktions_ID: uniqueidentifier = "", $Produkt_ID: uniqueidentifier = "", $Personen_ID: uniqueidentifier = "", $Anzahl: Int!, $Abrechnungszeitpunkt: datetime = "") {       
+          mutation MyMutation($Transaktionszeitpunkt: datetime = "", $Transaktions_ID: uniqueidentifier = "", $Produkt_ID: uniqueidentifier = "", $Personen_ID: uniqueidentifier = "", $Anzahl: Int!) {       
             insert_swps_Transaktion(objects: {
-              Abrechnungszeitpunkt: $Abrechnungszeitpunkt, 
               Anzahl: $Anzahl,
               Personen_ID: $Personen_ID, 
               Produkt_ID: $Produkt_ID,
@@ -77,7 +75,6 @@ const addTransaction = async () => {
 
             }) {
               returning {
-                Abrechnungszeitpunkt
                 Anzahl
                 Personen_ID
                 Produkt_ID
@@ -89,7 +86,6 @@ const addTransaction = async () => {
           }`,
           variables: {
           Anzahl: parseInt(Anzahl.value),
-          Abrechnungszeitpunkt: currentDatetime,
           Personen_ID: props.Personen_ID, 
           Produkt_ID: props.produkt.Produkt_ID,
           Transaktions_ID: Transaktions_ID,
@@ -126,8 +122,8 @@ const addTransaction = async () => {
 <template>
         <v-card
           
-          class="mx-auto my-12"
-          max-width="374"
+         class="mx-auto my-12"
+          max-width="400"
           hover
           color="#FF6B35">
         
