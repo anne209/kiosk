@@ -1,3 +1,17 @@
+Hier kommt das ReadMe für den  Selbstbedienungskiosk
+
+Aufbau: 
+
+App.vue 
+layouts
+pages
+components
+composables 
+
+// Weitere Sachen müssen hinzugefügt werden 
+
+
+
 # SWPS Starter
 
 This is an example project that shows how Vue + Nuxt + Vuetify can be used together.
