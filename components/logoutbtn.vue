@@ -8,12 +8,12 @@
 import { useRouter } from 'vue-router';
 import { useGlobalState } from '@/composables/useGlobalState';
 
-const { resetPersonen_ID } = useGlobalState();
+const { resetPersonen } = useGlobalState();
 const router = useRouter();
 
 function logout() {
   // Reset Personen_ID wieder auf  null
-  resetPersonen_ID();
+  resetPersonen();
 
   // Wieder zur Login page  
   router.push({ path: '/start' });

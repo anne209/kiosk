@@ -7,6 +7,8 @@
  import { useGlobalState } from '~/composables/useGlobalState'; 
 
  const { setPersonen_ID } = useGlobalState();
+ const { setName } = useGlobalState(); 
+ const { setVorname } = useGlobalState(); 
  const router = useRouter();
  const props = defineProps({
    user: Object, 
@@ -40,6 +42,8 @@
      PIN.value = '';
      // Updated die Personen_ID mit der setPersonen_ID Methode aus useGlobalState.js
      setPersonen_ID(props.user.Personen_ID);
+     setName(props.user.Name);
+     setVorname(props.user.Vorname);
      router.push({ path: '/home' });
    } else {
      successMessage.value = 'Falsche PIN. Bitte nochmal versuchen';

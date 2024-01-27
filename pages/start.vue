@@ -1,10 +1,12 @@
 <!-- das ist die seite für user/admin auswahl-->
 <script setup lang="ts">
 import { useGlobalState } from '~/composables/useGlobalState';
-const { Personen_ID } = useGlobalState();
+const { Personen_ID, Name, Vorname } = useGlobalState();
 
 // Log 
 console.log(`Initial Personen_ID: ${Personen_ID.value}`);
+console.log(`Initial Name: ${Name.value}`);
+console.log(`Initial Vorname: ${Vorname.value}`);
 
 // Watcher
 watch(Personen_ID, (newValue, oldValue) => {
@@ -33,7 +35,6 @@ const PersonenSuche = ref('');
      
       <!-- farbe in das autocomplete einbauen-->
       <v-autocomplete 
-        minLength="3"
         v-model="PersonenSuche"
         :items="users.data.swps_Personen.map(item => ({Personen_ID: item.Personen_ID, text: item.Name}))"
         item-text="text"
@@ -41,7 +42,6 @@ const PersonenSuche = ref('');
         item-title="text"
         auto-select-first
         class="flex-full-width"
-        density="comfortable"
         item-props
         menu-icon=""
         placeholder="Deinen Namen suchen"
