@@ -4,7 +4,13 @@
   <v-app id="inspire">
     <v-app-bar 
     color="#FDFFFC">
-      <v-app-bar-title>Login Page für Admin und Users</v-app-bar-title>
+    <v-btn @click="goToSignupPage">
+      <v-icon  start icon="mdi-account-plus"></v-icon>
+      Account erstellen?
+    </v-btn>  
+
+      <v-app-bar-title class="text-center">Login Page für Admin und Users</v-app-bar-title>
+   
 
       <v-btn 
       @click="openDialog">
@@ -81,10 +87,13 @@ const submitPassword = () => {
   data:()=>({drawer:null }), 
     methods:{
       goToHomePage(){
-        this.$router.push('/home');
-      }
+        this.$router.push('/home')
+      },
+      goToSignupPage(){
+        this.$router.push('/signup')
       }
     }
+  }
 
 </script>
 
