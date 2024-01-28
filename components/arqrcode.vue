@@ -9,7 +9,7 @@ src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.j
     width: 100%;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0; 
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 9999;
     display: flex;
