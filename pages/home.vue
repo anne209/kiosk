@@ -112,7 +112,7 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
 <template>
   <main>
    
-    <v-sheet color="black">     
+    <v-sheet color="white">     
       <v-container style="width: 100vw;">
         <v-row> <!-- Name des Users wird angezeigt -->
           <h1 class="gradient-text" hover>Hallo {{ Vorname }}!</h1>
