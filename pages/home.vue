@@ -7,7 +7,7 @@ import { useGlobalState } from '~/composables/useGlobalState';
 // globale Variablen aus useGlobalState
 const { Personen_ID, Name, Vorname } = useGlobalState();
 
-// Standort Name als cosnt
+// Standort Name als const
 const selectedLocationName = computed(() => {
   const locationItem = location.value?.data.swps_Standort.find(item => item.Standort_ID === Standort_ID.value);
   return locationItem ? locationItem.Name : '';
