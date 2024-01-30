@@ -144,8 +144,10 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
     <h3>Ausgewählter Standort: {{ selectedLocationName }}</h3>
     <div v-if="weatherData">
       <p>Temperatur: {{ weatherData.current_condition[0].temp_C }}°C</p>
+      <p>Fühlt sich an wie: {{ weatherData.current_condition[0].FeelsLikeC}}°C</p>
     </div>
     <v-carousel cycle hide-delimiters>
+      Wie wäre es mit einem: Hier sollten die Produkte angezeigt werden nach dem Wetter
       <v-carousel-item 
           v-for="produkt in standortprodukte?.swps_Standort_by_pk?.Produkts" 
           :key="produkt.Produkt_ID">
@@ -160,7 +162,7 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
   <div v-else>
     <v-container>
       <v-row>
-        <v-col v-for="produkt in produkte.data.swps_Produkt" :key="produkt.Produkt_ID" cols="4">               
+        <v-col v-for="produkt in produkte.data.swps_Produkt" :key="produkt.Produkt_ID" cols="6">               
           <produkt :produkt="produkt" :Personen_ID="Personen_ID"></produkt> 
         </v-col>
       </v-row>

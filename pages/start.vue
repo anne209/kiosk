@@ -70,6 +70,6 @@ const PersonenSuche = ref('');
 
 <style scoped>
 .my-card {
-  background-color: rgba(255, 255, 255, 0.25); 
+  background-color: rgba(255, 255, 255, 0.0); 
 }
 </style>

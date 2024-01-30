@@ -8,10 +8,7 @@
       <v-icon  start icon="mdi-account-plus"></v-icon>
       Account erstellen?
     </v-btn>  
-
-      <v-app-bar-title class="text-center">Login Page für Admin und Users</v-app-bar-title>
-   
-
+      <v-app-bar-title class="text-center">Login</v-app-bar-title>
       <v-btn 
       @click="openDialog">
       Bist du der Admin?
@@ -38,7 +35,7 @@
     </v-dialog>
     </v-app-bar>
 
-    <v-main style="background: linear-gradient(90deg, rgba(8,7,5,1) 0%, rgba(77,5,21,1) 11%, rgba(114,4,30,1) 16%, rgba(139,3,36,1) 21%, rgba(214,1,54,1) 29%, rgba(241,0,61,1) 32%, rgba(255,0,64,1) 35%, rgba(255,67,114,1) 58%, rgba(255,255,255,1) 100%);">
+    <v-main class="wave-background">
      <slot />
     </v-main>
   </v-app>
@@ -97,3 +94,12 @@ const submitPassword = () => {
 
 </script>
 
+
+<style scoped>
+.wave-background{
+background-image:  repeating-radial-gradient(circle at 0 0, transparent 0, #ff6b36 100px), repeating-linear-gradient(rgba(255, 0, 0, 0.7), rgba(0, 0, 0, 0.65));
+background-color: #ff6b36;
+}
+
+
+</style>
