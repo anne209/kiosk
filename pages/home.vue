@@ -147,7 +147,7 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
       <p>Fühlt sich an wie: {{ weatherData.current_condition[0].FeelsLikeC}}°C</p>
     </div>
     <v-carousel cycle hide-delimiters>
-      Wie wäre es mit einem: Hier sollten die Produkte angezeigt werden nach dem Wetter
+      Wie wäre es mit einem: 
       <v-carousel-item 
           v-for="produkt in standortprodukte?.swps_Standort_by_pk?.Produkts" 
           :key="produkt.Produkt_ID">
