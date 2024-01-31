@@ -96,7 +96,7 @@
         data:()=>({drawer:null }), 
       methods:{
         goToUsersAdmin(){
-          this.$router.push('/userverwaltung')
+          this.$router.push('/nutzerverwaltung')
         },
         goToProductAdmin(){ 
           this.$router.push('/produktverwaltung')

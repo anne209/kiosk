@@ -163,35 +163,35 @@ const addTransaction = async () => {
  
  
       <v-card-item class="py-0">
-  <v-card-title class="text-h4 d-flex align-center" style="flex: 1;">
-    {{ produkt.Name }}
-    <div class="ml-auto">
-      <LionScratchIcon :color="iconColor" :width="iconWidth" :height="iconHeight" />
-    </div>
-  </v-card-title>
-  <v-card-subtitle>
-    Bild vom Produkt:
-  </v-card-subtitle>
-</v-card-item>
+            <v-card-title class="text-h4 d-flex align-center" style="flex: 1;">
+              {{ produkt.Name }}
+              <div class="ml-auto">
+                <LionScratchIcon :color="iconColor" :width="iconWidth" :height="iconHeight" />
+              </div>
+            </v-card-title>
+            <v-card-subtitle>
+              Bild vom Produkt:
+            </v-card-subtitle>
+          </v-card-item>
 
-    <v-card-text class="py-0">
-      <v-row align="center"  no-gutters>
-        
-        <v-col cols="6" class="text-left text-h6">  
-          <v-icon
-            color="#080705"
-            icon="mdi-food"
-            size="80"
-          ></v-icon> 
-        </v-col>
+              <v-card-text class="py-0">
+                <v-row align="center"  no-gutters>
+                  
+                  <v-col cols="6" class="text-left text-h6">  
+                    <v-icon
+                      color="#080705"
+                      icon="mdi-food"
+                      size="80"
+                    ></v-icon> 
+                  </v-col>
 
-          <v-col
-            class="text-h3 text-right"
-            cols="6">
+                  <v-col
+                    class="text-h3 text-right"
+                    cols="6">
 
-        {{produkt.Preis}}€
-        </v-col>
-      </v-row>
+                        {{produkt.Preis}}€
+                </v-col>
+              </v-row>
       
     </v-card-text>
       
@@ -199,40 +199,40 @@ const addTransaction = async () => {
 
            <v-card-actions>
   
-  <v-row  justify-space-between>
-    <v-col cols="6">
-      <v-text-field
-        v-model="Anzahl"
-        label="Anzahl"
-        variant="outlined"
-        hint="1, 2, 3, 1000... Deine Wahl!"
-      ></v-text-field>
-    </v-col>
+              <v-row  justify-space-between>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="Anzahl"
+                    label="Anzahl"
+                    variant="outlined"
+                    hint="1, 2, 3, 1000... Deine Wahl!"
+                  ></v-text-field>
+                </v-col>
 
-    <v-col cols="6">
-      <v-btn
-        block      
-        class="text-none"
-        :disabled="loading"
-        :loading="loading"
-        variant="flat"
-        size="x-large"
-        elevation="4"
-        @click="addTransaction"
-      >Kaufen</v-btn>
+                <v-col cols="6">
+                  <v-btn
+                    block      
+                    class="text-none"
+                    :disabled="loading"
+                    :loading="loading"
+                    variant="flat"
+                    size="x-large"
+                    elevation="4"
+                    @click="addTransaction"
+                  >Kaufen</v-btn>
       
- 
-    </v-col>
+                
+                    </v-col>
 
-    <v-col class="d-flex justify-end">
-      <v-btn
-        variant="tonal"
-        :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-        @click="show = !show"
-      ></v-btn>
-    </v-col>
-  </v-row>
-</v-card-actions>
+                    <v-col class="d-flex justify-end">
+                      <v-btn
+                        variant="tonal"
+                        :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                        @click="show = !show"
+                      ></v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card-actions>
 
 
 

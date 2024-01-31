@@ -19,7 +19,7 @@
   </template>
   
 
-  
+  <!-- styling für den Löwenshop -->
   <style scoped>
   .promo-section {
     color: white;

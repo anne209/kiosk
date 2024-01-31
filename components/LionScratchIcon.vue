@@ -1,3 +1,4 @@
+<!-- svg datei für das Löwenscrattchicon welches auf verschiedenen v-cards abgebildet ist -->
 <template>
   
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" :width="width" :height="height" viewBox="0 0 2836 2836">

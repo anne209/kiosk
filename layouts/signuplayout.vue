@@ -48,25 +48,4 @@ background-image:  repeating-radial-gradient(circle at 0 0, transparent 0, #ff6b
 background-color: #ff6b36;
 }
 
-.stripe-background {
-  background-color: #FFFFFF; 
-  background-image:
-    linear-gradient(
-      156deg,
-      rgba(255, 0, 0, 0.7) 20%,
-      rgba(255, 165, 0, 0.7) 20%,
-      rgba(255, 165, 0, 0.7) 40%,
-      transparent 40%,
-      transparent 60%,
-      rgba(128, 128, 128, 0.7) 60%,
-      rgba(128, 128, 128, 0.7) 80%,
-      transparent 80%
-    ),
-    linear-gradient(
-      336deg,
-      transparent 70%,
-      #000000 70%
-    );
-}
-
 </style>
