@@ -115,8 +115,10 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
     <v-sheet color="white">     
       <v-container style="width: 100vw;">
         <v-row> <!-- Name des Users wird angezeigt -->
-          <h1 class="gradient-text" hover>Hallo {{ Vorname }}!</h1>
-          <v-col cols="5" class="ml-auto">
+          <h1 class="gradient-text mr-auto" hover >Hallo {{ Vorname }}!</h1>
+          </v-row>
+          <v-row>
+           <v-col cols="6" class="mr-auto">
             <!-- autocomplete Auswahl für die Standorte -->
             <v-autocomplete
               v-model="Standort_ID" 
@@ -125,36 +127,38 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
               item-value="Standort_ID"
               item-title="text"
               @update:model-value="fetchData(); fetchWeatherData();" 
-              placeholder="Wählen einen Standort aus" 
+              label="Wählen einen Standort aus" 
+              placeholder="Dein Standort"
               prepend-inner-icon="mdi-map-marker-radius"
-              rounded
+              variant="outlined"
+              
             ></v-autocomplete> <!-- wenn die Location im autocomplete geändert, werden fetchData() und fetchWeatherData() getriggert-->
           </v-col>
-        </v-row>
-    </v-container>
-    <v-container>
-  <div v-if="loading">
-    Loading...
-  </div>
-  <div v-else-if="error">
-    Error: {{ error }}
-  </div>
-  <!-- hier wird der ausgwählte Standort mit dazugehörigen Temperatur angezeigt -->
-  <div v-else>
-    <h3>Ausgewählter Standort: {{ selectedLocationName }}</h3>
-    <div v-if="weatherData">
-      <p>Temperatur: {{ weatherData.current_condition[0].temp_C }}°C</p>
-      <p>Fühlt sich an wie: {{ weatherData.current_condition[0].FeelsLikeC}}°C</p>
-    </div>
+          <div v-if="loading">
+          Loading...
+        </div>
+        <div v-else-if="error">
+          Error: {{ error }}
+        </div>
+        <!-- hier wird der ausgwählte Standort mit dazugehörigen Temperatur angezeigt -->
+        <div v-else>
+          <h3>Dein Standort: {{ selectedLocationName }}</h3>
+          <div v-if="weatherData">
+            <p>Temperatur: {{ weatherData.current_condition[0].temp_C }}°C</p>
+            <p>Fühlt sich an wie: {{ weatherData.current_condition[0].FeelsLikeC}}°C</p>
+        </div>
+      </div>
+              </v-row>
+            
     <v-carousel cycle hide-delimiters>
-      Wie wäre es mit einem: 
+      Wie wäre es mit: 
       <v-carousel-item 
           v-for="produkt in standortprodukte?.swps_Standort_by_pk?.Produkts" 
           :key="produkt.Produkt_ID">
         <produkt :produkt="produkt" :Personen_ID="Personen_ID"></produkt>
       </v-carousel-item>
     </v-carousel>
-  </div>
+  
 </v-container>
   
 <!-- hier werden alle Produkte angezeigt -->
@@ -181,11 +185,9 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
 
 .gradient-text {
   font-size: 3rem;
-  background: linear-gradient(to right, teal, #FF1654); 
-  -webkit-background-clip: text; 
+  background: linear-gradient(to right, #FF6B35, #FF1654); 
   background-clip: text;
   color: transparent; 
-  position: relative; 
 }
 
 

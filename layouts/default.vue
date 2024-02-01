@@ -1,13 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-footer
-      app
-      color="#FDFFFC"
-      height="90"
-      style="display: flex; justify-content: center; align-items: center;">
-      <v-progress-linear :value="progressValue" color="red"></v-progress-linear>
-    </v-footer>
-  
+
     <v-app-bar
       flat
       density="compact"
