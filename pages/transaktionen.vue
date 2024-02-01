@@ -85,7 +85,7 @@ const excelfunction = async () => {
 
 <v-btn
 @click="excelfunction"
->Daten auf Excel exportieren</v-btn>
+>Daten als Excel Datei exportieren</v-btn>
 
 <p v-if="pending">Fetching...</p>
   <pre v-else-if="error">Could not load: {{ error.data }}</pre>
