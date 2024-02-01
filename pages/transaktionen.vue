@@ -80,10 +80,8 @@ const excelfunction = async () => {
 
 </script>
 
-
+<!-- die transaktion sollten vielleicht irgendwie richtig sortiert werden -->
 <template>
-
-
 
 <v-btn
 @click="excelfunction"
@@ -93,7 +91,7 @@ const excelfunction = async () => {
   <pre v-else-if="error">Could not load: {{ error.data }}</pre>
   <div v-else>
     <v-list>
-    <v-list-item v-for="transaktion in transaktionen.data.swps_Transaktion" :key="transaktion.Transaktions_ID">
+    <v-list-item v-for="transaktion in transaktionen.data.swps_Transaktion" :key="transaktion.Transaktions_ID"> 
       <transaktionadmin :transaktion="transaktion"> </transaktionadmin>
 
     </v-list-item>

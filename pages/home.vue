@@ -70,6 +70,9 @@ const fetchData = async () => {
                 Name
                 Preis
                 Produkt_ID
+                Standort { 
+                  Name 
+                }
                 Standort_ID
               }
             }
@@ -102,7 +105,8 @@ const fetchData = async () => {
 // Alle Produkte fetchen 
 const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",
-  body: { query: "query { swps_Produkt { Name Preis Produkt_ID Standort_ID }}" },
+  body: { query: "query { swps_Produkt { Name Preis Produkt_ID  Standort { Name } Standort_ID }}" },
+    
 });
 
 </script>

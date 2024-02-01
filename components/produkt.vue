@@ -169,9 +169,12 @@ const addTransaction = async () => {
                 <LionScratchIcon :color="iconColor" :width="iconWidth" :height="iconHeight" />
               </div>
             </v-card-title>
+            
             <v-card-subtitle>
-              Bild vom Produkt:
+              {{produkt.Standort.Name}}
             </v-card-subtitle>
+            Bild:
+
           </v-card-item>
 
               <v-card-text class="py-0">
