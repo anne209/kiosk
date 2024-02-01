@@ -1,5 +1,6 @@
 
 <script setup>
+    definePageMeta({layout: 'admin'});
   import { ref, onMounted } from 'vue';
   
   const selectedSorting = ref('Latest_update_DESC'); // Default sorting criteria
