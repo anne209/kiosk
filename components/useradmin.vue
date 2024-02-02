@@ -16,7 +16,7 @@ const props = defineProps({
 
 
 <template>
-    <v-card class=" card" elevation="9" max-width="400" hover >
+    <v-card class="card" elevation="9" max-width="400" hover >
      
         
       <v-card-item class="py-0"> 

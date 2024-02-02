@@ -137,7 +137,7 @@ const addTransaction = async () => {
 </script>
 
 <template>
-  <v-card class="mx-auto my-10 card" elevation="9" max-width="400" hover >
+  <v-card class="mx-auto my-10 card" elevation="9" max-width="400" hover>
     
     <!-- Alert notifications -->
       <v-alert
@@ -223,8 +223,6 @@ const addTransaction = async () => {
                     elevation="4"
                     @click="addTransaction"
                   >Kaufen</v-btn>
-      
-                
                     </v-col>
                   </v-row>
                 </v-card-actions>
