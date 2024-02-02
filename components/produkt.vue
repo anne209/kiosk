@@ -3,8 +3,8 @@ import LionScratchIcon from "@/components/LionScratchIcon.vue";
 import { ref } from 'vue';
 
 // LöwenScratch bearbeiten 
-const iconColor = ref('red'); // die Farbe wird hier nicht verändert, ist fest eingstellt in LionScratchIcon.vue
-const iconWidth = ref('80'); // Breite
+const iconColor = ref('black'); // die Farbe wird hier nicht verändert, ist fest eingstellt in LionScratchIcon.vue
+const iconWidth = ref('70'); // Breite
 const iconHeight = ref('80'); // Höhe 
 
 
@@ -137,7 +137,7 @@ const addTransaction = async () => {
 </script>
 
 <template>
-  <v-card class="mx-auto my-12 card" elevation="9" max-width="400" hover >
+  <v-card class="mx-auto my-10 card" elevation="9" max-width="400" hover >
     
     <!-- Alert notifications -->
       <v-alert
@@ -226,27 +226,8 @@ const addTransaction = async () => {
       
                 
                     </v-col>
-
-                    <v-col class="d-flex justify-end">
-                      <v-btn
-                        variant="tonal"
-                        :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-                        @click="show = !show"
-                      ></v-btn>
-                    </v-col>
                   </v-row>
                 </v-card-actions>
-
-
-
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-        <v-card-text> <!-- hier kommt der QR Code fuer die Augemented reality von den produkten rein -->
-          AR QR-code
-        </v-card-text>
-      </div>
-    </v-expand-transition>
   </v-card>
 </template>
 

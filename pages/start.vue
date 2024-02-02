@@ -44,7 +44,9 @@ const PersonenSuche = ref('');
         class="flex-full-width"
         item-props
         menu-icon=""
-        placeholder="Deinen Namen suchen"
+        placeholder="Name"
+        label="Deinen Namen suchen"
+
         prepend-inner-icon="mdi-magnify"
         rounded
         theme="light"

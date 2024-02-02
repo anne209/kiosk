@@ -4,7 +4,7 @@
 <template>
   <v-app id="inspire">
     <v-app-bar color="#FDFFFC">
-      <v-app-bar-title>Willkommen beim Löwenshop24</v-app-bar-title>
+      <v-app-bar-title>Willkommen beim Löwenshop24 Kiosk</v-app-bar-title>
           <v-btn @click="goToLoginPage">
             Schon einen Account?
             <v-icon end icon="mdi-account-check"></v-icon>

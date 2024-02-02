@@ -30,6 +30,9 @@
                 Name
                 Personen_ID
                 Standort_ID
+                Standort {
+                  Name
+                }
                 Vorname
                 Transaktions_aggregate {
                   aggregate {
@@ -89,15 +92,26 @@
   </script>
   
 <template>
-    <div>
+
+  <v-container>
+
+    <v-row>
+    <h3 class="mr-auto"> Userverwaltung </h3>
+    </v-row>
+     <v-row>
+      <v-col cols="6" class="mr-auto">
       <!-- Hier ist das autocomplete für die filter auswahl-->
       <v-autocomplete
         v-model="selectedSorting"
         :items="sortingOptions"
-        label="Sort by"
+        label="Sortieren nach"
         @update:model-value="fetchData"
+        prepend-inner-icon="mdi-sort"
+        variant="outlined"
       ></v-autocomplete>
-  
+    </v-col>
+    </v-row>
+  </v-container>
   
       <!-- Hier werden die Nutzer angezeigt -->
       <v-container>
@@ -107,6 +121,6 @@
           </v-col>
         </v-row>
       </v-container>
-    </div>
+    
   </template>
   
