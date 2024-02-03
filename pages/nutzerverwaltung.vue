@@ -96,7 +96,7 @@
   <v-container>
 
     <v-row>
-    <h3 class="mr-auto"> Userverwaltung </h3>
+    <h3 class="ml-3"> Userverwaltung </h3>
     </v-row>
      <v-row>
       <v-col cols="6" class="mr-auto">
@@ -104,7 +104,7 @@
       <v-autocomplete
         v-model="selectedSorting"
         :items="sortingOptions"
-        label="Sortieren nach"
+        label="Nutzer sortieren nach"
         @update:model-value="fetchData"
         prepend-inner-icon="mdi-sort"
         variant="outlined"

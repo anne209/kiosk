@@ -27,6 +27,7 @@ const props = defineProps({
                 <LionScratchIcon :color="iconColor" :width="iconWidth" :height="iconHeight" />
               </div>
         </v-card-title>
+        <v-card-subtitle>{{ user.Mail }}</v-card-subtitle>
       <v-card-text>
         <div>
           Aktiv: {{ user.Aktiv }}
@@ -47,16 +48,11 @@ const props = defineProps({
         <div>
           Letztes Update: {{ user.PersonenExt.Latest_update }}
         </div>
-         <v-card-subtitle>{{ user.Mail }}</v-card-subtitle>
+         
          <!-- hier könnte noch das Lieblingsprodukt stehen-->
          <!-- Nutzer Standort anzeigen -->
         </v-card-text>
-        <!-- avatar nach rechts???-->
-      <div class="ml-auto">
-       <v-avatar  size="50" rounded="18" elevation="10">
-         <v-img :src="'https://robohash.org/' + user.Name + '.png'"></v-img>
-       </v-avatar>
-        </div>
+        
      </v-card-item>
    </v-card>
 </template>

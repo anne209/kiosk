@@ -2,7 +2,7 @@
   
 definePageMeta({layout: 'admin'}); 
 import * as XLSX from 'xlsx';
-
+// hier sollten noch sortings kommen siehe nutzerverwaltung 
 // Hier werden die Transaktionen  gefetchted
 const { data: transaktionen, pending, error } = await useFetch (`http://localhost:8080/v1/graphql`, {
   method: "POST",
@@ -85,6 +85,7 @@ const excelfunction = async () => {
 
 <v-btn
 @click="excelfunction"
+color="success"
 >Daten als Excel Datei exportieren</v-btn>
 
 <p v-if="pending">Fetching...</p>

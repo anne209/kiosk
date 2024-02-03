@@ -121,45 +121,42 @@ const addProduct = async () => {
 
     <template>
       <v-card
-        class="mx-auto my-12"
-        max-width="374"
-        hover
-        color="#FDFFFC">
-            <v-img
-              cover
-              height="250"
-              src="https://t4.ftcdn.net/jpg/02/95/80/15/360_F_295801504_UwNp39nnXHvLgborqjf2FpbWJB1yblvv.jpg"
-            ></v-img>
-        <v-card-item>
-          <v-alert
-            v-if="successAlert"
-         type="success"
-         closable
-         dismissible
-         @dismiss="successAlert=false"
-         >{{ successMessage }}
-          </v-alert>   
-          <v-alert
-         v-if="errorAlert"
-         type="error"
-         closable
-         dismissible
-         @dismiss="errorAlert=false"
-        > {{ errorMessage }}
-        </v-alert> 
+        class="mx-auto" max-width="400"  elevation="9"   hover color="#FDFFFC">
+                      <v-alert
+                          v-if="successAlert"
+                          type="success"
+                          closable
+                          dismissible
+                          @dismiss="successAlert=false"
+                          >{{ successMessage }}
+                      </v-alert>   
+                      <v-alert
+                          v-if="errorAlert"
+                          type="error"
+                          closable
+                          dismissible
+                          @dismiss="errorAlert=false"
+                          >{{ errorMessage }}
+                      </v-alert> 
+          <v-card-item class="py-0">
 
-          <v-text-field
-          v-model="Name"
-          :rules="[() => !!Name || 'Produktname ist erforderlich', (v) => /^[a-zA-Z]+$/.test(v) || 'Produktname darf nur Buchstaben enthalten']"
-          label="Produktname eingeben"
-          required
-          ></v-text-field> 
+          <v-card-title>
+          Neues Produkt hinzufügen
+          </v-card-title>
+                <v-text-field
+                v-model="Name"
+                :rules="[() => !!Name || 'Produktname ist erforderlich', (v) => /^[a-zA-Z]+$/.test(v) || 'Produktname darf nur Buchstaben enthalten']"
+                label="Produktname eingeben"
+                variant="outlined"
+                required
+                ></v-text-field> 
 
             <v-card-subtitle> 
               <v-text-field
               v-model="Preis"
               :rules="[() => !!Preis|| 'Preis ist erforderlich',v => /^\d+$/.test(v) || 'Nur Zahlen sind erlaubt.',]"
               label="Preis eingeben"
+              variant="outlined"
               required
               > </v-text-field>  
 
@@ -171,7 +168,7 @@ const addProduct = async () => {
                   item-text="text"
                   item-value="Standort_ID"
                   item-title="text" 
-                  color="primary"
+                  variant="outlined"
                   label="Standort"
                   placeholder="Standort auswählen"
               > </v-autocomplete>  
@@ -187,11 +184,12 @@ const addProduct = async () => {
           <v-card-actions>
             <v-btn
               class="text-none"
-              color="#FF1654"
+              color="success"
               variant="flat"
               @click="addProduct"
               >Produkt hinzufügen
             </v-btn>
+            
       
         </v-card-actions>
       </v-card>
