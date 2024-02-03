@@ -56,9 +56,9 @@ const PersonenSuche = ref('');
   </v-card>
  
   <!-- hier muss irgendwie gecentered werden-->
-  <v-container justify-center align-center>
-      <v-row >
-        <v-col v-if="PersonenSuche" :key="PersonenSuche" sm="4">
+  <v-container >
+      <v-row>
+        <v-col v-if="PersonenSuche" :key="PersonenSuche">
         <User
           :user="users.data.swps_Personen.find(user => user.Personen_ID === PersonenSuche)"
           :correctPIN="users.data.swps_Personen.find(user => user.Personen_ID === PersonenSuche)?.PersonenExt.PIN"

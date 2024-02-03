@@ -71,7 +71,7 @@ const noPinMessage= ref('');
 </script>
 
  <template>
-   <v-card class="mx-auto my-10 card" elevation="9" max-width="400"  hover>
+   <v-card class="mx-auto card" elevation="9" max-width="400"  hover>
     <!-- alerts für die Pin eingabe-->
     
     <v-alert
@@ -105,7 +105,7 @@ const noPinMessage= ref('');
       
        
         <v-card-item class="py-0"> 
-            <v-card-title class="text-h4 d-flex align center" style="flex: 1;">
+            <v-card-title class="text-h6 d-flex align-center" >
               {{ user.Vorname }} {{ user.Name }} 
               <div class="ml-auto">
                     <LionScratchIcon :color="iconColor" :width="iconWidth" :height="iconHeight" />
@@ -119,8 +119,8 @@ const noPinMessage= ref('');
 
                     <v-card-text class="py-0">
                             <v-row align="center" no-gutters>
-                               <v-col cols="5">
-                              <v-avatar class="ma-3" size="60" rounded="20">
+                               <v-col cols="6">
+                              <v-avatar class="ma-3" size="125" rounded="20">
                     <v-img :src="'https://robohash.org/' + user.Name + '.png'"></v-img>
                   </v-avatar>
                               </v-col>
@@ -129,7 +129,7 @@ const noPinMessage= ref('');
                     class="text-h3 text-right"
                     cols="6">
 
-                        Hallo adaduaw€
+                      
                 </v-col>
                           </v-row>
       </v-card-text>
@@ -143,7 +143,7 @@ const noPinMessage= ref('');
                 v-model="PIN"
                 type="password"
                 label="PIN eingeben"
-                color="blue"
+                variant="outlined"
               ></v-text-field>
             </v-col>
 
