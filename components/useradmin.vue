@@ -40,7 +40,7 @@ const props = defineProps({
         </div>
         <!-- hier müsste noch die richige query aus dem parent -->
         <div>
-          Größte einmalige Bestellung: 
+          Größte einmalige Bestellung: {{ user.Transaktions[0]?.Anzahl }} - {{ user.Transaktions[0]?.Produkt?.Name }} ({{ user.Transaktions[0]?.Produkt?.Produkt_ID }})
         </div>
         <div>
           Häufigstes Produkt bei Transaktionen: 

@@ -31,6 +31,13 @@
                 Name
                 Personen_ID
                 Standort_ID
+                Transaktions(order_by: {Anzahl: desc}, limit: 1) {      
+                  Anzahl
+                  Produkt {
+                    Name
+                    Produkt_ID
+                  }
+                }
                 Standort {
                   Name
                 }
