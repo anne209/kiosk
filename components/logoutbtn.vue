@@ -1,3 +1,5 @@
+
+<!-- Button um sich abzumelden als component auf unterschiedlichen layouts -->
 <template>
   <v-btn @click="logout">Abmelden
     <v-icon>mdi-exit-to-app</v-icon>
@@ -8,7 +10,7 @@
 import { useRouter } from 'vue-router';
 import { useGlobalState } from '@/composables/useGlobalState';
 
-const { resetPersonen } = useGlobalState();
+const { resetPersonen } = useGlobalState(); // damit werden die temporär gespeicherten Daten resettet
 const router = useRouter();
 
 function logout() {
