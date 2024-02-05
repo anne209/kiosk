@@ -8,12 +8,19 @@ Besondere Features, die wir eingebaut haben, ist, dass man beim Einkaufen die Au
 
 Neben dem besonderen Feature im Frontend gibt es auch ein besonderes Feature im Backend. Dabei kann man sich als Admin eine Excel-Tabelle herunterladen, um so auf Excel die Transaktionen aller Nutzer einsehen zu können.
 
+## Aufbau
+
+Aufgebaut ist das Softwareartefakt aus App.vue, layouts, pages, components und composables.
 Aufbau: 
 
 App.vue 
+
 layouts
+
 pages
+
 components
+
 composables 
 
 // Weitere Sachen müssen hinzugefügt werden 
