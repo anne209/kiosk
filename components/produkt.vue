@@ -72,7 +72,7 @@ const addTransaction = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      
+       // es wird mittels mutation in der Datenbank eine neue Transaktion hinzugefügt
       body: JSON.stringify({
         query: `
           mutation MyMutation($Transaktionszeitpunkt: datetime = "", $Transaktions_ID: uniqueidentifier = "", $Produkt_ID: uniqueidentifier = "", $Personen_ID: uniqueidentifier = "", $Anzahl: Int!) {       
@@ -245,9 +245,9 @@ const addTransaction = async () => {
   background: rgb(253,255,252);
   background: linear-gradient(70deg, rgba(253,255,252,1) 60%, rgba(253,253,249,1) 67%, rgba(253,206,187,1) 77%, rgba(254,177,148,1) 82%, rgba(254,148,108,1) 87%, rgba(255,107,53,1) 92%, rgba(255,50,74,1) 97%, rgba(255,22,84,1) 100%);
   
-  /* Other styles for text, etc. inside the card */
-  color: #333; /* For text color, assuming a light background */
-  font-family: 'Arial', sans-serif; /* Font style for text */
+  /* Schriftart und Farbe werden definiert */
+  color: #333; /* Schriftfarbe */
+  font-family: 'Arial', sans-serif; /* Schriftart */
 }
 
 </style>
