@@ -1,11 +1,10 @@
-<!-- Login-layout sollten hier durch laufen-->
-<!-- eventuell noch ein extra signup/layout bauen-->
+<!-- Die Seite "signup" läuft über dieses layout-->
 <!-- den ganzen Style kann man noch ändern -->
 <template>
   <v-app id="inspire">
-    <v-app-bar color="#FDFFFC">
+    <v-app-bar color="#FDFFFC"> <!-- Ist die weiße Leiste oben -->
       <v-app-bar-title>Willkommen beim Löwenshop24 Kiosk</v-app-bar-title>
-          <v-btn @click="goToLoginPage">
+          <v-btn @click="goToLoginPage"> <!-- Damit kommt auf die Page "start" -->
             Schon einen Account?
             <v-icon end icon="mdi-account-check"></v-icon>
           </v-btn>
@@ -45,7 +44,7 @@
 
 .wave-background{
 background-image:  repeating-radial-gradient(circle at 0 0, transparent 0, #ff6b36 100px), repeating-linear-gradient(rgba(255, 0, 0, 0.7), rgba(0, 0, 0, 0.65));
-background-color: #ff6b36;
-}
+background-color: #ff6b36; 
+} 
 
-</style>
+</style> <!-- definiert den Hintergrund des Layouts-->
