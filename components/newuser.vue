@@ -1,3 +1,5 @@
+<!-- diese komponente wird auf der page /verwaltung aufgerufen -->
+
 
 <script setup>
 
@@ -36,7 +38,7 @@ email: value => {
 },
 };
 
-// Konstanten für das Signup Forn 
+// Konstanten für das Signup Form
 const currentDatetime = new Date().toISOString();
   console.log(currentDatetime)
 
@@ -104,7 +106,7 @@ const addUser = async() =>{
           Standort_ID: Standort_ID.value,
     
   });
- 
+  //es wird mittels mutation der Datenbank eine neue Person hinzugefügt
   const res = await useFetch ('http://localhost:8080/v1/graphql', {
         method: 'POST',
         headers: {
@@ -297,6 +299,7 @@ successAlert.value = false;
           @click:append="show1 = !show1"
         ></v-text-field>
 
+        <!-- wiederholte eingabe der PIN -->
         <v-text-field
           v-model="pincheck"
           :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -311,6 +314,7 @@ successAlert.value = false;
           @click:append="show2 = !show2"
         ></v-text-field>    
 
+        <!-- AGBs aktzeptieren -->
         <v-checkbox
           v-model="terms"
           color="secondary"
@@ -325,7 +329,7 @@ successAlert.value = false;
           class="mr-9"
           >Zurücksetzen
           <v-icon icon="mdi-reload" end></v-icon> 
-        </v-btn>
+        </v-btn> <!-- der weiße Button-->
 
     <v-spacer></v-spacer>
 
@@ -336,18 +340,18 @@ successAlert.value = false;
           @click="addUser"
           >Registrieren
           <v-icon icon="mdi-chevron-right" end></v-icon>
-        </v-btn>
+        </v-btn> <!-- der grüne Button-->
         
       </v-card-actions>
       <v-row justify="center"> 
       <v-col cols="12">
       <v-btn 
           variant="text" 
-          color="blue"
+          color="blue" 
           @click="goToStartPage"
-          >Jetzt anmelden
+          >Jetzt anmelden 
           <v-icon icon="mdi-chevron-right" end></v-icon>
-        </v-btn>
+        </v-btn> <!-- der blaue button -->
       </v-col>
     </v-row>
     </v-form>
