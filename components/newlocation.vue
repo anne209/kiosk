@@ -1,6 +1,9 @@
+<!-- dieses component wird auf der Page /verwaltung angewandt-->
+
+
 <script setup>
 
-function createGuid() {  
+function createGuid() {  //damit wird ein uuid generiert
          function _p8(s) {  
           var p = (Math.random().toString(16) + "000000000").substr(2,8);  
             return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p;  
@@ -25,7 +28,7 @@ const addLocation = async () => {
     if (!/^[a-zA-Z]+$/.test(Name.value)) {
       throw new Error('Standort erforderlich');
     }
-    // Standort_ID generieren
+    // Standort_ID generieren als uuid
     const Standort_ID = createGuid();
     
     // Logs
@@ -35,13 +38,13 @@ const addLocation = async () => {
 
 
     });
-
+      //damit wird auf das graphQL bzw auf die Datenbank zugegriffen
     const res = await useFetch('http://localhost:8080/v1/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-    
+        // im Folgenden wird ein neuer Standort in die Datenbank mittles mutation hinzugefügt
       body: JSON.stringify({
         query: `
           mutation MyMutation($Name: String!,$Standort_ID: uniqueidentifier!) {       
@@ -56,7 +59,7 @@ const addLocation = async () => {
               }
             } 
           }`,
-          variables: {
+          variables: { // die Namen und die Standort-IDs müssen definiert werden
           Name: Name.value,
           Standort_ID: Standort_ID,
         },
@@ -93,8 +96,10 @@ const addLocation = async () => {
   <v-form ref="form">
     <v-card
       class="mx-auto"
-      title="Neuen Standort einrichten"
-    >
+      title="Neuen Standort einrichten" 
+    > <!-- erscheint ganz unten auf der page /verwaltung-->
+
+        <!-- Alert notifications -->
       <v-container>
         <v-alert
          v-if="successAlert"
@@ -111,20 +116,21 @@ const addLocation = async () => {
          @dismiss="errorAlert=false"
         > {{ errorMessage }}
         </v-alert>
-        <v-text-field
+        <!-- bei rules wird überprüft, ob der Name korrekt ist-->
+        <v-text-field 
           v-model="Name"
-          :rules="[() => !!Name.value || 'Standort erforderlich', (v) => /^[a-zA-Z]+$/.test(v) || 'Der Name darf nur Buchstaben enthalten']"
+          :rules="[() => !!Name.value || 'Standort erforderlich', (v) => /^[a-zA-Z]+$/.test(v) || 'Der Name darf nur Buchstaben enthalten']" 
           color="primary"
           label="Neuer Standort"
           placeholder="z.B. Berlin"
           variant="underlined"
           required
-        ></v-text-field>
+        ></v-text-field> <!-- Berlin erscheint, wenn man ins Textfeld klickt -->
         <v-btn
-          color="success"
-          @click="addLocation"
-        >Standort einrichten
-          <v-icon icon="mdi-chevron-right" end></v-icon>
+          color="success" 
+          @click="addLocation" 
+        >Standort einrichten 
+          <v-icon icon="mdi-chevron-right" end></v-icon> <!-- Das ist der grüne Button -->
         </v-btn>
       </v-container>
     </v-card>

@@ -1,8 +1,8 @@
 <!-- ich weiss nicht was passiert wenn man genau die selben Daten eingibt von einem bestehenden Produkt -->
-
+<!-- dieses component erscheint auf der page /verwaltung -->
 
 <script setup>
-function createGuid() {  
+function createGuid() {   //damit wird ein uuid generiert
          function _p8(s) {  
           var p = (Math.random().toString(16) + "000000000").substr(2,8);  
             return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p;  
@@ -10,9 +10,9 @@ function createGuid() {
   return _p8() + _p8(true) + _p8(true) + _p8();  
 }  
 
-var guid = createGuid(); 
+var guid = createGuid(); //hier wird die Produkt_ID definiert
 
-console.log(guid);
+console.log(guid); // hier kann man in der Konsole die neu generierte uuid sehen
 
 
 import { ref } from 'vue';
@@ -58,12 +58,13 @@ const addProduct = async () => {
       typeof: Standort_ID.value, 
     });
 
+    // hier wird die Datenbank aufgerufen
     const res = await useFetch('http://localhost:8080/v1/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-
+        // neue Produkte werden mittels mutation der Datenbank hinzugefügt
       body: JSON.stringify({
         query: `
           mutation MyMutation($Name: String!, $Preis: Int!, $Produkt_ID: uniqueidentifier!, $Standort_ID: uniqueidentifier!, $Latest_update: datetime="") {       
@@ -119,9 +120,9 @@ const addProduct = async () => {
 };
 </script>
 
-    <template>
-      <v-card
-        class="mx-auto" max-width="400"  elevation="9"   hover color="#FDFFFC">
+    <template> <!-- die obere weiße viereckige componente auf der page /verwaltung wird hier definiert-->
+      <v-card 
+        class="mx-auto" max-width="450"  elevation="9"   hover color="#FDFFFC">
                       <v-alert
                           v-if="successAlert"
                           type="success"
@@ -129,7 +130,7 @@ const addProduct = async () => {
                           dismissible
                           @dismiss="successAlert=false"
                           >{{ successMessage }}
-                      </v-alert>   
+                      </v-alert>     <!-- Alert notifications -->  
                       <v-alert
                           v-if="errorAlert"
                           type="error"
@@ -149,7 +150,7 @@ const addProduct = async () => {
                 label="Produktname eingeben"
                 variant="outlined"
                 required
-                ></v-text-field> 
+                ></v-text-field>  <!-- mit rules wird der Name überprüft-->
 
             <v-card-subtitle> 
               <v-text-field
@@ -171,7 +172,7 @@ const addProduct = async () => {
                   variant="outlined"
                   label="Standort"
                   placeholder="Standort auswählen"
-              > </v-autocomplete>  
+              > </v-autocomplete>  <!-- items bedeutet, dass man nur die angezeigten Orte auswählen kann --> 
           
           </v-card-item>
               <v-card-text>
@@ -186,9 +187,9 @@ const addProduct = async () => {
               class="text-none"
               color="success"
               variant="flat"
-              @click="addProduct"
+              @click="addProduct" 
               >Produkt hinzufügen
-            </v-btn>
+            </v-btn> <!-- addProduct bezieht sich auf das const oben vom Code im script-->
             
       
         </v-card-actions>

@@ -1,26 +1,28 @@
-<template>
-  <v-app id="inspire">
+<!-- Layout für alle anderen pages (bestellen, cart, home, produktinventar, userhistory, userprofil)-->
 
+<template>
+  <v-app id="inspire"> 
+      <!-- Folgendes beschreibt die obere Leiste mit zufällig abgebildeten Bildern -->
     <v-app-bar
-      flat
+      flat 
       density="compact"
       
       image="https://picsum.photos/1920/1080?random" 
     > 
       <v-app-bar-nav-icon 
-      color="white"
+      color="white" 
       @click="drawer = !drawer"></v-app-bar-nav-icon>
-          <v-spacer></v-spacer>
+          <v-spacer></v-spacer> <!-- Das weiße Zeichen, um auf die Appbar zu gelangen -->
           <v-btn 
           prepend-icon="mdi-home"
             variant="elevated"
             @click="goToHomePage"
             >Löwenshop24
-          </v-btn> <!-- Component bauen??-->
+          </v-btn> <!-- Component bauen??--> <!-- damit kommt man auf die page /home-->
               
     <v-spacer></v-spacer>
 
-                  <logoutbtn></logoutbtn>
+                  <logoutbtn></logoutbtn> <!-- bezieht sich auf den component logoutbtn-->
     </v-app-bar>
     <v-navigation-drawer 
                     v-model="drawer"
@@ -33,7 +35,7 @@
                       hide-details
                       prepend-inner-icon="mdi-magnify"
                       variant="solo-filled"
-                    ></v-text-field>
+                    ></v-text-field> <!-- das ist die suchleiste -->
         </div>
 
         <div class="d-flex px-2 my-2 align-center">
@@ -43,7 +45,7 @@
             variant="elevated"
             @click="goToHomePage"
             >Löwenshop24
-          </v-btn>
+          </v-btn> <!-- damit kommt man ebenfalls auf die page /home-->
 
         </div>
         <div class="d-flex px-2 my-2 align-center">
@@ -54,7 +56,7 @@
             height="40"
             variant="flat"
             @click="goToUserHistoryPage"
-            >Deine Käufe</v-btn>  <!-- Hier sollte der Button auch ein Component werden-->
+            >Deine Käufe</v-btn>  <!-- damit kommt man auf die page /userhistory-->
   
         </div>
   
@@ -66,7 +68,7 @@
             height="40"
             class="flex-grow-1"
             @click="goToUserProfilePage"
-          >Dein Profil</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
+          >Dein Profil</v-btn> <!-- Hier sollte ein Ort Component reinkommen--> <!-- hiermit kommt man auf die page /userprofil-->
         </div>
 
 
