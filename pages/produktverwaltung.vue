@@ -8,11 +8,12 @@
   const pending = ref(''); 
   const selectedSorting = ref('Transaktions_aggregate.count_DESC');
   const produkte = ref(''); 
+  //hier müssen noch weiter sortierungen rein
   const sortingOptions = ref([
     'Transaktions_aggregate.count_DESC', 
     'Transaktions_aggregate.count_ASC',
-    // Hier können noch weitere Filter hinzugfügt werden 
-    // und übersetzen 
+    
+    
   ]); 
   
 

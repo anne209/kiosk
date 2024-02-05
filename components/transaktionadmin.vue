@@ -7,11 +7,13 @@ const props = defineProps({
 });   
 </script>
 <template>
+ 
     <v-list>
       <v-list-item-group>
-<v-list-item>
-  {{ transaktion.Personen }}
-</v-list-item>
+    <v-list-item>
+  {{ transaktion.Personen.Name }}
+  {{ transaktion.Personen.Personen_ID }}
+      </v-list-item>
         <v-list-item>
           <!-- Produkt -->
           <v-list-item-content class="custom-product-quantity">
@@ -45,8 +47,7 @@ const props = defineProps({
         </v-list-item>
       </v-list-item-group>
     </v-list>
+ 
   </template>
   
-  <style scoped>
- 
-  </style>
+  

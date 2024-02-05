@@ -1,9 +1,11 @@
-
+<!-- einfach mehr sortierungen und lieblingsprodukt muss irgendwie gefunden werden -->
 <script setup>
   definePageMeta({layout: 'admin'});
   import { ref, onMounted } from 'vue';
   import * as XLSX from 'xlsx';
   
+  const error = ref(''); 
+  const pending = ref(''); 
   const selectedSorting = ref('Latest_update_DESC'); // Default sorting criteria
   const users = ref('');
   const sortingOptions = ref([
@@ -97,6 +99,65 @@
   onMounted(() => {
     fetchData(); // Hier wird fetchData initiert
   });
+
+
+
+  // Excelfunction 
+  const excelfunction = async () => {
+        if (error.value) {
+            console.error('Error fetching data:', error.value);
+            return;
+        }
+
+        if (pending.value) {
+            console.log('Data is pending...');
+            return;
+        }
+
+    // dataToExport wird mit den daten aus der query definiert
+    const dataToExport = users.value.swps_Personen;
+
+    if (!Array.isArray(dataToExport) || dataToExport.length === 0) {
+        console.error('No data available to export');
+        return;
+    }
+
+  console.log(users.value)
+
+  const wb = XLSX.utils.book_new(); 
+
+  // Daten für Export vorbereiten 
+  
+  const ws = XLSX.utils.json_to_sheet(dataToExport.map(tx => ({
+    'Personen-ID': tx.Personen_ID,
+    'Name': tx.Name,
+    'Vorname': tx.Vorname,
+    'E-Mail': tx.Mail,
+    'Standort': tx.Standort?.Name,
+    'Anzahl Transaktionen': tx.Transaktions_aggregate?.aggregate.count,
+    'Grösste einmalige Bestellung': tx.Transaktions?.[0] && `${tx.Transaktions[0].Anzahl} - ${tx.Transaktions[0].Produkt.Name} (${tx.Transaktions[0].Produkt.Produkt_ID})` || 'N/A',
+    'Latest_update': tx.PersonenExt?.Latest_update,
+  })));
+
+  XLSX.utils.book_append_sheet(wb, ws, 'User');
+
+  // Excel Workbook erstellen und tabelle einfügen 
+  const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    const data = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        data[i] = binaryString.charCodeAt(i);
+    }
+    const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    // Trigger den Daten download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'User.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+
   </script>
   
 <template>
