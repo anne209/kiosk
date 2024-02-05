@@ -98,6 +98,8 @@ const addLocation = async () => {
       class="mx-auto"
       title="Neuen Standort einrichten" 
     > <!-- erscheint ganz unten auf der page /verwaltung-->
+
+        <!-- Alert notifications -->
       <v-container>
         <v-alert
          v-if="successAlert"

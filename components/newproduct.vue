@@ -130,7 +130,7 @@ const addProduct = async () => {
                           dismissible
                           @dismiss="successAlert=false"
                           >{{ successMessage }}
-                      </v-alert>   
+                      </v-alert>     <!-- Alert notifications -->  
                       <v-alert
                           v-if="errorAlert"
                           type="error"
