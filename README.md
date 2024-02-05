@@ -11,19 +11,19 @@ Neben dem besonderen Feature im Frontend gibt es auch ein besonderes Feature im 
 ## Aufbau
 
 Aufgebaut ist das Softwareartefakt aus App.vue, layouts, pages, components und composables.
-Aufbau: 
 
-App.vue 
+### Layout
 
-layouts
+Dabei haben wir vier Layouts: default, die hauptsächlich für das Frontend und den eigentlichen Shop steht. Das Adminlayout ist für das Administrative zuständig. Login und Signuplayout haben sind direkt verbunden mit den Pages /start und /signup.
 
-pages
+### Pages
 
-components
+Pages sind die tatsächlichen Seiten, die man im Selbstbedienungskiosk sehen kann. Dafür haben wir insgesamt 12 Seiten erstellt, wovon 9 tatsächlich im Selbstbedienungskiosk zugänglich sind. Den Rest kann man noch ausbauen, ist jedoch nicht für den Benutzer von relevanter Bedeutung.
 
-composables 
+### Components
 
-// Weitere Sachen müssen hinzugefügt werden 
+### Composables
+
 
 
 
