@@ -1,4 +1,12 @@
-Hier kommt das ReadMe für den  Selbstbedienungskiosk
+# Selbstbedienungskiosk
+
+
+Im Rahmen unseres Seminars "Software-Projektseminar" haben wir ein Selbstbedienungskiosk programmiert.
+Gestartet wird der Kiosk auf der Webseite /start. Ab da wird man weitergeleitet, bis man auf die Hauptseite des Shops kommt (/home), um dann im Kiosk Produkte kaufen zu können.
+
+Besondere Features, die wir eingebaut haben, ist, dass man beim Einkaufen die Außentemperatur des jeweiligen Ortes sehen kann und so das passende Produkte zur jeweiligen Jahreszeit kaufen kann.
+
+Neben dem besonderen Feature im Frontend gibt es auch ein besonderes Feature im Backend. Dabei kann man sich als Admin eine Excel-Tabelle herunterladen, um so auf Excel die Transaktionen aller Nutzer einsehen zu können.
 
 Aufbau: 
 
