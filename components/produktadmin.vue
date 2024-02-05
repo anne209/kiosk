@@ -5,6 +5,9 @@ const props = defineProps({
   produkt:Object,
   });
 
+// vielleicht ein emit des Inventar bestands
+
+
 // volles Inventar 
 const fullStock = 20; 
 
@@ -44,7 +47,7 @@ const inventoryClass = computed(() => {
        </h3>
 
         <div class="text-subtitle-1"> 
-            Location: {{ produkt.Standort.Name }}
+            Standort: {{ produkt.Standort.Name }}
         </div>
 
         <div> <!-- zeigt of wie viele Transakationen einem Produkt zu geordnet werden aber nicht viele einzelne Produkte bestellt wurde-->

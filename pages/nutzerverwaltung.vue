@@ -1,7 +1,8 @@
 
 <script setup>
-    definePageMeta({layout: 'admin'});
+  definePageMeta({layout: 'admin'});
   import { ref, onMounted } from 'vue';
+  import * as XLSX from 'xlsx';
   
   const selectedSorting = ref('Latest_update_DESC'); // Default sorting criteria
   const users = ref('');
@@ -60,7 +61,7 @@
         users.value = responseData.data;
         console.log('Users data:', users.value);
       } else {
-        throw  Error('No data received from the server');
+        throw  Error ('No data received from the server');
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -109,6 +110,14 @@
         prepend-inner-icon="mdi-sort"
         variant="outlined"
       ></v-autocomplete>
+      <v-btn
+      @click="excelfunction"
+      block
+      color="success"
+      append-icon="mdi-table-arrow-up"
+      >Daten als Excel Datei exportieren
+      </v-btn>
+
     </v-col>
     </v-row>
   </v-container>
