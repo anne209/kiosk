@@ -1,9 +1,12 @@
-<script setup lang="ts">
+<script setup>
   definePageMeta({layout: 'admin'}); 
   import { ref, onMounted} from 'vue'; 
+  import * as XLSX from 'xlsx';
 
 
-  const selectedSorting = ref('Transaktions_aggregate.count_DESC')
+  const error = ref(''); 
+  const pending = ref(''); 
+  const selectedSorting = ref('Transaktions_aggregate.count_DESC');
   const produkte = ref(''); 
   const sortingOptions = ref([
     'Transaktions_aggregate.count_DESC', 
@@ -21,7 +24,7 @@ const fetchData = async() => {
       headers:{ 'Content-Type': 'application/json'}, 
       body: JSON.stringify({
         query: `
-          query MyQuery($order_By: [swps_Produkt_order_by!]){
+          query MyQuery($order_By: [swps_Produkt_order_by!]) {
             swps_Produkt(order_by: $order_By) {
               Name 
               Preis
@@ -54,13 +57,14 @@ const fetchData = async() => {
           },
       }),
   }); 
-  console.log('Fetch request sent', produkte.data); 
 
-  const responseData = await response.json(); 
-  console.log('Fetched response recieved:', responseData); 
+    console.log('Fetch request sent', produkte.data); 
+
+    const responseData = await response.json(); 
+    console.log('Fetched response recieved:', responseData); 
 
       if (responseData.data) {
-        produkte.value =responseData.data; 
+        produkte.value = responseData.data; 
         console.log('Produkte:', produkte.value); 
       } else{
         throw Error ('No data recieved from the server'); 
@@ -80,6 +84,7 @@ function parseSorting(selectedSorting) {
       return [{ Transaktions_aggregate: { count: 'asc'  } }];
     } else if (selectedSorting === 'Transaktions_aggregate.count_DESC') {
       return [{ Transaktions_aggregate: { count: 'desc'  } }];
+    } else {
       // Hier können weiter filter gehandlet werden 
       return [];
     }
@@ -90,18 +95,60 @@ function parseSorting(selectedSorting) {
   });
 
 
+// Excelfunction 
+const excelfunction = async () => {
+    if (error.value) {
+        console.error('Error fetching data:', error.value);
+        return;
+    }
 
+    if (pending.value) {
+        console.log('Data is pending...');
+        return;
+    }
 
+    // dataToExport wird mit den daten aus der query definiert
+    const dataToExport = produkte.value.swps_Produkt;
 
+    if (!Array.isArray(dataToExport) || dataToExport.length === 0) {
+        console.error('No data available to export');
+        return;
+    }
 
+    console.log(produkte.value)
+    const wb = XLSX.utils.book_new(); 
 
+  // Daten für Export vorbereiten 
+  const ws = XLSX.utils.json_to_sheet(dataToExport.map(tx => ({
+    'Produkt_ID': tx.Produkt_ID,
+    'Produkt Name': tx.Name,
+    'Latest_update': tx.Latest_update,
+    'Summe der verkauften Waren:': tx.Transaktions_aggregate?.aggregate.sum.Anzahl,
+    'Anzahl der Transakationen:': tx.Transaktions_aggregate?.aggregate.count,
+    'Standort_ID': tx.Standort?.Standort_ID,
+    'Standort':tx.Standort?.Name,
+    'Preis': tx.Preis,
+  })));
 
+  XLSX.utils.book_append_sheet(wb, ws, 'Produkte');
 
-  // braucht man glaub ich nicht 
-  const res = await useFetch(`http://localhost:8080/v1/graphql`,{
-  method:"POST", 
-  body: {query: "query { swps_Standort {Name Standort_ID}}"}
-  })
+// Excel Workbook erstellen und tabelle einfügen 
+const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+  const data = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+      data[i] = binaryString.charCodeAt(i);
+  }
+  const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+  // Trigger den Daten download
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'Produkte.xlsx';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
   </script>
 
   <template>
@@ -113,6 +160,7 @@ function parseSorting(selectedSorting) {
         <v-row>
         <v-col cols="6" class="mr-auto">
           <!-- hier sollte man die Produkte sortieren können -->
+          
         <v-autocomplete
         v-model="selectedSorting"
         :items="sortingOptions"
@@ -121,12 +169,23 @@ function parseSorting(selectedSorting) {
         prepend-inner-icon="mdi-sort"
         variant="outlined"
       ></v-autocomplete>
+      
+      <v-btn
+      @click="excelfunction"
+      block
+      color="success"
+      append-icon="mdi-table-arrow-up"
+      >Daten als Excel Datei exportieren
+      </v-btn>
       </v-col>
       <v-col cols="6" class="ml-auto">
         <newproduct></newproduct>
       </v-col>
       </v-row>
+      
       </v-container>
+
+      <!-- Hier werden die Produkte angezeigt-->
       <v-container>
         <v-row>
           <v-col v-for="produkt in produkte.swps_Produkt" :key="produkt.Produkt_ID" cols="4">             
@@ -136,7 +195,6 @@ function parseSorting(selectedSorting) {
           
       </v-container>
           
-   
 
       
   </template>
