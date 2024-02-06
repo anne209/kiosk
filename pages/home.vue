@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 // import 
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, watchEffect } from 'vue';
 import { useGlobalState } from '~/composables/useGlobalState';
 
 // globale Variablen aus useGlobalState
@@ -13,11 +13,18 @@ const selectedLocationName = computed(() => {
   return locationItem ? locationItem.Name : '';
 });
 
+
+
+const userlocation = ref('');
+
 const Standort_ID = ref('');
+
 const standortprodukte = ref(null);
 const loading = ref(false); 
 const error = ref(null); 
 const weatherData = ref(null); 
+
+
 
 
 // Wetter Daten fetchen mit selectedLocationName 
@@ -33,17 +40,76 @@ const fetchWeatherData = async () => {
   } catch (error) {
     console.error('Error fetching weather:', error);
   }
-}
+}; 
+
+
+
+// Userlocation nach Personen_ID verknüpfen 
+const  fetchUserLocation = async () => {
+      if (!Personen_ID.value) {
+        error.value = "Personen_ID is not available.";
+        console.error(error.value);
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:8080/v1/graphql`, {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify({
+            query: `
+              query MyQuery($Personen_ID: uniqueidentifier = "") {
+                swps_PersonenExt_by_pk(Personen_ID: $Personen_ID) {
+                  Personen {
+                    Standort {
+                      Name
+                      Standort_ID
+                    }
+                  }
+                }
+              }
+            `, 
+            variables: {
+              Personen_ID: Personen_ID.value,
+            },
+          }),
+        });
+
+         console.log('Fetch request sent')
+
+        const responseData = await response.json();
+        console.log('Fetched resposne recieved:', responseData); 
+
+        if (responseData.data) {
+          userlocation.value = responseData.data; 
+          // Assuming responseData.data correctly contains the nested data as expected
+          const userStandort = responseData.data.swps_PersonenExt_by_pk.Personen.Standort;
+          
+          Standort_ID.value = userStandort.Standort_ID;
+          console.log( userStandort.Standort_ID); 
+          // Die Standort_ID wird hier geupdated nachdem Standort des Users
+
+          console.log('Userlocation:', userlocation.value)
+        }  else {
+          throw new Error('No data recieved from the server'); 
+        }
+        } catch (e) {
+          console.error(error.value);
+          error.value = e.message;
+        }
+      }
+      // Use onMounted to initiate data fetching
+      onMounted(() => {
+        fetchUserLocation();
+      }); 
 
 
 
 
-// Standort fetch für das Autocomplete
-const { data: location } = await useFetch(`http://localhost:8080/v1/graphql`, {
-  method: "POST",
-  body: { query: "query { swps_Standort { Name Standort_ID }}" },
-});
-
+      // Standort fetch für das Autocomplete
+      const { data: location } = await useFetch(`http://localhost:8080/v1/graphql`, {
+        method: "POST",
+        body: { query: "query { swps_Standort { Name Standort_ID }}" },
+      });
 
 
 
@@ -77,7 +143,9 @@ const fetchData = async () => {
               }
             }
           }`, 
-        variables: { Standort_ID: Standort_ID.value },
+        variables: { 
+          Standort_ID: Standort_ID.value 
+        },
       }),
     });
 
@@ -109,6 +177,12 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
     
 });
 
+// watched die Standort_ID,ändert sich die Standort_ID werden die fetches neu ausgeführt
+watchEffect(() => {
+  fetchData(); 
+  fetchWeatherData(); 
+}); 
+
 </script>
 
 
@@ -125,8 +199,8 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
            <v-col cols="6" class="mr-auto">
             <!-- autocomplete Auswahl für die Standorte -->
             <v-autocomplete
-              v-model="Standort_ID" 
-              :items="location.data.swps_Standort.map(item => ({ Standort_ID: item.Standort_ID, text: item.Name }))"
+              v-model="Standort_ID"
+              :items="location.data.swps_Standort.map(item => ({ Standort_ID: item.Standort_ID, Name: item.Name, text: item.Name }))"
               item-text="text"
               item-value="Standort_ID"
               item-title="text"
