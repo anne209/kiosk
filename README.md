@@ -24,7 +24,7 @@ Pages sind die tatsächlichen Seiten, die man im Selbstbedienungskiosk sehen kan
 
 ### Composables
 
-globalState.js ermöglicht mit  'import { useGlobalState } from '~/composables/useGlobalState'; die Nutzung von 'Personen_ID' zur Identifikation im Kiosk-System. Mit 'setPersonen_ID' zum Festlegen, 'Personen_ID, Name, Vorname' zum Abrufen und 'resetPersonen' zum Zurücksetzen des aktiven Nutzers auf null.
+globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/useGlobalState'; die Nutzung von 'Personen_ID' zur Identifikation im Kiosk-System. Mit 'setPersonen_ID' zum Festlegen, 'Personen_ID, Name, Vorname' zum Abrufen und 'resetPersonen' zum Zurücksetzen des aktiven Nutzers auf null.
 
 
 
