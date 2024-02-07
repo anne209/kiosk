@@ -6,6 +6,8 @@ const props = defineProps({
   produkt:Object,
   });
 
+  const confirmDialog = ref(false);
+
   const currentDatetime = new Date().toISOString();
     console.log(currentDatetime)
 
@@ -99,9 +101,8 @@ if (res && res.data && res.data.value) {
   }
 };
 
-
-
-
+//Produkt löschen mutation MyQuery($Produkt_ID: uniqueidentifier = "") {
+  // mit delete product siehe v-dialog 
 
 </script>
 
@@ -173,8 +174,21 @@ if (res && res.data && res.data.value) {
         color="error"
         variant="flat"
         elevation="4"
+        @click="confirmDialog = true"
         >Löschen
         </v-btn>
+        <v-dialog v-model="confirmDialog" max-width="400">
+      <v-card>
+        <v-card-title class="headline">Löschen bestätigen </v-card-title>
+        <v-card-text>
+          Sind Sie sicher, dass Sie das Produkt entfernen möchten?
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="error" @click="deleteProduct">Ja, entfernen </v-btn>
+          <v-btn @click="confirmDialog = false">Abbrechen</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
       </v-col>
       </v-row>
 
