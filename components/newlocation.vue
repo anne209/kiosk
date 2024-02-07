@@ -123,7 +123,7 @@ const addLocation = async () => {
           color="primary"
           label="Neuer Standort"
           placeholder="z.B. Berlin"
-          variant="underlined"
+          variant="outlined"
           required
         ></v-text-field> <!-- Berlin erscheint, wenn man ins Textfeld klickt -->
         <v-btn
