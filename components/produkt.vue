@@ -207,7 +207,8 @@ const addTransaction = async () => {
                     v-model="Anzahl"
                     label="Anzahl"
                     variant="outlined"
-                    hint="1, 2, 3, 1000... Deine Wahl!"
+                    hint="1, 2, 3..."
+                    type="number"
                   ></v-text-field>
                 </v-col>
 
