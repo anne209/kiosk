@@ -123,6 +123,8 @@ const addProduct = async () => {
     <template> <!-- die obere weiße viereckige componente auf der page /verwaltung wird hier definiert-->
       <v-card 
         class="mx-auto" max-width="450"  elevation="9"   hover color="#FDFFFC">
+
+        
                       <v-alert
                           v-if="successAlert"
                           type="success"
@@ -184,14 +186,15 @@ const addProduct = async () => {
               </v-card-text>
           <v-card-actions>
             <v-btn
-              class="text-none"
+              block
               color="success"
-              variant="flat"
               @click="addProduct" 
+              variant="flat"
               >Produkt hinzufügen
+              <v-icon icon="mdi-chevron-right" end></v-icon>
             </v-btn> <!-- addProduct bezieht sich auf das const oben vom Code im script-->
             
-      
         </v-card-actions>
+        
       </v-card>
     </template>

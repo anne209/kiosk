@@ -95,9 +95,7 @@ const addLocation = async () => {
 <template>
   <v-form ref="form">
     <v-card
-      class="mx-auto"
-      title="Neuen Standort einrichten" 
-    > <!-- erscheint ganz unten auf der page /verwaltung-->
+      class="mx-auto"  max-width="450" title="Neuen Standort einrichten" color="#FDFFFC"> <!-- erscheint ganz unten auf der page /verwaltung-->
 
         <!-- Alert notifications -->
       <v-container>
@@ -127,8 +125,10 @@ const addLocation = async () => {
           required
         ></v-text-field> <!-- Berlin erscheint, wenn man ins Textfeld klickt -->
         <v-btn
+          block
           color="success" 
           @click="addLocation" 
+          variant="flat"
         >Standort einrichten 
           <v-icon icon="mdi-chevron-right" end></v-icon> <!-- Das ist der grüne Button -->
         </v-btn>
