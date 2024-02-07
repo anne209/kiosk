@@ -60,7 +60,7 @@ const updateProduct = async () => {
       },
       body: JSON.stringify({
         query: `
-        mutation MyMutation ($Preis: Int! , $Name: String = "", $Latest_update: datetime = "", $Produkt_ID: uniqueidentifier = "") {
+        mutation MyQuery ($Preis: Int! , $Name: String = "", $Latest_update: datetime = "", $Produkt_ID: uniqueidentifier = "") {
           update_swps_Produkt_by_pk(pk_columns:{Produkt_ID: $Produkt_ID}, _set: {Latest_update: $Latest_update, Name: $Name, Preis: $Preis} ) {
             Produkt_ID
             Name 
@@ -103,6 +103,49 @@ if (res && res.data && res.data.value) {
 
 //Produkt löschen mutation MyQuery($Produkt_ID: uniqueidentifier = "") {
   // mit delete product siehe v-dialog 
+
+  const deleteProduct = async () => {
+    try{
+      const res = await useFetch('http://localhost:8080/v1/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+        mutation MyQuery($Produkt_ID: uniqueidentifier = "") {
+        delete_swps_Produkt_by_pk     (Produkt_ID: $Produkt_ID) {
+        Preis
+        Latest_update
+        Name
+        Produkt_ID
+        Standort_ID
+        }
+      }
+    `, variables: {
+      Produkt_ID: props.produkt.Produkt_ID,
+    },
+    })
+  })
+  if (res && res.data && res.data.value) {
+      console.log('Processed response:', res.data.value);
+      successMessage.value= 'Erfoglreiche Produktenfernung';
+      successAlert.value = true; 
+      errorAlert.value = false; 
+    }
+
+    // Log für Error Benachrichtigung
+    if (res.error && res.error.value) {
+      console.error('Fetch error:', res.error.value);
+    }
+    //try wird hier gecatched
+  } catch (error) {
+    console.error('Error during fetch operation:', error);
+    errorMessage.value = 'Fehler bei Produktenfernung ';
+    errorAlert.value = true; 
+    successAlert.value = false; 
+  }
+}; 
 
 </script>
 
@@ -178,7 +221,22 @@ if (res && res.data && res.data.value) {
         @click="confirmDialog = true"
         >Löschen
         </v-btn>
-        <v-dialog v-model="confirmDialog" max-width="400">
+        <v-dialog v-model="confirmDialog" max-width="400"><v-alert
+              v-if="successAlert"
+              type="success"
+              closable
+              dismissible
+              @dismiss="successAlert=false"
+              >{{ successMessage }}
+          </v-alert>     <!-- Alert notifications -->  
+          <v-alert
+              v-if="errorAlert"
+              type="error"
+              closable
+              dismissible
+              @dismiss="errorAlert=false"
+              >{{ errorMessage }}
+          </v-alert> 
       <v-card>
         <v-card-title class="headline">Entfernen bestätigen </v-card-title>
         <v-card-text>
