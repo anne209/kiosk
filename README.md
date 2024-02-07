@@ -1,7 +1,7 @@
 # Selbstbedienungskiosk
 
 
-Im Rahmen unseres Seminars "Software-Projektseminar" haben wir ein Selbstbedienungskiosk programmiert.
+Im Rahmen unseres Seminars "Software-Projektseminar" haben wir einen Selbstbedienungskiosk programmiert.
 Gestartet wird der Kiosk auf der Webseite /start. Ab da wird man weitergeleitet, bis man auf die Hauptseite des Shops kommt (/home), um dann im Kiosk Produkte kaufen zu können.
 
 Ein besonderes Feature, welches wir eingebaut haben, ist beispielsweise, dass man beim Einkaufen die Außentemperatur des jeweiligen Ortes sehen kann und so das passende Produkte zur jeweiligen Jahreszeit kaufen kann.
