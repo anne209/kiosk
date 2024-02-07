@@ -195,7 +195,7 @@ const temperatureMessage = computed(() => {
 // ausgewählte Produkte mit der Temperatur später nach oben packen 
 const temperatureCategories = {
   cold: ['Kaffee', 'Tee'],
-  warm: ['ClubMate', 'Wasser', 'Bier'],
+  warm: ['ClubMate', 'Wasser', 'Bier', 'Helles', 'Bayreuther', 'Maiselsweisse','Schanzenbräu'],
   // Hier kann man weitere Produkte in die Kategorien hinzufügen
 };
 
