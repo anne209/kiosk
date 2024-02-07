@@ -47,6 +47,17 @@
             <v-btn 
             prepend-icon="mdi-emoticon-cool-outline"          
               class="flex-grow-1"
+              color="red"
+              height="40"
+              variant="flat"
+              @click="goToVerwaltung"
+              >Verwaltung</v-btn>  <!-- Hier sollte der Button auch ein Component werden-->
+              <!-- Man kommt auf die Seite Userverwaltung -->
+          </div>
+          <div class="d-flex px-2 my-2 align-center">
+            <v-btn 
+            prepend-icon="mdi-emoticon-cool-outline"          
+              class="flex-grow-1"
               color="blue"
               height="40"
               variant="flat"
@@ -108,6 +119,9 @@
         }, 
         goToTransactions(){
           this.$router.push('/transaktionen')
+        },
+        goToVerwaltung(){
+          this.$router.push('/verwaltung')
         }
       }
     };
