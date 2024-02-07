@@ -39,7 +39,7 @@ globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/
 - https://www.vecteezy.com/ for the LionScratchIcon.vue
 - https://dev.to/jasurkurbanov/how-to-export-data-to-excel-from-api-using-react-25go for the excel table
 - https://ar-js-org.github.io/AR.js-Docs/ for the ar-qr-code
-- 
+- https://coderspacket.com/posts/how-do-i-create-a-guid-uuid-in-javascript/ for creating a guid
 
 
 
