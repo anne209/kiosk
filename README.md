@@ -4,9 +4,9 @@
 Im Rahmen unseres Seminars "Software-Projektseminar" haben wir ein Selbstbedienungskiosk programmiert.
 Gestartet wird der Kiosk auf der Webseite /start. Ab da wird man weitergeleitet, bis man auf die Hauptseite des Shops kommt (/home), um dann im Kiosk Produkte kaufen zu können.
 
-Besondere Features, die wir eingebaut haben, ist, dass man beim Einkaufen die Außentemperatur des jeweiligen Ortes sehen kann und so das passende Produkte zur jeweiligen Jahreszeit kaufen kann.
+Ein besonderes Feature, welches wir eingebaut haben, ist beispielsweise, dass man beim Einkaufen die Außentemperatur des jeweiligen Ortes sehen kann und so das passende Produkte zur jeweiligen Jahreszeit kaufen kann.
 
-Neben dem besonderen Feature im Frontend gibt es auch ein besonderes Feature im Backend. Dabei kann man sich als Admin eine Excel-Tabelle herunterladen, um so auf Excel die Transaktionen aller Nutzer einsehen zu können.
+Neben dem besonderen Feature im Frontend gibt es auch ein besonderes Feature im Backend. Dabei kann man sich als Admin eine Excel-Tabelle herunterladen, um so auf Excel unter anderem die Transaktionen aller Nutzer einsehen zu können.
 
 ## Aufbau
 
@@ -14,7 +14,7 @@ Aufgebaut ist das Softwareartefakt aus App.vue, layouts, pages, components und c
 
 ### Layout
 
-Dabei haben wir vier Layouts: default, die hauptsächlich für das Frontend und den eigentlichen Shop steht. Das Adminlayout ist für das Administrative zuständig. Login und Signuplayout haben sind direkt verbunden mit den Pages /start und /signup.
+Dabei haben wir vier Layouts: default, das hauptsächlich für das Frontend und den eigentlichen Shop steht. Das Adminlayout ist für das Administrative zuständig. Login und Signuplayout haben sind direkt verbunden mit den Pages /start und /signup.
 
 ### Pages
 
@@ -22,9 +22,11 @@ Pages sind die tatsächlichen Seiten, die man im Selbstbedienungskiosk sehen kan
 
 ### Components
 
+Bei den Components findet man die jeweiligen Komponenten, die auf den pages zu sehen sind. Beispielsweise der "logoutbtn", der auf mehreren pages zu sehen ist und immer das gleiche bedeutet. Components sind Einzelteile, die zusammengefügt ein volles Bild auf den pages ergeben. Sie sind nach ihren Funktionen und Bedeutungen benannt.
+
 ### Composables
 
-globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/useGlobalState'; die Nutzung von 'Personen_ID' zur Identifikation im Kiosk-System. Mit 'setPersonen_ID' zum Festlegen, 'Personen_ID, Name, Vorname' zum Abrufen und 'resetPersonen' zum Zurücksetzen des aktiven Nutzers auf null.
+globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/useGlobalState'; die Nutzung von 'Personen_ID' zur Identifikation im Kiosk-System und mit 'setPersonen_ID' das Festlegen, 'Personen_ID, Name, Vorname' das Abrufen und 'resetPersonen' das Zurücksetzen des aktiven Nutzers auf null.
 
 
 
