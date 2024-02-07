@@ -12,14 +12,14 @@ layout: 'admin'
       <v-row>
         <v-row>
     <v-col cols="12" md="8">
-      <newlocation></newlocation>
+      <newuser></newuser>
     </v-col>
      
   </v-row>
  
   </v-row>
     <v-col cols="12" md="6">
-      <newuser></newuser>
+      <newlocation></newlocation>
     </v-col>
   </v-row>
 
