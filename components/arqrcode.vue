@@ -1,3 +1,6 @@
+<!-- Wurde nicht benutzt, da schlecht implementierbar -->
+
+
 <!-- Rahmen wird importiert-->
 <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"
 src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
