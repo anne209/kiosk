@@ -7,7 +7,9 @@
       <v-col cols="12" md="6" class="promo-section">
         <div>
           <h1>Der Löwenshop24 Kiosk 🐆 🏪</h1>
-          <p>Immer wo du bist</p>
+          <p>Unschlagbare Preise.</p>
+          <p>Rund um die Uhr.</p>
+          <p>Löwenhaft.</p>
         </div>
       </v-col>
   
