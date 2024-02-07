@@ -125,11 +125,12 @@ if (res && res.data && res.data.value) {
               >{{ errorMessage }}
           </v-alert> 
     <v-card-item>     
-            <v-card-title class="text-h5 d-flex align-center">
+            <v-card-title>
+              Produktname ändern 
                  <v-text-field v-model="editableName" variant="outlined" suffix="Produkt"/>
             </v-card-title>
             <v-card-subtitle>
-              Preis:  
+              Preis bearbeiten:  
               <v-text-field v-model="editablePreis" type="number"  step="1" variant="outlined" suffix="€"/>
             </v-card-subtitle>
     </v-card-item>
