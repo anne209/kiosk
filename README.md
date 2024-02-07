@@ -113,7 +113,7 @@ yarn dev -o
   1. https://ddg.co/
   1. https://chat.openai.com
 
-- Used links to implement components
+- Our tools we used:
   1. https://vuetifyjs.com/en/ for layout
   1. https://stackoverflow.com/ for help
   1. https://chat.openai.com to check the correctness of the coding
