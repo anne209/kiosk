@@ -3,9 +3,14 @@ definePageMeta({
 layout: 'admin'
 })
 </script>
-<template>
 
+
+<template>
+  
  <v-container>
+  <v-row>
+   <h3 class="ml-3"> Schnellzugriff </h3>
+ </v-row>
   <v-row>
       <v-col cols="12" md="6">
         <v-row>
