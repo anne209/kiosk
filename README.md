@@ -6,7 +6,7 @@ Gestartet wird der Kiosk auf der Webseite /start. Ab da wird man weitergeleitet,
 
 Ein besonderes Feature, welches wir eingebaut haben, ist beispielsweise, dass man beim Einkaufen die Außentemperatur des jeweiligen Ortes sehen kann und so das passende Produkte zur jeweiligen Jahreszeit kaufen kann.
 
-Neben dem besonderen Feature im Frontend gibt es auch ein besonderes Feature im Backend. Dabei kann man sich als Admin eine Excel-Tabelle herunterladen, um so auf Excel unter anderem die Transaktionen aller Nutzer einsehen zu können.
+Neben dem besonderen Feature im Frontend gibt es auch ein besonderes Feature im Backend. Dabei kann man sich als Admin eine Excel-Tabelle herunterladen, um so auf Excel unter anderem die Transaktionen aller Nutzer einsehen zu können. Beim Backend wird auf Daten zurückgegriffen, die durch Hasura auf der lokalen Datenbank gespeichert sind, wobei die Daten bereits zur Verfügung gestellt wurden. Sie können durch Mutation mittels GraphQL verändert werden.
 
 ## Aufbau
 
