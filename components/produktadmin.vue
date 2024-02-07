@@ -180,9 +180,9 @@ if (res && res.data && res.data.value) {
         </v-btn>
         <v-dialog v-model="confirmDialog" max-width="400">
       <v-card>
-        <v-card-title class="headline">Löschen bestätigen </v-card-title>
+        <v-card-title class="headline">Entfernen bestätigen </v-card-title>
         <v-card-text>
-          Sind Sie sicher, dass Sie das Produkt entfernen möchten?
+          Sind Sie sicher, dass Sie das Produkt: {{ produkt.Name }} entfernen möchten? 
         </v-card-text>
         <v-card-actions>
           <v-btn color="error" @click="deleteProduct">Ja, entfernen </v-btn>
