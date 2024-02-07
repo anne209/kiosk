@@ -170,7 +170,8 @@ import { useGlobalState } from '~/composables/useGlobalState';
               Latest_update
               PIN
               }
-            }`,
+            }
+          `,
           variables: {
               Anrede: Anrede.value,
               Mail: Mail.value, 
