@@ -44,8 +44,7 @@
             ></v-text-field>
           </div>
           <div class="d-flex px-2 my-2 align-center">
-            <v-btn 
-            prepend-icon="mdi-emoticon-cool-outline"          
+            <v-btn          
               class="flex-grow-1"
               color="red"
               height="40"
