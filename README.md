@@ -30,6 +30,10 @@ globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/
 
 
 
+
+
+
+
 # SWPS Starter
 
 This is an example project that shows how Vue + Nuxt + Vuetify can be used together.
