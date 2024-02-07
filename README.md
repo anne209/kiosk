@@ -37,6 +37,9 @@ globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/
 - https://10015.io/tools/css-background-pattern-generator for the orange background
 - https://cssgradient.io/ for the gradient in the cards
 - https://www.vecteezy.com/ for the LionScratchIcon.vue
+- https://dev.to/jasurkurbanov/how-to-export-data-to-excel-from-api-using-react-25go for the excel table
+- https://ar-js-org.github.io/AR.js-Docs/ for the ar-qr-code
+- 
 
 
 
