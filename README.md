@@ -33,7 +33,7 @@ globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/
   1. https://vuetifyjs.com/en/ as a Vue Component Framework
   1. https://stackoverflow.com/ for help
   1. https://chat.openai.com to check the correctness of the coding
-  1. https://github.com/chubin/wttr.in for the weather 
+  1. https://github.com/chubin/wttr.in for the weather.api 
   1. https://10015.io/tools/css-background-pattern-generator for the orange background
   1. https://cssgradient.io/ for the gradient in the cards
   1. https://www.vecteezy.com/ for the LionScratchIcon.vue
