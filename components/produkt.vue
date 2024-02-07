@@ -173,7 +173,6 @@ const addTransaction = async () => {
             <v-card-subtitle>
               {{produkt.Standort.Name}}
             </v-card-subtitle>
-            Bild:
 
           </v-card-item>
 
