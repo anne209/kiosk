@@ -28,15 +28,18 @@ Bei den Components findet man die jeweiligen Komponenten, die auf den pages zu s
 
 globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/useGlobalState'; die Nutzung von 'Personen_ID' zur Identifikation im Kiosk-System und mit 'setPersonen_ID' das Festlegen, 'Personen_ID, Name, Vorname' das Abrufen und 'resetPersonen' das Zurücksetzen des aktiven Nutzers auf null.
 
+### Dokumentation
 
-- Our tools we used:
-  1. https://vuetifyjs.com/en/ as a Vue Component Framework
-  1. https://stackoverflow.com/ for help
-  1. https://chat.openai.com to check the correctness of the coding
-  1. https://github.com/chubin/wttr.in for the weather.api 
-  1. https://10015.io/tools/css-background-pattern-generator for the orange background
-  1. https://cssgradient.io/ for the gradient in the cards
-  1. https://www.vecteezy.com/ for the LionScratchIcon.vue
+- https://vuetifyjs.com/en/ as a Vue Component Framework
+- https://stackoverflow.com/ for help
+- https://chat.openai.com to check the correctness of the coding
+- https://github.com/chubin/wttr.in for the weather.api 
+- https://10015.io/tools/css-background-pattern-generator for the orange background
+- https://cssgradient.io/ for the gradient in the cards
+- https://www.vecteezy.com/ for the LionScratchIcon.vue
+- https://dev.to/jasurkurbanov/how-to-export-data-to-excel-from-api-using-react-25go for the excel table
+- https://ar-js-org.github.io/AR.js-Docs/ for the ar-qr-code
+- 
 
 
 
