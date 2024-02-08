@@ -318,7 +318,7 @@ const temperatureBasedProdukte = computed(() => {
       </v-container>
 
      <!-- hier werden die "Temperaturprodukte" angezeigt-->
-     <v-row v-if="temperatureBasedProdukte.produkte.length > 0">
+     <v-row v-if="temperatureBasedProdukte.produkte.length > 0 || weatherFetchSuccess">
       <v-container> 
           <v-carousel cycle hide-delimiters>
             <h3> {{temperatureMessage}}</h3>
