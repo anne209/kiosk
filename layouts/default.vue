@@ -2,12 +2,12 @@
 
 <template>
   <v-app id="inspire"> 
-      <!-- Folgendes beschreibt die obere Leiste mit zufällig abgebildeten Bildern -->
+      <!-- Folgendes beschreibt die obere Leiste mit einem Bilder der Nummer 701,976,287,468 -->
     <v-app-bar
       flat 
       density="compact"
       
-      image="https://picsum.photos/id/701/1920/1080" 
+      image="https://picsum.photos/id/468/1920/1080" 
     > 
       <v-app-bar-nav-icon 
       color="white" 
