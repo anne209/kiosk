@@ -4,32 +4,40 @@
   <v-app id="inspire"> 
       <!-- Folgendes beschreibt die obere Leiste mit einem Bilder der Nummer 701,976,287,468 -->
     <v-app-bar
-      flat 
-      density="compact"
-      
-      image="https://picsum.photos/id/701/1920/1080" 
-    > 
+        flat
+        density="compact"
+        image="https://picsum.photos/id/517/1920/1080"
+        scroll-behavior="fade-image"
+        style="display: flex; justify-content: center; align-items: center;"> 
+
+        <v-spacer></v-spacer>
+
       <v-app-bar-nav-icon 
-      color="white" 
-      @click="drawer = !drawer"></v-app-bar-nav-icon>
-          <v-spacer></v-spacer> <!-- Das weiße Zeichen, um auf die Appbar zu gelangen -->
-          <v-btn 
-          prepend-icon="mdi-home"
+          color="white" 
+          @click="drawer = !drawer"
+          style="position: absolute; left: 0;">
+      </v-app-bar-nav-icon>
+
+          <v-btn
+            color="white"
             variant="elevated"
             @click="goToHomePage"
-            >Löwenshop24
-          </v-btn> <!-- Component bauen??--> <!-- damit kommt man auf die page /home-->
-              
-    <v-spacer></v-spacer>
+            width="250">
+            <img  :src="LöwenShopLogo" style="height: 35px; width: auto;"/>
+          </v-btn>
+          
+         <v-spacer></v-spacer>
 
-                  <logoutbtn></logoutbtn> <!-- bezieht sich auf den component logoutbtn-->
+      <logoutbtn style="position: absolute; right: 0;"></logoutbtn> <!-- Abmelden btn-->
     </v-app-bar>
+    
+    
     <v-navigation-drawer 
-                    v-model="drawer"
-                    color="#080705">
-                    <div class="d-flex px-2 my-2 align center">
+        v-model="drawer"
+        color="#080705">
+        <div class="d-flex px-2 my-2 align center">
 
-                    </div>
+        </div>
 
         <div class="d-flex px-2 my-2 align-center">
           <v-btn 
@@ -37,8 +45,7 @@
             class="flex-grow-1"
             variant="elevated"
             @click="goToHomePage"
-            >Löwenshop24
-          </v-btn> <!-- damit kommt man ebenfalls auf die page /home-->
+            >Löwenshop24</v-btn> <!-- damit kommt man ebenfalls auf die page /home-->
 
         </div>
         <div class="d-flex px-2 my-2 align-center">
@@ -67,10 +74,9 @@
 
 
       </v-navigation-drawer>
-<v-main>
-  <slot/>
-</v-main>
-    
+      <v-main>
+      <slot/>
+      </v-main>
     
   </v-app>
 </template>
@@ -78,11 +84,12 @@
 <script setup>
 
   import {ref} from 'vue'
-  
+  const LöwenShopLogo = '/assets/löwenshop24.png';
   const drawer =ref(null)
 </script>
 
 <script>
+  
   
   export default {
     

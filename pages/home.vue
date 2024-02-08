@@ -305,13 +305,11 @@ const temperatureBasedProdukte = computed(() => {
           <v-col v-if="weatherData && weatherFetchSuccess" cols="6">
             <h3>Dein Standort: {{ selectedLocationName }}</h3>
             <p>Temperatur: {{ weatherData.current_condition[0].temp_C }}°C</p>
-            <p>Fühlt sich an wie: {{ weatherData.current_condition[0].FeelsLikeC }}°C</p>
           </v-col>
 
           <!-- Fallback alert wird angezeigt wenn die Wetterdaten nicht abgerufen werden können -->
           <v-col v-else-if="weatherData && !weatherFetchSuccess" cols="6" class="ml-auto">
             <v-alert outlined tile shaped type="warning" border title="Wetterserver nicht erreichbar 😣">
-                <p>Es ist aber wahrscheinlich {{ weatherData.hint === 'cold' ? 'kalt' : 'warm' }}, oder?</p>
             </v-alert>
           </v-col>
         </v-row>
@@ -320,7 +318,7 @@ const temperatureBasedProdukte = computed(() => {
      <!-- hier werden die "Temperaturprodukte" angezeigt-->
      <v-row v-if="temperatureBasedProdukte.produkte.length > 0 || weatherFetchSuccess">
       <v-container> 
-          <v-carousel cycle :interval="3000">
+          <v-carousel cycle hide-delimiter-background :interval="5000">
             <h3> {{temperatureMessage}}</h3>
             <p v-if="temperatureBasedProdukte.message">{{ temperatureBasedProdukte.message }}</p>
             <v-carousel-item 
