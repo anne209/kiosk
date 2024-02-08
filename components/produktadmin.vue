@@ -1,10 +1,15 @@
 <script setup>
 
-import {computed} from 'vue'; 
+import {computed, defineProps} from 'vue'; 
 
+//emit an das parent(produktverwaltung) damit die produkte neu gefetched werden 
+const emit = defineEmits(['product-deleted', 'product-updated']);   
+
+//prop vom parent(produktverwaltung) damit die Produktdaten an die v-card weitergegeben 
 const props = defineProps({
   produkt:Object,
-  });
+});
+
 
   const confirmDialog = ref(false);
 
@@ -44,7 +49,6 @@ const inventoryClass = computed(() => {
 
 
 //Produkt bearbeiten 
-
 const updateProduct = async () => {
   loading.value = true; 
   if (editablePreis.value === props.produkt.Preis.toString() && editableName.value === props.produkt.Name) {
@@ -86,6 +90,7 @@ if (res && res.data && res.data.value) {
       successMessage.value= 'Erfolgreiches Produktupdate';
       successAlert.value = true; 
       errorAlert.value = false; 
+      emit('product-updated'); 
     }
 
     // Log für Error Benachrichtigung
@@ -101,9 +106,8 @@ if (res && res.data && res.data.value) {
   }
 };
 
-//Produkt löschen mutation MyQuery($Produkt_ID: uniqueidentifier = "") {
-  // mit delete product siehe v-dialog 
 
+  //Produkt löschen 
   const deleteProduct = async () => {
     try{
       const res = await useFetch('http://localhost:8080/v1/graphql', {
@@ -132,6 +136,10 @@ if (res && res.data && res.data.value) {
       successMessage.value= 'Erfoglreiche Produktenfernung';
       successAlert.value = true; 
       errorAlert.value = false; 
+      setTimeout(() => {
+        confirmDialog.value = false;
+        }, 800);
+        emit('product-deleted'); 
     }
 
     // Log für Error Benachrichtigung

@@ -1,7 +1,12 @@
-<!-- ich weiss nicht was passiert wenn man genau die selben Daten eingibt von einem bestehenden Produkt -->
-<!-- dieses component erscheint auf der page /verwaltung -->
 
 <script setup>
+
+import { ref } from 'vue';
+
+//emit an das parent(produktverwaltung) damit die produkte neu gefetched werden 
+const emit = defineEmits(['product-added']); 
+
+
 function createGuid() {   //damit wird ein uuid generiert
          function _p8(s) {  
           var p = (Math.random().toString(16) + "000000000").substr(2,8);  
@@ -15,7 +20,7 @@ var guid = createGuid(); //hier wird die Produkt_ID definiert
 console.log(guid); // hier kann man in der Konsole die neu generierte uuid sehen
 
 
-import { ref } from 'vue';
+
 
 const currentDatetime = new Date().toISOString();
     console.log(currentDatetime)
@@ -104,6 +109,7 @@ const addProduct = async () => {
       successMessage.value= 'Produkt erfolgreich hinzugefügt';
       successAlert.value = true; 
       errorAlert.value = false; 
+      emit ('product-added'); 
     }
 
     // Log für Error Benachrichtigung
@@ -174,6 +180,7 @@ const addProduct = async () => {
                   variant="outlined"
                   label="Standort"
                   placeholder="Standort auswählen"
+                  
               > </v-autocomplete>  <!-- items bedeutet, dass man nur die angezeigten Orte auswählen kann --> 
           
           </v-card-item>

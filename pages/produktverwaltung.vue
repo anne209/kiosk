@@ -15,6 +15,7 @@
     
     
   ]); 
+
   
 
 const fetchData = async() => {
@@ -180,7 +181,7 @@ const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
       </v-btn>
       </v-col>
       <v-col cols="6" class="ml-auto">
-        <newproduct></newproduct>
+        <newproduct @product-added="fetchData"></newproduct>
       </v-col>
       </v-row>
       
@@ -190,7 +191,8 @@ const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
       <v-container>
         <v-row>
           <v-col v-for="produkt in produkte.swps_Produkt" :key="produkt.Produkt_ID" cols="4">             
-            <produktadmin :produkt="produkt" ></produktadmin> 
+            <produktadmin :produkt="produkt" @product-deleted="fetchData"
+              @product-updated="fetchData"></produktadmin> 
           </v-col>
           </v-row>
           
