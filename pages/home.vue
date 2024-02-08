@@ -320,7 +320,7 @@ const temperatureBasedProdukte = computed(() => {
      <!-- hier werden die "Temperaturprodukte" angezeigt-->
      <v-row v-if="temperatureBasedProdukte.produkte.length > 0 || weatherFetchSuccess">
       <v-container> 
-          <v-carousel cycle hide-delimiters>
+          <v-carousel cycle :interval="3000">
             <h3> {{temperatureMessage}}</h3>
             <p v-if="temperatureBasedProdukte.message">{{ temperatureBasedProdukte.message }}</p>
             <v-carousel-item 
