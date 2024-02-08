@@ -2,39 +2,46 @@
 
 <template>
     <v-app id="inspire"> 
+      <!-- Blaue Leiste am unteren Rand des Bildschirms-->
       <v-footer
           app
           color="blue"
           height="44"
-        ></v-footer>  <!-- Blaue Leiste am unteren Rand des Bildschirms-->
-    
+        ></v-footer>  
+    <!-- Blaue Leiste am oberen Rand des Bildschirms-->
       <v-app-bar
-        class="px-5"
         flat
         density="compact"
         color="blue"
-      > <!-- Blaue Leiste am oberen Rand des Bildschirms-->
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        style="display: flex; justify-content: center; align-items: center;"> 
+      
       <v-spacer></v-spacer>
-      <v-btn 
-      prepend-icon="mdi-home"
-        variant="elevated"
-        @click="goToHomePage"
-        >ZUR homepage gehen 
-      </v-btn> <!-- Component bauen??--> <!-- Damit kommt man automatisch auf die Seite "home"-->
-        <v-avatar
-          color="blue"
-          class="hidden-md-and-up"
-          size="32"
-        ></v-avatar> <!-- Das ist ein button der nur erscheint wenn die seite auf "mobile" läuft-->
+
+      <v-app-bar-nav-icon 
+      @click="drawer = !drawer"
+      style="position: absolute; left: 0;"> 
+      </v-app-bar-nav-icon>
+
+        <v-btn 
+          color="white"
+          variant="elevated"
+          @click="goToHomePage"
+          width="250">
+          <img  :src="LöwenShopLogo" style="height: 35px; width: auto;"/>
+        </v-btn>
+
   
         <v-spacer></v-spacer>
   
-       <logoutbtn></logoutbtn> <!-- Bezieht sich auf den Component logoutbtn -->
+       <logoutbtn style="position: absolute; right: 0;"></logoutbtn> <!-- Bezieht sich auf den Component logoutbtn -->
+
       </v-app-bar>
+
+      <!-- Die linke Navigationsleiste, die sich öffnet -->
       <v-navigation-drawer v-model="drawer">
           <div class="d-flex px-2 my-2 align center">  <!-- Ist die Suchleiste-->
           </div>
+          <!-- Man kommt auf die Seite Schnellzugriff -->
           <div class="d-flex px-2 my-2 align-center">
             <v-btn    
             prepend-icon="mdi-database"   
@@ -43,9 +50,10 @@
               height="40"
               variant="flat"
               @click="goToVerwaltung"
-              >Verwaltung</v-btn>  <!-- Hier sollte der Button auch ein Component werden-->
-              <!-- Man kommt auf die Seite Userverwaltung -->
+              >Schnellzugriff</v-btn>  
+              
           </div>
+          <!-- Man kommt auf die Seite Userverwaltung -->
           <div class="d-flex px-2 my-2 align-center">
             <v-btn 
             prepend-icon="mdi-emoticon-cool-outline"          
@@ -54,10 +62,10 @@
               height="40"
               variant="flat"
               @click="goToUsersAdmin"
-              >Userverwaltung</v-btn>  <!-- Hier sollte der Button auch ein Component werden-->
-              <!-- Man kommt auf die Seite Userverwaltung -->
+              >Userverwaltung</v-btn> 
+              
           </div>
-    
+            <!-- Man kommt auf die Seite Produktverwaltung-->
           <div class="d-flex px-2 my-2 align-center">
             <v-btn
             prepend-icon="mdi-coffee"
@@ -66,8 +74,9 @@
               height="40"
               class="flex-grow-1"
               @click="goToProductAdmin"
-            >Produktverwaltung</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
-          </div>   <!-- Man kommt auf die Seite Produktverwaltung-->
+            >Produktverwaltung</v-btn>
+          </div>
+            <!-- Man kommt auf die Seite Transaktionen-->
           <div class="d-flex px-2 my-2 align-center">
             <v-btn
             prepend-icon="mdi-cart-outline"
@@ -76,10 +85,10 @@
               height="40"
               class="flex-grow-1"
               @click="goToTransactions"
-            >Transaktionen</v-btn> <!-- Hier sollte ein Ort Component reinkommen-->
-           </div> <!-- Man kommt auf die Seite Transaktionen-->
+            >Transaktionen</v-btn>
+           </div>
   
-        </v-navigation-drawer> <!-- Die linke Leiste, die sich öffnet -->
+        </v-navigation-drawer> 
   <v-main>
     <slot/>
   </v-main>
@@ -91,7 +100,7 @@
   <script setup>
   
     import {ref} from 'vue'
-    
+    const LöwenShopLogo = '/assets/löwenshop24.png';
     const drawer =ref(null)
   
   </script>

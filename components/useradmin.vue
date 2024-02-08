@@ -43,9 +43,6 @@ const props = defineProps({
           Größte einmalige Bestellung: {{ user.Transaktions[0]?.Anzahl }} - {{ user.Transaktions[0]?.Produkt?.Name }} ({{ user.Transaktions[0]?.Produkt?.Produkt_ID }})
         </div>
         <div>
-          Häufigstes Produkt bei Transaktionen: 
-        </div>
-        <div>
           Letztes Update: {{ user.PersonenExt.Latest_update }}
         </div>
          

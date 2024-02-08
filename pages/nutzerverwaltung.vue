@@ -13,6 +13,8 @@
     'Transaktions_aggregate.count_DESC',
     'Latest_update_ASC',
     'Latest_update_DESC',
+    'Standort_ASC',
+    'Standort_DESC', 
     // Hier können weiter Filter hinzugefügt werden 
     // Hier müsste man das noch übersetzen 
   ]);
@@ -90,6 +92,11 @@
       return [{ PersonenExt: { Latest_update: 'asc' } }];
     } else if (selectedSorting === 'Latest_update_DESC') {
       return [{ PersonenExt: { Latest_update: 'desc'} }];
+    } else if (selectedSorting === 'Standort_ASC') {
+      return [{ Standort: { Name: 'asc'} }];
+    } else if (selectedSorting === 'Standort_DESC') {
+      return [{ Standort: { Name: 'desc'} }];
+      
     } else {
       // Hier können weiter filter gehandlet werden 
       return [];
@@ -168,7 +175,7 @@
     <h3 class="ml-3"> Userverwaltung </h3>
     </v-row>
      <v-row>
-      <v-col cols="6" class="mr-auto">
+      <v-col cols="6" >
       <!-- Hier ist das autocomplete für die filter auswahl-->
       <v-autocomplete
         v-model="selectedSorting"
@@ -176,16 +183,19 @@
         label="Nutzer sortieren nach"
         @update:model-value="fetchData"
         prepend-inner-icon="mdi-sort"
-        variant="outlined"
+        variant="underlined"
       ></v-autocomplete>
+       </v-col>
+      <v-col cols="6" >
       <v-btn
       @click="excelfunction"
+      size="x-large"
       block
       color="success"
       append-icon="mdi-table-arrow-up"
-      >Daten als Excel Datei exportieren
+      >Excel Datei exportieren
       </v-btn>
-
+     
     </v-col>
     </v-row>
   </v-container>
