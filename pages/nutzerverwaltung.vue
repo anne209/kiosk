@@ -195,19 +195,16 @@
           label="Nutzer sortieren nach"
           @update:model-value="fetchData"
           prepend-inner-icon="mdi-sort"
-          variant="underlined"
+          variant="outlined"
         ></v-autocomplete>
-       </v-col>
-
+        
        <!-- excel btn-->
-      <v-col cols="6" >
         <v-btn
           @click="excelfunction"
-          size="x-large"
           block
           color="success"
           append-icon="mdi-table-arrow-up"
-          >Excel Datei exportieren
+          >Daten als Excel Datei exportieren
       </v-btn>
      
       </v-col>
