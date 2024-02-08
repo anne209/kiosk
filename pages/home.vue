@@ -82,11 +82,11 @@ const  fetchUserLocation = async () => {
 
 
 
-      // Standort fetchen für das Autocomplete
-      const { data: location } = await useFetch(`http://localhost:8080/v1/graphql`, {
-        method: "POST",
-        body: { query: "query { swps_Standort { Name Standort_ID }}" },
-      });
+// Standort fetchen für das Autocomplete
+const { data: location } = await useFetch(`http://localhost:8080/v1/graphql`, {
+  method: "POST",
+  body: { query: "query { swps_Standort { Name Standort_ID }}" },
+});
 
 
 
@@ -95,7 +95,7 @@ const  fetchUserLocation = async () => {
 const fetchData = async () => {
   console.log('fetchData called with Standort_ID:', Standort_ID.value);
   if (!Standort_ID.value) {
-    console.error('Standort_ID has not been chosen or is not available');
+    console.error('Standort_ID has not been chosen or is not available'); //wenn kein Standort verfügbar ist 
     return;
   }
 
@@ -121,7 +121,7 @@ const fetchData = async () => {
             }
           }`, 
         variables: { 
-          Standort_ID: Standort_ID.value 
+          Standort_ID: Standort_ID.value    //Standort_ID ist die Variable
         },
       }),
     });
@@ -147,7 +147,7 @@ const fetchData = async () => {
 };
 
 
-// Alle Produkte fetchen braucht man eigentlich nicht 
+// Alle Produkte fetchen braucht man eigentlich nicht und wird auch nicht verwendet (produkte ist dunkelblau)
 const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/graphql`, {
   method: "POST",
   body: { query: "query { swps_Produkt { Name Preis Produkt_ID  Standort { Name } Standort_ID }}" },
@@ -155,10 +155,30 @@ const { data: produkte, pending } = await useFetch(`http://localhost:8080/v1/gra
 });
 
 
-// Hier sind alle Wetterfunktionen und constanten 
+//Hier sind alle Wetterfunktionen und Konstanten 
+
+//Es wird davon ausgegangen, dass der Wetterdatenfetch erfolgreich ist/wird
+const weatherFetchSuccess = ref(true);
+
+// Fallback const welche das "Wetter" basierend auf dem Monat bestimmt 
+const useFallbackWeatherData = () => {
+  const month = new Date().getMonth() + 1; // Januar = 1, February = 2, ..., Dezember = 12
+  //  Januar bis März & Oktober bis Dezember = kalt, April bis September = warm
+  const isWarmSeason = month >= 4 && month <= 9;
+  // weatherData.value wird jetzte entweder 20 oder 5 Grad haben 
+  weatherData.value = {
+    current_condition: [{
+      temp_C: isWarmSeason ? '20' : '5', //  Temperatur
+    }],
+    isFallback: true, 
+    hint: isWarmSeason ? 'warm' : 'cold' 
+  };
+  console.log('Fallbackwetter wird benutzt');
+};
 
 
 // Wetter Daten fetchen mit selectedLocationName 
+// wttr.in api wird hier verwendet
 const fetchWeatherData = async () => { 
   const url = `https://wttr.in/${selectedLocationName.value}?format=j1`;
   try {
@@ -168,28 +188,28 @@ const fetchWeatherData = async () => {
     }
     const data = await response.json();
     weatherData.value = data; // Wetter Daten updaten 
+    weatherFetchSuccess.value = true; // Wetterdaten fetch war erfolgreich 
   } catch (error) {
     console.error('Error fetching weather:', error);
+    useFallbackWeatherData();
+    weatherFetchSuccess.value = false; // Wetterdaten fetch war nicht erfolgreich 
   }
 }; 
 
 
 const temperatureMessage = computed(() => {
   if (!weatherData.value) {
-    return 'Loading weather data...'; // Message while weather data is loading
+    return 'Wetterdaten werden geladen...';
   }
 
   const tempC = parseInt(weatherData.value.current_condition[0].temp_C, 10);
 
-  // Adjust the temperature threshold and messages as needed
   if (tempC <= 10) {
     return 'Es ist ziemlich kühl draußen, wie wäre es mit einem warmen Getränk?';
   } else {
     return 'Schön warm draußen, wie wäre es mit einer kleinen Erfrischung?';
   }
 });
-
-
 
 
 // ausgewählte Produkte mit der Temperatur später nach oben packen 
@@ -202,7 +222,7 @@ const temperatureCategories = {
 const temperatureBasedProdukte = computed(() => {
     if (!weatherData.value || !standortprodukte.value?.swps_Standort_by_pk?.Produkts?.length) {
         console.log('No weatherData or standortprodukte available');
-        return { produkte: [], message: "Keine Produkte verfügbar." };
+        return { produkte: [], message: "Momentan keine wetterspezifischen Produkte verfügbar..." };
       }
 
       const tempC = parseInt(weatherData.value.current_condition[0].temp_C, 10);
@@ -217,7 +237,6 @@ const temperatureBasedProdukte = computed(() => {
       }
       const categoryProducts = temperatureCategories[category];
 
-      // Ensure safe access with optional chaining
       const filteredProdukte = standortprodukte.value.swps_Standort_by_pk.Produkts?.filter(produkt => {
         
         const productNameLower = produkt.Name.toLowerCase();
@@ -248,7 +267,9 @@ const temperatureBasedProdukte = computed(() => {
 <template>
   <main>
    
-    <v-sheet color="white">     
+    <v-sheet color="white">   
+      
+      <!-- oberer container mit Informationen zum Nutzer und dem Standort-->
       <v-container style="width: 100vw;">
         <v-row> <!-- Name des Users wird angezeigt -->
           <h1 class="gradient-text mr-auto" hover >Hallo {{ Vorname }}!</h1>
@@ -268,36 +289,47 @@ const temperatureBasedProdukte = computed(() => {
               placeholder="Dein Standort"
               prepend-inner-icon="mdi-map-marker-radius"
               variant="outlined"
-              
-            ></v-autocomplete>
-             
+            ></v-autocomplete>  
+            
+            
+
+          <!-- Standort und Standortdaten werden hier angezeigt-->
           </v-col>
-            <div v-if="loading">
-              Loading...
-            </div>
-            <div v-else-if="error">
-                Error: {{ error }}
-            </div>
-        <!-- hier wird der ausgwählte Standort mit der dazugehörigen Temperatur angezeigt -->
-            <div v-else>
-              <h3>Dein Standort: {{ selectedLocationName }}</h3>
-              <div v-if="weatherData">
-                <p>Temperatur: {{ weatherData.current_condition[0].temp_C }}°C</p>
-                <p>Fühlt sich an wie: {{ weatherData.current_condition[0].FeelsLikeC}}°C</p>
-            </div>
+          <div v-if="loading">
+            Loading...
           </div>
-              </v-row>
-      
-    <!-- hier werden die "Temperaturprodukte" angezeigt-->
-    <v-carousel cycle hide-delimiters>
-      <h3> {{temperatureMessage}}</h3>
-      <p v-if="temperatureBasedProdukte.message">{{ temperatureBasedProdukte.message }}</p>
-      <v-carousel-item 
-          v-for="produkt in temperatureBasedProdukte.produkte" :key="produkt.Produkt_ID">
-        <produkt :produkt="produkt" :Personen_ID="Personen_ID"></produkt>
-      </v-carousel-item>
-    </v-carousel>
-</v-container>
+          <div v-else-if="error">
+            Error: {{ error }}
+          </div>
+          <!-- hier wird der ausgewählte Standort mit der dazugehörigen Temperatur angezeigt -->
+          <v-col v-if="weatherData && weatherFetchSuccess" cols="6">
+            <h3>Dein Standort: {{ selectedLocationName }}</h3>
+            <p>Temperatur: {{ weatherData.current_condition[0].temp_C }}°C</p>
+            <p>Fühlt sich an wie: {{ weatherData.current_condition[0].FeelsLikeC }}°C</p>
+          </v-col>
+
+          <!-- Fallback alert wird angezeigt wenn die Wetterdaten nicht abgerufen werden können -->
+          <v-col v-else-if="weatherData && !weatherFetchSuccess" cols="6" class="ml-auto">
+            <v-alert outlined tile shaped type="warning" border title="Wetterserver nicht erreichbar 😣">
+                <p>Es ist aber wahrscheinlich {{ weatherData.hint === 'cold' ? 'kalt' : 'warm' }}, oder?</p>
+            </v-alert>
+          </v-col>
+        </v-row>
+      </v-container>
+
+     <!-- hier werden die "Temperaturprodukte" angezeigt-->
+     <v-row v-if="temperatureBasedProdukte.produkte.length > 0">
+      <v-container> 
+          <v-carousel cycle hide-delimiters>
+            <h3> {{temperatureMessage}}</h3>
+            <p v-if="temperatureBasedProdukte.message">{{ temperatureBasedProdukte.message }}</p>
+            <v-carousel-item 
+                v-for="produkt in temperatureBasedProdukte.produkte" :key="produkt.Produkt_ID">
+              <produkt :produkt="produkt" :Personen_ID="Personen_ID"></produkt>
+            </v-carousel-item>
+          </v-carousel>
+      </v-container>
+     </v-row>
 
 
 <!-- hier werden alle Produkte am Standort angezeigt -->
