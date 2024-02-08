@@ -7,7 +7,7 @@
       flat 
       density="compact"
       
-      image="https://picsum.photos/1920/1080?random" 
+      image="https://picsum.photos/id/701/1920/1080" 
     > 
       <v-app-bar-nav-icon 
       color="white" 
