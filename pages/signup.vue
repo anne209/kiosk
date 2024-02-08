@@ -1,15 +1,18 @@
 <script>
   definePageMeta({layout:'signuplayout'});
+
 </script>
 <template>
     
     <v-row justify="center" align="center" class="fill-height">
       <v-col cols="12" md="6" class="promo-section">
-        <div>
-          <h1>Der Löwenshop24 Kiosk 🐆 🏪</h1>
-          <p>Unschlagbare Preise.</p>
-          <p>Rund um die Uhr.</p>
-          <p>Löwenhaft.</p>
+       
+          <img src="/löwenshoptransparentwhite.png"  style="max-width: 100%; height: auto;">
+           <div>
+          
+          <h2>Unschlagbare Preise.</h2>
+          <h2>Rund um die Uhr.</h2>
+          <h2>Löwenhaft.</h2>
         </div>
       </v-col>
   
