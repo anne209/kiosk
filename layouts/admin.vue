@@ -34,17 +34,10 @@
       </v-app-bar>
       <v-navigation-drawer v-model="drawer">
           <div class="d-flex px-2 my-2 align center">  <!-- Ist die Suchleiste-->
-            <v-text-field
-              class="mb-1"
-              density="compact"
-              flat
-              hide-details
-              prepend-inner-icon="mdi-magnify"
-              variant="solo-filled"
-            ></v-text-field>
           </div>
           <div class="d-flex px-2 my-2 align-center">
-            <v-btn          
+            <v-btn    
+            prepend-icon="mdi-database"   
               class="flex-grow-1"
               color="red"
               height="40"
@@ -67,7 +60,7 @@
     
           <div class="d-flex px-2 my-2 align-center">
             <v-btn
-            prepend-icon="mdi-city"
+            prepend-icon="mdi-coffee"
               color="green"
               variant="flat"
               height="40"

@@ -28,15 +28,8 @@
                     v-model="drawer"
                     color="#080705">
                     <div class="d-flex px-2 my-2 align center">
-                    <v-text-field
-                      class="mb-1"
-                      density="compact"
-                      flat
-                      hide-details
-                      prepend-inner-icon="mdi-magnify"
-                      variant="solo-filled"
-                    ></v-text-field> <!-- das ist die suchleiste -->
-        </div>
+
+                    </div>
 
         <div class="d-flex px-2 my-2 align-center">
           <v-btn 
@@ -50,7 +43,7 @@
         </div>
         <div class="d-flex px-2 my-2 align-center">
           <v-btn 
-          prepend-icon="mdi-emoticon-cool-outline"          
+          prepend-icon="mdi-cart-outline"          
             class="flex-grow-1"
             color="#1098F7"
             height="40"
@@ -62,7 +55,7 @@
   
         <div class="d-flex px-2 my-2 align-center">
           <v-btn
-          prepend-icon="mdi-city"
+          prepend-icon="mdi-emoticon-cool-outline"
             color="#FF1654"
             variant="flat"
             height="40"
