@@ -21,7 +21,7 @@ const props = defineProps({
               Bestellung {{ transaktion.Produkt }}
             </v-list-item-title>
             <v-list-item-subtitle class="caption text--secondary">
-              Anzahl der Produkte {{ transaktion.Anzahl }} 
+              Anzahl der Produkte: {{ transaktion.Anzahl }} 
             </v-list-item-subtitle>
           </v-list-item-content>
   
