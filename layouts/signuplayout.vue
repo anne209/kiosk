@@ -3,7 +3,7 @@
 <template>
   <v-app id="inspire">
     <v-app-bar color="#FDFFFC"> <!-- Ist die weiße Leiste oben -->
-      <v-app-bar-title>Willkommen beim Löwenshop Kiosk</v-app-bar-title>
+      <v-app-bar-title>Willkommen beim Löwenshop Kiosk!</v-app-bar-title>
           <v-btn @click="goToLoginPage"> <!-- Damit kommt auf die Page "start" -->
             Schon einen Account?
             <v-icon end icon="mdi-account-check"></v-icon>

@@ -318,35 +318,45 @@ successAlert.value = false;
         <v-checkbox
           v-model="terms"
           color="secondary"
-          label="Ich akzeptiere die AGB dieser Seite"
+          label="Ich akzeptiere die AGB"
         ></v-checkbox>
       </v-container>
 
       <v-card-actions>
+          <v-row>
+          <v-col col="6">
         <v-btn
-          variant="text"
-          @click="resetForm"
-          class="mr-9"
+          block
+          variant="flat"
+          @click="resetForm"  
           >Zurücksetzen
           <v-icon icon="mdi-reload" end></v-icon> 
         </v-btn> <!-- der weiße Button-->
-
-    <v-spacer></v-spacer>
+      </v-col>
+    
 
 <!-- @click wir das Userprofil erstellt -->
+    
+      <v-col cols="6">
         <v-btn
-          variant="text" 
+          block
+          variant="flat"
           color="success"
           @click="addUser"
           >Registrieren
-          <v-icon icon="mdi-chevron-right" end></v-icon>
-        </v-btn> <!-- der grüne Button-->
+          <v-icon icon="mdi-account-arrow-right-outline" end></v-icon>
+        </v-btn>
+      </v-col> <!-- der grüne Button-->
+    </v-row>
+      
         
       </v-card-actions>
+
       <v-row justify="center"> 
-      <v-col cols="12">
+      <v-col cols="6">
       <v-btn 
-          variant="text" 
+          block
+          variant="flat" 
           color="blue" 
           @click="goToStartPage"
           >Jetzt anmelden 
