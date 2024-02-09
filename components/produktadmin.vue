@@ -29,7 +29,7 @@ const errorMessage= ref('');
 
 const loading = ref(false); 
 
-//Mögliche Idee  wie das Auffülen von Produktbeständen aussehen könnte
+// Mögliche Idee wie Auffülen von Produktbeständen aussehen könnte
 const AufgefülltesInventar = ref(0);
 
 const InventarAuffüllen = () => {
@@ -57,7 +57,7 @@ const inventoryClass = computed(() => {
 });
 
 
-//Produkt bearbeiten 
+// Produkt bearbeiten 
 const updateProduct = async () => {
   loading.value = true; 
   if (editablePreis.value === props.produkt.Preis.toString() && editableName.value === props.produkt.Name) {
@@ -116,7 +116,7 @@ if (res && res.data && res.data.value) {
 };
 
 
-  //Produkt löschen 
+  // Produkt löschen 
   const deleteProduct = async () => {
     try{
       const res = await useFetch('http://localhost:8080/v1/graphql', {
@@ -168,6 +168,7 @@ if (res && res.data && res.data.value) {
 
 <template>
     <v-card class="mx-auto my-12" :class="inventoryClass" max-width="400" hover>
+       <!-- Alert Benachrichtigungen -->  
           <v-alert
               v-if="successAlert"
               type="success"
@@ -175,7 +176,7 @@ if (res && res.data && res.data.value) {
               dismissible
               @dismiss="successAlert=false"
               >{{ successMessage }}
-          </v-alert>     <!-- Alert Benachrichtigungen -->  
+          </v-alert>    
           <v-alert
               v-if="errorAlert"
               type="error"
@@ -256,14 +257,16 @@ if (res && res.data && res.data.value) {
         @click="confirmDialog = true"
         >Löschen
         </v-btn>
-        <v-dialog v-model="confirmDialog" max-width="400"><v-alert
+        <v-dialog v-model="confirmDialog" max-width="400">
+           <!-- Alert Benachrichtigungen --> 
+          <v-alert
               v-if="successAlert"
               type="success"
               closable
               dismissible
               @dismiss="successAlert=false"
               >{{ successMessage }}
-          </v-alert>     <!-- Alert notifications -->  
+          </v-alert>     
           <v-alert
               v-if="errorAlert"
               type="error"
