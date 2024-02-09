@@ -9,10 +9,16 @@ const error = ref('');
 const pending = ref('');
 const selectedSorting = ref('Abrechnungszeitpunkt_ASC'); 
 const transaktionen = ref('');
+
 //hier müssen noch weiter sortierungen rein
 const sortingOptions = ref([
   'Abrechnungszeitpunkt_ASC', 
-  'Abrechnungszeitpunkt_DESC',  
+  'Abrechnungszeitpunkt_DESC', 
+  'Transaktionszeitpunkt_ASC', 
+  'Transaktionszeitpunkt_DESC', 
+  'Name_ASC', 
+  'Name_DESC', 
+
 ]); 
 
 
@@ -30,8 +36,18 @@ const fetchData = async () => {
                 Anzahl
                 Transaktionszeitpunkt
                 Transaktions_ID
-                Personen { Name Personen_ID }
-                Produkt { Name Produkt_ID Preis }
+                Personen { 
+                  Name 
+                  Personen_ID 
+                }
+                Produkt { 
+                  Name 
+                  Produkt_ID 
+                  Preis 
+                  Standort {
+                    Name
+                  }
+                }
               }
             }
       `,
@@ -66,6 +82,15 @@ function parseSorting(selectedSorting) {
       return [{ Abrechnungszeitpunkt: 'asc'  }];
     } else if (selectedSorting === 'Abrechnungszeitpunkt_DESC') {
       return [{ Abrechnungszeitpunkt:  'desc'   }];
+    } else if (selectedSorting === 'Transaktionszeitpunkt_ASC') {
+      return [{ Transaktionszeitpunkt:  'asc'   }];
+    } else if (selectedSorting === 'Transaktionszeitpunkt_DESC') {
+      return [{ Transaktionszeitpunkt:  'desc'   }];
+    } else if (selectedSorting === 'Name_ASC') {
+      return [{ Personen:  {Name: 'asc'}   }];
+    } else if (selectedSorting === 'Name_DESC') {
+      return [{ Personen:  {Name: 'desc'}   }];
+      
     } else {
       // Hier können weiter filter gehandlet werden 
       return [];
@@ -109,7 +134,8 @@ function parseSorting(selectedSorting) {
     'Personen Name': tx.Personen?.Name,
     'Personen ID': tx.Personen?.Personen_ID,
     'Produkt Name': tx.Produkt?.Name,
-    'Preis': tx.Produkt?.Preis
+    'Preis': tx.Produkt?.Preis, 
+    'Standort': tx.Produkt?.Standort?.Name,
   })));
 
   XLSX.utils.book_append_sheet(wb, ws, 'Transaktionen');
@@ -162,7 +188,7 @@ function parseSorting(selectedSorting) {
 
     <v-list>
     <v-list-item v-for="transaktion in transaktionen.swps_Transaktion" :key="transaktion.Transaktions_ID" sm="4"> 
-      <transaktionadmin :transaktion="transaktion"> </transaktionadmin>
+      <transaktionadmin :transaktion="transaktion" @transaction-updated="fetchData"> </transaktionadmin>
 
     </v-list-item>
   </v-list>  
