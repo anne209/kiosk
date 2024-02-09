@@ -78,7 +78,7 @@ const submitPassword = () => {
 
 </script>
 
-<!-- das sollte man vlt noch anders machen siehe router.push-->
+
 <script>
   export default {
   data:()=>({drawer:null }), 
