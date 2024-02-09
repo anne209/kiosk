@@ -30,7 +30,8 @@
       }
   }
   </script>
-  
+
+<!--  Hintergrund des Layouts-->
 <style scoped>
 
 .wave-background{
@@ -38,4 +39,4 @@ background-image:  repeating-radial-gradient(circle at 0 0, transparent 0, #ff6b
 background-color: #ff6b36; 
 } 
 
-</style> <!-- definiert den Hintergrund des Layouts-->
+</style> 
