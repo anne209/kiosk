@@ -97,12 +97,11 @@ const addLocation = async () => {
     <v-card
       class="mx-auto"  max-width="450" title="Neuen Standort einrichten" color="#FDFFFC"> <!-- erscheint ganz unten auf der page /verwaltung-->
 
-        <!-- Alert notifications -->
-      <v-container>
-        <v-alert
+        <!-- Alert notifications --><v-alert
          v-if="successAlert"
          type="success"
          dismissible
+         closable
          @dismiss="successAlert=false"
          >{{ successMessage }}
         </v-alert>
@@ -111,9 +110,12 @@ const addLocation = async () => {
          v-if="errorAlert"
          type="error"
          dismissible
+         closable
          @dismiss="errorAlert=false"
         > {{ errorMessage }}
         </v-alert>
+      <v-container>
+        
         <!-- bei rules wird überprüft, ob der Name korrekt ist-->
         <v-text-field 
           v-model="Name"
