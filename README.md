@@ -28,7 +28,7 @@ Bei den Components findet man die jeweiligen Komponenten, die auf den pages zu s
 
 globalState.js ermöglicht mit:  'import { useGlobalState } from '~/composables/useGlobalState'; die Nutzung von 'Personen_ID' zur Identifikation im Kiosk-System und mit 'setPersonen_ID' das Festlegen, 'Personen_ID, Name, Vorname' das Abrufen und 'resetPersonen' das Zurücksetzen des aktiven Nutzers auf null.
 
-### Dokumentation
+## Dokumentation
 
 - https://vuetifyjs.com/en/ as a Vue Component Framework
 - https://stackoverflow.com/ for help
