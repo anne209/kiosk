@@ -1,4 +1,4 @@
-<!-- diese komponente wird auf der page /verwaltung aufgerufen -->
+<!-- diese komponente wird auf den pages: /verwaltung, /singnup aufgerufen -->
 
 
 <script setup>
@@ -195,7 +195,7 @@ successAlert.value = false;
       title="Account erstellen"
       color="#080705"
     > <!-- alternative einfach color="#080705"-->
-    <!-- clevr style siehe unten ist ganz nice  -->
+    <!-- clevr style siehe unten ist nice  -->
   <v-form ref="form">
       <v-container class="mx-auto pa-2">
         <!-- Error/Success Alerts-->
@@ -331,7 +331,7 @@ successAlert.value = false;
           @click="resetForm"  
           >Zurücksetzen
           <v-icon icon="mdi-reload" end></v-icon> 
-        </v-btn> <!-- der weiße Button-->
+        </v-btn> <!-- der graue Button-->
       </v-col>
     
 
