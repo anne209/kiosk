@@ -2,7 +2,7 @@
 
 <template>
   <v-app id="inspire"> 
-      <!-- Folgendes beschreibt die obere Leiste mit einem Bilder der Nummer 701,976,287,468 -->
+      <!-- Folgendes beschreibt die obere Leiste mit einem Bilder der Nummer z.B.: 701,976,287,468 -->
     <v-app-bar
         flat
         density="compact"
@@ -108,12 +108,7 @@
     }
   };
 </script>
-<!-- hier habe hauptsächlich die farben geandert,
-schwarz: #080705
-weiss: #FDFFFC
-rot: #FF1654
-orange: #FF6B35
--->
+<!-- die farben: schwarz: #080705, weiss: #FDFFFC, rot: #FF1654, orange: #FF6B35 -->
 <style>
 .diagonal-stripes-gradient {
 background: repeating-linear-gradient(
