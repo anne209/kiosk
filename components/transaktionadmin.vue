@@ -71,11 +71,11 @@ if (res && res.data && res.data.value) {
   }
 };
 
-
 </script>
+
 <template>
-        <v-card  width="1000" color="#4E342E" hover>
-          
+    <v-card  width="1000" color="#4E342E" hover>
+          <!-- Alert Benachrichtigungen -->  
           <v-alert
               v-if="successAlert"
               type="success"
@@ -83,7 +83,7 @@ if (res && res.data && res.data.value) {
               dismissible
               @dismiss="successAlert=false"
               >{{ successMessage }}
-          </v-alert>     <!-- Alert Benachrichtigungen -->  
+          </v-alert>     
           <v-alert
               v-if="errorAlert"
               type="error"
@@ -125,21 +125,22 @@ if (res && res.data && res.data.value) {
               <v-icon color="error"> mdi-alert-circle-outline </v-icon>
               Abrechnung noch nicht erfolgt
           </v-card-text>
-          <v-col cols="4">
-          <v-btn
-          color="success"
-          elevation="20"
-          @click="abrechnungTransaktion"
-          v-if="!transaktion.Abrechnungszeitpunkt">
-            Abrechnung durchführen
-          </v-btn>
-        </v-col>
+
+              <v-col cols="4">
+                <v-btn
+                color="success"
+                elevation="20"
+                @click="abrechnungTransaktion"
+                v-if="!transaktion.Abrechnungszeitpunkt">
+                  Abrechnung durchführen
+                </v-btn>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-card-item>
 
-</v-card>
+    </v-card>
     
-  </template>
+</template>
   
   
