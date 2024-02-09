@@ -1,23 +1,34 @@
-<!-- hier wurde die const fetchData benutzt da es sein kann das die query for dem abfragen der Personen_ID läuft oder so -->
-
-
 <script setup>
+
 import { ref, watch, onMounted } from 'vue';
 import { useGlobalState } from '~/composables/useGlobalState';
 
 const { Personen_ID } = useGlobalState();
 console.log(`Initial Personen_ID: ${Personen_ID.value}`);
 
-const transaktionen = ref(null);
+const transaktionen = ref('');
 const loading = ref(false);
-const error = ref(null);
+const selectedSorting = ref('Abrechnungszeitpunkt_ASC'); 
+const error = ref('');
 
+
+const sortingOptions = ref([
+  'Abrechnungszeitpunkt_ASC', 
+  'Abrechnungszeitpunkt_DESC', 
+  'Transaktionszeitpunkt_ASC',
+  'Transaktionszeitpunkt_DESC', 
+  // weitere Sortierungen hinzufügen 
+]); 
+
+
+
+
+//hier werden die Transaktionen nach der Sortiervariable gefetched
 const fetchData = async () => {
   if (!Personen_ID.value) {
     console.error('Personen_ID is not available.');
     return;
   }
-
   loading.value = true;
   try {
     const response = await fetch(`http://localhost:8080/v1/graphql`, {
@@ -27,16 +38,18 @@ const fetchData = async () => {
       },
       body: JSON.stringify({
         query: `
-          query MyQuery($Personen_ID: uniqueidentifier = "") {
+          query MyQuery($Personen_ID: uniqueidentifier = "", $order_By: [swps_Transaktion_order_by!]) {
             swps_Personen_by_pk(Personen_ID: $Personen_ID) {
-              Transaktions {
+              Transaktions (order_by: $order_By){
                 Produkt {
                   Name
                   Preis
+                  Produkt_ID
                   Standort {
                     Name
                   }
                 }
+                Abrechnungszeitpunkt
                 Transaktionszeitpunkt
                 Transaktions_ID
                 Anzahl
@@ -46,17 +59,44 @@ const fetchData = async () => {
         `,
         variables: {
           Personen_ID: Personen_ID.value,
+          order_By: parseSorting(selectedSorting.value), // Sortiervariable
         },
       }),
     });
-    const responseData = await response.json(); // hier die Daten aus der query werden hier abgelegt
-    transaktionen.value = responseData.data; // die Daten werden jetzt an die const 'user' weitergereicht, ähnlich wie  const{ data: user, pending, error}
-  } catch (e) {
-    error.value = e.message; // try { wird hier gecatched 
-  } finally {
-    loading.value = false;
+
+    console.log('Fetch request sent ', transaktionen.data);
+
+          const responseData = await response.json();
+          console.log('Fetched response recieved:', responseData);
+
+  if (responseData.data && responseData.data.swps_Personen_by_pk) {
+  transaktionen.value = responseData.data.swps_Personen_by_pk.Transaktions; 
+  console.log('Transaktionen:', transaktionen.value);
+      }
+  } catch (error){
+    console.error('Error fetching data:', error)
   }
-};
+  
+}; 
+
+function parseSorting(selectedSorting) {
+    // Hier wird bei der Auswahl der Filter, das Format passend für die Variable in GraphQL Hasura angepasst 
+
+
+    if (selectedSorting === 'Abrechnungszeitpunkt_ASC') {
+      return [{ Abrechnungszeitpunkt: 'asc' }];
+    } else if (selectedSorting === 'Abrechnungszeitpunkt_DESC') {
+      return [{ Abrechnungszeitpunkt:  'desc'   }];
+    } else if (selectedSorting === 'Transaktionszeitpunkt_ASC') {
+      return [{ Transaktionszeitpunkt:  'asc'   }];
+    } else if (selectedSorting === 'Transaktionszeitpunkt_DESC') {
+      return [{ Transaktionszeitpunkt:  'desc'   }];
+    
+    } else {
+      // Hier können weiter filter benutzt werden 
+      return [];
+    }
+  }
 
 // hier wird 'Personen_ID' überwacht, und fetchData wird ausgeführt
 watch(Personen_ID, fetchData); 
@@ -66,20 +106,28 @@ onMounted(fetchData);
 </script>
 
 <template>
-  <div v-if="loading">
-    Loading...
-  </div>
-  <div v-else-if="error">
-    Error: {{ error }}
-  </div>
-  <div v-else>
     <v-container>
       <v-row>
-        <v-col v-for="transaktion in transaktionen?.swps_Personen_by_pk" :key="transaktion.Transaktions_ID"> <!-- der  '?' Operator sichert ab ob die Daten nicht null sind während des Fetchvorgangs -->
+      <h3 class="ml-3">Deine Transaktionen</h3>
+    </v-row>
+    <v-row>
+      <!-- autocomplete für die Sortierung -->
+      <v-col cols="6" class="mr-auto">
+        <v-autocomplete
+        v-model="selectedSorting"
+        :items="sortingOptions"
+        label="Transaktionen sortieren nach"
+        @update:model-value="fetchData"
+        prepend-inner-icon="mdi-sort"
+        variant="outlined"
+      ></v-autocomplete>
+      </v-col>
+      </v-row>
+      
+      <v-row>
+        <v-list-item v-for="transaktion in transaktionen" :key="transaktion.Transaktions_ID" sm="4">           
           <transaktionuser :transaktion="transaktion"></transaktionuser>
-        </v-col>
+        </v-list-item>
       </v-row>
     </v-container>
-  </div>
-  <!-- hier kommt user profil zeugs hin -->
 </template>

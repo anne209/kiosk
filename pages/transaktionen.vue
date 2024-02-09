@@ -10,7 +10,7 @@ const pending = ref('');
 const selectedSorting = ref('Abrechnungszeitpunkt_ASC'); 
 const transaktionen = ref('');
 
-//hier müssen noch weiter sortierungen rein
+
 const sortingOptions = ref([
   'Abrechnungszeitpunkt_ASC', 
   'Abrechnungszeitpunkt_DESC', 
@@ -21,7 +21,7 @@ const sortingOptions = ref([
 
 ]); 
 
-
+//hier werden die Transaktionen nach der Sortiervariable gefetched
 const fetchData = async () => {
     try {
       console.log('Fetching data...');
@@ -52,7 +52,7 @@ const fetchData = async () => {
             }
       `,
       variables:{
-          order_By: parseSorting(selectedSorting.value), // Funktion für das Parsen der Filter Variablen 
+          order_By: parseSorting(selectedSorting.value), // Sortiervariable
       },
   }),
 }); 
@@ -92,7 +92,7 @@ function parseSorting(selectedSorting) {
       return [{ Personen:  {Name: 'desc'}   }];
       
     } else {
-      // Hier können weiter filter gehandlet werden 
+      // Hier können weiter filter benutzt werden 
       return [];
     }
   }
@@ -160,13 +160,14 @@ function parseSorting(selectedSorting) {
 
 </script>
 
-<!-- die transaktion sollten vielleicht irgendwie richtig sortiert werden -->
+
 <template>
   <v-container>
     <v-row>
       <h3 class="ml-3"> Transaktionen</h3>
     </v-row>
     <v-row>
+      <!-- autocomplete für die Sortierung -->
       <v-col cols="6" class="mr-auto">
         <v-autocomplete
         v-model="selectedSorting"
@@ -189,7 +190,7 @@ function parseSorting(selectedSorting) {
     <v-list>
     <v-list-item v-for="transaktion in transaktionen.swps_Transaktion" :key="transaktion.Transaktions_ID" sm="4"> 
       <transaktionadmin :transaktion="transaktion" @transaction-updated="fetchData"> </transaktionadmin>
-
+   
     </v-list-item>
   </v-list>  
 </template>
