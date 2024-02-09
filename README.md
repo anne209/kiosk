@@ -18,7 +18,7 @@ Dabei haben wir vier Layouts: default, das hauptsächlich für das Frontend und 
 
 ### Pages
 
-Pages sind die tatsächlichen Seiten, die man im Selbstbedienungskiosk sehen kann. Dafür haben wir insgesamt 12 Seiten erstellt, wovon 9 tatsächlich im Selbstbedienungskiosk zugänglich sind. Den Rest kann man noch ausbauen, ist jedoch nicht für den Benutzer von relevanter Bedeutung.
+Pages sind die tatsächlichen Seiten, die man im Selbstbedienungskiosk sehen kann. Dafür haben wir insgesamt 12 Seiten erstellt.
 
 ### Components
 
