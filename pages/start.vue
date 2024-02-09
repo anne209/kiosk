@@ -55,7 +55,6 @@ const PersonenSuche = ref('');
     </v-responsive>
   </v-card>
  
-  <!-- hier muss irgendwie gecentered werden-->
   <v-container >
       <v-row>
         <v-col v-if="PersonenSuche" :key="PersonenSuche">

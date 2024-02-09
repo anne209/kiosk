@@ -1,7 +1,6 @@
 
-<!-- warum ist das kein component?-->
-<!-- um das profil zu aktualisieren müssen aufgrund der rules alle Felder ausgefüllt werden, sollte man vielleicht ändern -->
 
+<!-- um das profil zu aktualisieren müssen aufgrund der rules alle Felder ausgefüllt werden, sollte man vielleicht ändern -->
 
 <script setup>
 
@@ -225,7 +224,7 @@ import { useGlobalState } from '~/composables/useGlobalState';
       <v-form ref="form">
         <v-container class="mx-auto pa-2">
 
-          <!-- Error/Success Alerts-->
+          <!-- Error/Success Benachrichtigungen-->
           <v-alert
                 v-if="successAlert"
                 type="success"

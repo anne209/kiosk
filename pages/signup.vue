@@ -17,7 +17,7 @@
       </v-col>
   
       <v-col cols="12" md="6">
-        <newuser></newuser>
+        <newuser></newuser>   <!-- Account erstellen componente-->
       </v-col>
     </v-row>
 
