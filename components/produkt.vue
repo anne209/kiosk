@@ -139,7 +139,7 @@ const loading = ref(false);
   <template>
     <v-card class="mx-auto my-10 card" elevation="9" max-width="400" hover>
       
-      <!-- Alert notifications -->
+      <!-- Alert Benachrichtigungen -->
         <v-alert
           v-if="successAlert"
           type="success"
@@ -174,9 +174,8 @@ const loading = ref(false);
                 {{produkt.Standort.Name}}
               </v-card-subtitle>
 
-            </v-card-item>
-
-                <v-card-text class="py-0">
+        </v-card-item>
+              <v-card-text class="py-0">
                   <v-row align="center"  no-gutters>
                     
                     <v-col cols="6" class="text-left text-h6">  
@@ -190,12 +189,10 @@ const loading = ref(false);
                     <v-col
                       class="text-h3 text-right"
                       cols="6">
-
-                          {{produkt.Preis}}€
+                      {{produkt.Preis}}€
                   </v-col>
                 </v-row>
-        
-      </v-card-text>
+              </v-card-text>
         
 
 
@@ -205,7 +202,6 @@ const loading = ref(false);
                   <v-col cols="6">
                     <v-text-field
                       v-model="Anzahl"
-                      
                       label="Anzahl"
                       variant="outlined"
                       hint="1,2,3...bis 10 Produkte sind möglich"
