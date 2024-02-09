@@ -42,6 +42,6 @@ function resetPersonen() {
   Name.value = null;
   Vorname.value = null;
 }
-
+// hier werden die  Personen Daten, sowie die Funktion returned
 return { Personen_ID, Name, Vorname, setPersonen_ID, setName, setVorname, resetPersonen };
 }
