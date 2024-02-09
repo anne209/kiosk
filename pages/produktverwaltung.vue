@@ -3,21 +3,25 @@
   import { ref, onMounted} from 'vue'; 
   import * as XLSX from 'xlsx';
 
-
   const error = ref(''); 
   const pending = ref(''); 
-  const selectedSorting = ref('Transaktions_aggregate.count_DESC');
+  const selectedSorting = ref('Verkaufte Waren_DESC');
   const produkte = ref(''); 
-  //hier müssen noch weiter sortierungen rein
   const sortingOptions = ref([
-    'Transaktions_aggregate.count_DESC', 
-    'Transaktions_aggregate.count_ASC',
-    
-    
+    'Anzahl Transaktionen_DESC', 
+    'Anzahl Transaktionen_ASC',
+    'Standort_DESC',
+    'Standort_ASC', 
+    'Preis_DESC', 
+    'Preis_ASC',
+    'Letzte Produktupdate_DESC', 
+    'Letzte Produktupdate_ASC',
+    'Verkaufte Waren_DESC', 
+    'Verkaufte Waren_ASC', 
+  // Hier können weiter Sortierungen hinzugefügt werden 
   ]); 
 
-  
-
+  //hier werden die Produkte gefetched anhand der Sortiervariable
 const fetchData = async() => {
   try{
     console.log('Fetching data...')
@@ -55,7 +59,7 @@ const fetchData = async() => {
             }
         `,
           variables:{
-            order_By: parseSorting(selectedSorting.value),
+            order_By: parseSorting(selectedSorting.value),  // Sortiervariable 
           },
       }),
   }); 
@@ -79,15 +83,31 @@ const fetchData = async() => {
 
 // Hier werden die verschiedenen Filter durchgegangen 
 function parseSorting(selectedSorting) {
+
     // Hier wird bei der Auswahl der Filter, das Format passend für die Variable in GraphQL Hasura angepasst 
 
-
-    if (selectedSorting === 'Transaktions_aggregate.count_ASC') {
+    if (selectedSorting === 'Anzahl Transaktionen_ASC') {
       return [{ Transaktions_aggregate: { count: 'asc'  } }];
-    } else if (selectedSorting === 'Transaktions_aggregate.count_DESC') {
+    } else if (selectedSorting === 'Anzahl Transaktionen_DESC') {
       return [{ Transaktions_aggregate: { count: 'desc'  } }];
+    } else if (selectedSorting === 'Standort_ASC') {
+      return [{  Standort: { Name: 'asc'}}];
+    } else if (selectedSorting === 'Standort_DESC') {
+      return [{  Standort: { Name: 'desc'} }];
+    } else if (selectedSorting === 'Preis_ASC') {
+      return [{  Preis: 'asc' }]; 
+    } else if (selectedSorting === 'Preis_DESC') {
+      return [{  Preis: 'desc' }]; 
+    } else if (selectedSorting === 'Letzte Produktupdate_ACS') {
+      return [{  Latest_update: 'asc' }]; 
+    } else if (selectedSorting === 'Letzte Produktupdate_DESC') {
+      return [{  Latest_update: 'desc' }]; 
+    } else if (selectedSorting === 'Verkaufte Waren_ASC') {
+      return [{  Transaktions_aggregate:{sum:{Anzahl:'asc' }}}]; 
+    } else if (selectedSorting === 'Verkaufte Waren_DESC') {
+      return [{  Transaktions_aggregate:{sum:{Anzahl:'desc' }}}]; 
     } else {
-      // Hier können weiter filter gehandlet werden 
+      // Hier können weiter filter gehandlet werden siehe sortingOptions  
       return [];
     }
   }
@@ -96,6 +116,8 @@ function parseSorting(selectedSorting) {
     fetchData(); // Hier wird fetchData initiert
   });
 
+  
+// Alles für den Excelexport
 
 // Excelfunction 
 const excelfunction = async () => {
@@ -118,9 +140,10 @@ const excelfunction = async () => {
     }
 
     console.log(produkte.value)
+    // Daten für Export vorbereiten 
     const wb = XLSX.utils.book_new(); 
 
-  // Daten für Export vorbereiten 
+ 
   const ws = XLSX.utils.json_to_sheet(dataToExport.map(tx => ({
     'Produkt_ID': tx.Produkt_ID,
     'Produkt Name': tx.Name,
@@ -142,7 +165,7 @@ const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
   }
   const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-  // Trigger den Daten download
+  // Datendownload triggern
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = 'Produkte.xlsx';
@@ -155,14 +178,14 @@ const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
 
   <template>
 
-      <v-container>
+    <v-container>
         <v-row>
           <h3 class="ml-3"> Produktverwaltung </h3>
         </v-row>
         <v-row>
         <v-col cols="6" class="mr-auto">
-          <!-- hier sollte man die Produkte sortieren können -->
-          
+
+        <!-- Hier ist das autocomplete für die Sortierauswahl-->
         <v-autocomplete
         v-model="selectedSorting"
         :items="sortingOptions"
@@ -172,6 +195,7 @@ const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
         variant="outlined"
       ></v-autocomplete>
       
+      <!-- hier kann man den excel export durchführen -->
       <v-btn
       @click="excelfunction"
       block
@@ -180,11 +204,12 @@ const binaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
       >Daten als Excel Datei exportieren
       </v-btn>
       </v-col>
+
+      <!-- Hier werden neue Produkte hinzugefügt-->
       <v-col cols="6" class="ml-auto">
         <newproduct @product-added="fetchData"></newproduct>
       </v-col>
       </v-row>
-      
       </v-container>
 
       <!-- Hier werden die Produkte angezeigt-->

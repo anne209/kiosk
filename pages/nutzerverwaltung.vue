@@ -17,7 +17,7 @@
     'Standort_DESC', 
     'Anzahl gekaufter Produkt_DESC', 
     'Anzahl gekaufter Produkte_ASC', 
-    // Hier können weiter Filter hinzugefügt werden 
+    // Hier können weiter Sortierungen hinzugefügt werden 
   ]);
   
   // hier werden die User gefetched anhand der Sortiervariable
@@ -87,7 +87,7 @@
   // Hier werden die verschiedenen Filter durchgegangen 
   function parseSorting(selectedSorting) {
 
-  // Hier wird bei der Auswahl der Filter, das Format passend für die Variable in GraphQL Hasura angepasst 
+    // Hier wird bei der Auswahl der Filter, das Format passend für die Variable in GraphQL Hasura angepasst 
 
     if (selectedSorting === 'Wenigste Transaktionen') {
       return [{ Transaktions_aggregate: { count: 'asc'  } }];
@@ -198,7 +198,7 @@
           variant="outlined"
         ></v-autocomplete>
         
-       <!-- excel btn-->
+       <!-- hier kann man den excel export durchführen -->
         <v-btn
           @click="excelfunction"
           block
@@ -206,7 +206,6 @@
           append-icon="mdi-table-arrow-up"
           >Daten als Excel Datei exportieren
       </v-btn>
-     
       </v-col>
     </v-row>
   </v-container>

@@ -28,15 +28,24 @@ const errorMessage= ref('');
 
 
 const loading = ref(false); 
+
+//Mögliche Idee  wie das Auffülen von Produktbeständen aussehen könnte
+const AufgefülltesInventar = ref(0);
+
+const InventarAuffüllen = () => {
+  AufgefülltesInventar.value += 20; 
+};
+
+
 // volles Inventar 
 const fullStock = 20; 
 
 const currentInventory = computed(() => {
   const sumbought = props.produkt.Transaktions_aggregate.aggregate.sum.Anzahl || 0; 
-  return fullStock - sumbought;   
+  return fullStock - sumbought+ AufgefülltesInventar.value;  
 }); 
 
-// Determine the class based on the current inventory level
+// defeniert wie das Inventar eines Produkts, siehe styles
 const inventoryClass = computed(() => {
   if (currentInventory.value <= 5) {
     return 'low-stock';
@@ -54,7 +63,7 @@ const updateProduct = async () => {
   if (editablePreis.value === props.produkt.Preis.toString() && editableName.value === props.produkt.Name) {
     console.error('No changes detected');
     loading.value = false;
-    return; // Exit the function early if no changes are detected
+    return; 
   } 
   try{
     const res = await useFetch('http://localhost:8080/v1/graphql', {
@@ -166,7 +175,7 @@ if (res && res.data && res.data.value) {
               dismissible
               @dismiss="successAlert=false"
               >{{ successMessage }}
-          </v-alert>     <!-- Alert notifications -->  
+          </v-alert>     <!-- Alert Benachrichtigungen -->  
           <v-alert
               v-if="errorAlert"
               type="error"
@@ -177,35 +186,53 @@ if (res && res.data && res.data.value) {
           </v-alert> 
     <v-card-item>     
             <v-card-title>
-              Produktname ändern 
                  <v-text-field v-model="editableName" variant="outlined" suffix="Produkt"/>
             </v-card-title>
             <v-card-subtitle>
               Preis bearbeiten:  
-              <v-text-field v-model="editablePreis" type="number"  step="1" variant="outlined" suffix="€"/>
+                  <v-text-field v-model="editablePreis" type="number"  step="1" variant="outlined" suffix="€"/>
             </v-card-subtitle>
     </v-card-item>
        <v-card-text>
-       <h3>
-         Inventarbestand: {{currentInventory }}
-       </h3>        
+        <v-row>
+          <v-col cols="6">
+          <h3>
+            Inventar: {{currentInventory }}
+          </h3> 
+          </v-col> 
+
+          <!-- Produktbestand auffüllen -->
+          <v-col cols="6"> 
+          <v-btn
+          block
+          color="orange"
+          elevation="24"
+          @click="InventarAuffüllen"
+          >Auffülen</v-btn>
+          </v-col>
+        </v-row>     
+      
 
         <div class="text-subtitle-1"> 
             Standort: {{ produkt.Standort.Name }}
         </div>
 
-        <div> <!-- zeigt of wie viele Transakationen einem Produkt zu geordnet werden aber nicht viele einzelne Produkte bestellt wurde-->
+        <div> 
             Anzahl der Transakationen: {{ produkt.Transaktions_aggregate.aggregate.count}}
         </div>
-        <div> <!-- zeigt Summe der bestellten Waren -->
+
+        <div> 
             Summe der verkauften Waren: {{ produkt.Transaktions_aggregate.aggregate.sum.Anzahl}}
         </div>
-
-            Letztes Produktupdate: {{ produkt.Latest_update }}
         <div>
-        Produkt_ID: {{ produkt.Produkt_ID }}
+            Letztes Produktupdate: {{ produkt.Latest_update }}
+        </div>
+
+        <div>
+            Produkt_ID: {{ produkt.Produkt_ID }}
         </div>
         </v-card-text>
+
       <v-card-actions>
         
         <v-row justify-space-between>
@@ -266,7 +293,10 @@ if (res && res.data && res.data.value) {
 </template>
 
 
+
+<!-- styles für die produkte, je nach inventarbestand-->
 <style scoped>
+
 .low-stock {
   background-color: red;
   border-radius: 18px; 
